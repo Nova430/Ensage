@@ -1,7 +1,5 @@
 --<<SpiritBreaker Auto Charge to Escape >>
 
---This is my first real script, please enjoy :)
-
 --Libraries
 require("libs.Utils")
 require("libs.ScriptConfig")
