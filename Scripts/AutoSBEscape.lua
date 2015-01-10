@@ -17,6 +17,12 @@ local range 		= 200000
 local target	    = nil
 local active	    = false
 
+--Text on your screen
+local x,y = 1420, 50
+local monitor = client.screenSize.x/1600
+local F14 = drawMgr:CreateFont("F14","Verdana",15*monitor,550*monitor) 
+local statusText = drawMgr:CreateText(x*monitor,y*monitor,-1,"AutoSBEscape - Hotkey: ''"..string.char(EscapeKey).."''",F14) statusText.visible = false
+
 function onLoad()
 	if PlayingGame() then
 		local me = entityList:GetMyHero()
@@ -24,6 +30,7 @@ function onLoad()
 			script:Disable()
 		else
 			registered = true
+			statusText.visible = true
 			script:RegisterEvent(EVENT_TICK,Main)
 			script:RegisterEvent(EVENT_KEY,Key)
 			script:UnregisterEvent(onLoad)
@@ -85,6 +92,7 @@ end
 function onClose()
 	collectgarbage("collect")
 	if registered then
+	    statusText.visible = false
 		script:UnregisterEvent(Main)
 		script:UnregisterEvent(Key)
 		registered = false
