@@ -1,5 +1,11 @@
+--<< SpiritBreaker Auto Charge to Escape >>
+
+--This is my first real script, please enjoy :)
+
+--Libraries
 require("libs.ScriptConfig")
 
+--Config
 config = ScriptConfig.new()
 config:SetParameter("EscapeKey", "B", config.TYPE_HOTKEY)
 config:Load()
