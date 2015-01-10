@@ -50,17 +50,13 @@ function Main(tick)
 	if not SleepCheck() then return end
 
 	local me = entityList:GetMyHero()
-	local myPlayer = entityList:GetMyPlayer().selection[1]
 	if not (me and active) then return end
 	local Charge = me:GetAbility(1)
 	
 	FindTarget()
 	
 	if target and me.alive then
-		if myPlayer and myPlayer.handle == me.handle then
-			CastSpell(Charge,target)
-		return
-		end
+	    CastSpell(Charge,target)
 	end
 end
 
