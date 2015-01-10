@@ -12,7 +12,7 @@ config:Load()
 
 local EscapeKey = config.EscapeKey
 local registered	= false
-local range 		= 200000
+local range 		= 50000
 
 local target	    = nil
 local active	    = false
