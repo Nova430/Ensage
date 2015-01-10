@@ -1,8 +1,9 @@
---<< SpiritBreaker Auto Charge to Escape >>
+--<<SpiritBreaker Auto Charge to Escape >>
 
 --This is my first real script, please enjoy :)
 
 --Libraries
+require("libs.Utils")
 require("libs.ScriptConfig")
 
 --Config
@@ -10,7 +11,7 @@ config = ScriptConfig.new()
 config:SetParameter("EscapeKey", "B", config.TYPE_HOTKEY)
 config:Load()
 
-local EscapeKey = config.EscapeKey
+local EscapeKey     = config.EscapeKey
 local registered	= false
 local range 		= 50000
 
@@ -51,30 +52,10 @@ function Main(tick)
 	local me = entityList:GetMyHero()
 	local myPlayer = entityList:GetMyPlayer().selection[1]
 	if not (me and active) then return end
-
 	local Charge = me:GetAbility(1)
-	local enemies = entityList:GetEntities({type=LuaEntity.TYPE_CREEP, visible = true, alive = true, team = me:GetEnemyTeam(), illusion=false})
-
-	for i,v in ipairs(enemies) do
-		local distance = GetDistance2D(v,me)
-
-		if not target and distance < range then
-			target = v
-		elseif distance > range then
-			target = nil
-		end
-
-		if target then
-			if target.alive and target.visible and target.classId ~= CDOTA_BaseNPC_Creep_Siege then
-				if distance > GetDistance2D(target,me) then
-					target = v
-				end
-			else
-				target = nil
-			end
-		end
-	end
-
+	
+	FindTarget()
+	
 	if target and me.alive then
 		if myPlayer and myPlayer.handle == me.handle then
 			CastSpell(Charge,target)
@@ -87,6 +68,23 @@ function CastSpell(spell,victim)
 	if spell.state == LuaEntityAbility.STATE_READY then
 		entityList:GetMyPlayer():UseAbility(spell,victim)
 	end
+end
+
+function FindTarget()
+	local FurthestCreep = nil
+	local me = entityList:GetMyHero()
+	local enemies = entityList:FindEntities({classId=CDOTA_BaseNPC_Creep_Lane,team = me:GetEnemyTeam(),alive=true,visible=true})
+	for i,v in ipairs(enemies) do
+		distance = GetDistance2D(v,me)
+		if distance <= range then 
+			if FurthestCreep == nil then
+		        FurthestCreep = v
+			elseif distance > GetDistance2D(FurthestCreep,me) then
+			    FurthestCreep = v
+		    end
+		end
+	end
+	target = FurthestCreep
 end
 
 function onClose()
