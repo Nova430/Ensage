@@ -116,11 +116,12 @@ function Main(tick)
 		    me:CastAbility(Napalm,victim.position)
 		    me:CastAbility(lasso,victim)
 		    BlinkActive = false
+		else
+		    BlinkActive = false
 		end
 		Sleep(200)
 	    return
 	else
-	    BlinkActive = false
 	    return
 	end
 	    
