@@ -89,6 +89,8 @@ function Main(tick)
 		end
 		Sleep(200)
 	    return
+	else
+	    return
 	end
 	    
 end
