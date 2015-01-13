@@ -448,7 +448,7 @@ function Tick( tick )
                 end
                         text.text = hkey
         end
-		if target~= nil and me and combo6 then
+		if target~= nil and me and EulSSMeteorBlast() then
 		    local cycloneModif = target:FindModifier("modifier_eul_cyclone")
 		    if cycloneModif then
 		        if cycloneModif.remainingTime < 1.80 then 
