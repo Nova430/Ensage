@@ -13,16 +13,16 @@ config:SetParameter("combo5", "V")
 config:SetParameter("combo6", "B")
 config:SetParameter("combo7", "G")
 config:SetParameter("combo8", "H")
-config:SetParameter("a1qqq", "1")
-config:SetParameter("a2qqw", "2")
-config:SetParameter("a3qww", "3")
-config:SetParameter("a4www", "4")
-config:SetParameter("a5wwe", "5")
-config:SetParameter("a6wee", "6")
-config:SetParameter("a7eee", "7")
-config:SetParameter("a8qee", "8")
-config:SetParameter("a9qqe", "9")
-config:SetParameter("a0qwe", "0")
+config:SetParameter("a1qqq", "97")
+config:SetParameter("a2qqw", "98")
+config:SetParameter("a3qww", "99")
+config:SetParameter("a4www", "100")
+config:SetParameter("a5wwe", "101")
+config:SetParameter("a6wee", "102")
+config:SetParameter("a7eee", "103")
+config:SetParameter("a8qee", "104")
+config:SetParameter("a9qqe", "105")
+config:SetParameter("a0qwe", "96")
 config:SetParameter("KeyForCastingOrbs", "space")
 config:SetParameter("Xcord", 50)
 config:SetParameter("Ycord", 30)
@@ -189,20 +189,20 @@ function TornadoMeteorWallCombo( )
                 if torntime > meteordelay then
                         torntime = torntime-300
                         if torntime-meteordelay < 0 then torntime = meteordelay end
-                        queue = {qww,{"wait",torntime-meteordelay},wee,qqe,{"wait",200},{"item_notarget","item_refresher"},{"wait",200},wee,{"wait",1000},qwe}
+                        queue = {qww,{"wait",torntime-meteordelay},wee,qqe}
                 else
                         torntime = torntime+300
                         if meteordelay-torntime < 0 then torntime = meteordelay end
-                        queue = {wee,{"wait",meteordelay-torntime},qww,qqe,{"wait",200},{"item_notarget","item_refresher"},{"wait",200},wee,{"wait",1000},qwe}
+                        queue = {wee,{"wait",meteordelay-torntime},qww,qqe}
                 end
         else
-                queue = {qww,{"wait",torndur[me:GetAbility(1).level]-1300},wee,{"wait",1000},qqe,{"item_notarget","item_refresher"},{"wait",200},wee,{"wait",1000},qwe}
+                queue = {qww,{"wait",torndur[me:GetAbility(1).level]-1300},wee,{"wait",1000},qqe}
         end
 end
  
--- ULTIMATE COMBO
+-- Meteor + Blast (If refresher then repeat)
 function MeteorBlastCombo( )
-        queue = {wee,{"wait",900},qwe,{"wait",200},{"item_notarget","item_refresher"},{"item_point","item_blink"},{"wait",200},wee,{"wait",1200},qwe}
+        queue = {wee,{"wait",900},qwe,{"wait",200},{"item_notarget","item_refresher"},{"wait",200},wee,{"wait",1200},qwe}
 end
  
 -- Cold Snap - Forge Spirit - Alacrity
@@ -220,7 +220,7 @@ function EulSSMeteorBlast( )
                 return
 			end
 		else
-			 queue = {{"item_unit","item_cyclone"},{"wait",1000},eee,{"wait",400},wee,qwe}
+			 queue = {{"item_unit","item_cyclone"},{"wait",1500},eee,{"wait",400},wee,qwe}
         end		
 end
  
@@ -448,7 +448,7 @@ function Tick( tick )
                 end
                         text.text = hkey
         end
-		if target~= nil and me and EulSSMeteorBlast() then
+		if target~= nil and me then
 		    local cycloneModif = target:FindModifier("modifier_eul_cyclone")
 		    if cycloneModif then
 		        if cycloneModif.remainingTime < 1.80 then 
