@@ -448,21 +448,21 @@ function Tick( tick )
                 end
                         text.text = hkey
         end
-		if target~= nil and me then
+		if target~= nil and me and combo6 then
 		    local cycloneModif = target:FindModifier("modifier_eul_cyclone")
 		    if cycloneModif then
-		        if cycloneModif.remainingTime < 1.80 then -- you might set this to 0.9, if it start to cast too early
-                    queue = {eee} -- here you can probably use the queue if its working like this
+		        if cycloneModif.remainingTime < 1.80 then 
+                    queue = {eee} -- Why is it laid out like this you ask? Because it just works better like this
 			    end
 		    end
 		    if cycloneModif then
-		        if cycloneModif.remainingTime < 1.3 then -- you might set this to 0.9, if it start to cast too early
-                    queue = {wee} -- here you can probably use the queue if its working like this
+		        if cycloneModif.remainingTime < 1.3 then 
+                    queue = {wee} -- Why is it laid out like this you ask? Because it just works better like this
 			    end
 		    end
             if cycloneModif then
-		        if cycloneModif.remainingTime < 0.6 then -- you might set this to 0.9, if it start to cast too early
-                    queue = {qwe} -- here you can probably use the queue if its working like this
+		        if cycloneModif.remainingTime < 0.6 then 
+                    queue = {qwe} -- Why is it laid out like this you ask? Because it just works better like this
 			    end
 		    end
 	    end			
