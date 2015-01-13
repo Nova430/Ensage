@@ -111,10 +111,10 @@ function Main(tick)
 	local distance = GetDistance2D(me,victim)
 	if victim and BlinkActive and me.alive and distance < range then
         if blink and blink:CanBeCasted() then
-		    me:CastAbility(firefly)
-	            me:CastAbility(blink,victim.position)
-		    me:CastAbility(Napalm,victim.position)
+	        me:CastAbility(blink,victim.position)
 		    me:CastAbility(lasso,victim)
+			me:CastAbility(firefly)
+			Sleep(600)
 		    BlinkActive = false
 		else
 		    BlinkActive = false
