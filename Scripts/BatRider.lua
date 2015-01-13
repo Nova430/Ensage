@@ -9,7 +9,7 @@
 --
 --   Useful Information
 --   ➦ AutoNapalm will target closest enemy within range
---   ➦AutoBlinkCombo will target enemy hero closest to mouse position
+--   ➦ AutoBlinkCombo will target enemy hero closest to mouse position
 --   ➦ AutoBlinkCombo will temporarily disable AutoNapalm until it finishes the combo
 --   ➦ Change Hotkeys in the script-config of Ensage
 --   
