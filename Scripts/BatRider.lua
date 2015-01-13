@@ -112,10 +112,10 @@ function Main(tick)
 	if victim and BlinkActive and me.alive and distance < range then
         if blink and blink:CanBeCasted() then
 		    me:CastAbility(firefly)
-	    	me:CastAbility(blink,victim.position)
+	            me:CastAbility(blink,victim.position)
 		    me:CastAbility(Napalm,victim.position)
 		    me:CastAbility(lasso,victim)
-			BlinkActive = false
+		    BlinkActive = false
 		end
 		Sleep(200)
 	    return
