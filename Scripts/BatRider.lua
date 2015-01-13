@@ -21,7 +21,7 @@ local active	    = false
 local BlinkActive = false
 
 --Text on your screen
-local x,y = 1200, 50
+local x,y = 1150, 50
 local monitor = client.screenSize.x/1600
 local F14 = drawMgr:CreateFont("F14","Verdana",16*monitor,550*monitor) 
 local statusText = drawMgr:CreateText(x*monitor,y*monitor,-1,"Batrider - Disabled, PRESS (" .. string.char(toggleKey) .. ")",F14) statusText.visible = false
@@ -47,9 +47,9 @@ function Key(msg,code)
     if IsKeyDown(toggleKey) then
 		active = not active
 		if active then
-			statusText.text = "Batrider - AutoNapalm Activated! - " .. string.char(toggleKey) .. "   AutoBlinkCombo - " .. string.char(BlinkComboKey) .. " "
+			statusText.text = "Batrider - AutoNapalm Activated! - " .. string.char(toggleKey) .. "   AutoBlinkCombo - HOLD " .. string.char(BlinkComboKey) .. " "
 		else
-			statusText.text = "Batrider - AutoNapalm Disabled :/ - " .. string.char(toggleKey) .. "   AutoBlinkCombo - " .. string.char(BlinkComboKey) .. " "
+			statusText.text = "Batrider - AutoNapalm Disabled :/ - " .. string.char(toggleKey) .. "   AutoBlinkCombo - HOLD " .. string.char(BlinkComboKey) .. " "
 		end
 	end	
 	
