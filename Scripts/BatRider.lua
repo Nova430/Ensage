@@ -30,8 +30,8 @@ require("libs.TargetFind")
 
 --Config (Setting Parameters like a BEAST)
 config = ScriptConfig.new()
-config:SetParameter("toggleKey", "D", config.TYPE_HOTKEY)
-config:SetParameter("BlinkComboKey", "F", config.TYPE_HOTKEY)
+config:SetParameter("toggleKey", "F", config.TYPE_HOTKEY)
+config:SetParameter("BlinkComboKey", "D", config.TYPE_HOTKEY)
 config:Load()
 
 --Some variables we gotta set (Well we don't have to, just makes our lives easier) 
