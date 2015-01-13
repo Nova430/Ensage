@@ -1,4 +1,4 @@
---<<Batrider AutoNapalm and Blink ➟ Napalm ➟ Firefly ➟ Lasso Combo >>
+--<<Batrider AutoNapalm and Firefly ➟ Blink ➟ Napalm ➟ Lasso Combo >>
 
 --Libraries
 require("libs.Utils")
@@ -49,7 +49,7 @@ function Key(msg,code)
 		if active then
 			statusText.text = "Batrider - AutoNapalm Activated! - " .. string.char(toggleKey) .. "   AutoBlinkCombo - HOLD " .. string.char(BlinkComboKey) .. " "
 		else
-			statusText.text = "Batrider - AutoNapalm Disabled :/ - " .. string.char(toggleKey) .. "   AutoBlinkCombo - HOLD " .. string.char(BlinkComboKey) .. " "
+			statusText.text = "Batrider - AutoNapalm Disabled! - " .. string.char(toggleKey) .. "   AutoBlinkCombo - HOLD " .. string.char(BlinkComboKey) .. " "
 		end
 	end	
 	
@@ -69,8 +69,9 @@ function Main(tick)
 	FindTarget()
 	
 	if target and me.alive and active and not me:IsChanneling() then
-	    if Napalm and Napalm:CanBeCasted() then
+	    if Napalm and Napalm:CanBeCasted() and not BlinkActive then
 		    CastSpell(Napalm,target.position)
+		    return
 		end
 		Sleep(200)
 		return
@@ -80,11 +81,12 @@ function Main(tick)
     local blink = me:FindItem("item_blink")
 	local firefly = me:GetAbility(3)
 	local lasso = me:GetAbility(4)
+	local distance = GetDistance2D(me,victim)
 	if victim and BlinkActive and me.alive and distance < range then
         if blink and blink:CanBeCasted() then
+		    me:CastAbility(firefly)
 	    	me:CastAbility(blink,victim.position)
 		    me:CastAbility(Napalm,victim.position)
-		    me:CastAbility(firefly)
 		    me:CastAbility(lasso,victim)
 		end
 		Sleep(200)
