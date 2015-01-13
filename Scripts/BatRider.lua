@@ -105,7 +105,7 @@ function Main(tick)
 
 --Gets the victim then initiates the Blink Combo
 	local victim = targetFind:GetClosestToMouse(100)
-    local blink = me:FindItem("item_blink")
+        local blink = me:FindItem("item_blink")
 	local firefly = me:GetAbility(3)
 	local lasso = me:GetAbility(4)
 	local distance = GetDistance2D(me,victim)
