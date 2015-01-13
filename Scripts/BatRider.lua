@@ -120,6 +120,7 @@ function Main(tick)
 		Sleep(200)
 	    return
 	else
+	    BlinkActive = false
 	    return
 	end
 	    
