@@ -7,8 +7,8 @@ require("libs.TargetFind")
 
 --Config
 config = ScriptConfig.new()
-config:SetParameter("toggleKey", "F", config.TYPE_HOTKEY)
-config:SetParameter("BlinkComboKey", "D", config.TYPE_HOTKEY)
+config:SetParameter("toggleKey", "D", config.TYPE_HOTKEY)
+config:SetParameter("BlinkComboKey", "F", config.TYPE_HOTKEY)
 config:Load()
 
 local toggleKey     = config.toggleKey
@@ -23,7 +23,7 @@ local BlinkActive = false
 --Text on your screen
 local x,y = 1150, 50
 local monitor = client.screenSize.x/1600
-local F14 = drawMgr:CreateFont("F14","Verdana",16*monitor,550*monitor) 
+local F14 = drawMgr:CreateFont("F14","Franklin Gothic Medium",17,800) 
 local statusText = drawMgr:CreateText(x*monitor,y*monitor,-1,"Batrider - Disabled, PRESS (" .. string.char(toggleKey) .. ")",F14) statusText.visible = false
 
 function onLoad()
@@ -47,14 +47,14 @@ function Key(msg,code)
     if IsKeyDown(toggleKey) then
 		active = not active
 		if active then
-			statusText.text = "Batrider - AutoNapalm Activated! - " .. string.char(toggleKey) .. "   AutoBlinkCombo - HOLD " .. string.char(BlinkComboKey) .. " "
+			statusText.text = "Batrider - AutoNapalm Activated! - (" .. string.char(toggleKey) .. ")   AutoBlinkCombo - (" .. string.char(BlinkComboKey) .. ") "
 		else
-			statusText.text = "Batrider - AutoNapalm Disabled! - " .. string.char(toggleKey) .. "   AutoBlinkCombo - HOLD " .. string.char(BlinkComboKey) .. " "
+			statusText.text = "Batrider - AutoNapalm Disabled! - (" .. string.char(toggleKey) .. ")   AutoBlinkCombo - (" .. string.char(BlinkComboKey) .. ") "
 		end
 	end	
 	
 	if code == BlinkComboKey then
-		BlinkActive = (msg == KEY_DOWN)
+		BlinkActive = true
 	end
 	
 end
@@ -67,15 +67,13 @@ function Main(tick)
 	local Napalm = me:GetAbility(1)
 	
 	FindTarget()
-	
-	if target and me.alive and active and not me:IsChanneling() then
-	    if Napalm and Napalm:CanBeCasted() and not BlinkActive then
-		    CastSpell(Napalm,target.position)
-		    return
-		end
-		Sleep(200)
-		return
-	end
+    	if target and me.alive and active and not me:IsChanneling() and not BlinkActive then
+	        if Napalm and Napalm:CanBeCasted() then
+		        CastSpell(Napalm,target.position)
+		        Sleep(500)
+				return
+		    end
+     	end
 	
 	local victim = targetFind:GetClosestToMouse(100)
     local blink = me:FindItem("item_blink")
@@ -88,6 +86,7 @@ function Main(tick)
 	    	me:CastAbility(blink,victim.position)
 		    me:CastAbility(Napalm,victim.position)
 		    me:CastAbility(lasso,victim)
+			BlinkActive = false
 		end
 		Sleep(200)
 	    return
