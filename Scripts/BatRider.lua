@@ -98,7 +98,7 @@ function Main(tick)
     	if target and me.alive and active and not me:IsChanneling() and not BlinkActive then
 	        if Napalm and Napalm:CanBeCasted() then
 		        CastSpell(Napalm,target.position)
-		        Sleep(napalm:FindCastPoint()*1000)
+		        Sleep(Napalm:FindCastPoint()*1000)
 				return
 		    end
      	end
