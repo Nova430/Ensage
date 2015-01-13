@@ -15,7 +15,7 @@
 --   
 --   ➦ If you are here to change the text location ingame, just scroll down to line 47 and it will explain :)
 --
---                                    And again, thanks for using my script!
+--                                   And again, thanks for using my script!
 --
 --                                             ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬● 
 --
