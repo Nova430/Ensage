@@ -45,7 +45,7 @@ local active	    = false
 local BlinkActive = false
 
 --Text ingame (If you wanna set the location of the text then change the numbers on the line under this one)
-local x,y = 1150, 50
+local x,y = 1150, 50  -- x = x axis || y = y axis , this only took me 4 months to figure out.
 local monitor = client.screenSize.x/1600
 local F14 = drawMgr:CreateFont("F14","Franklin Gothic Medium",17,800) 
 local statusText = drawMgr:CreateText(x*monitor,y*monitor,-1,"Batrider - AutoNapalm Disabled! - (" .. string.char(toggleKey) .. ")   AutoBlinkCombo - (" .. string.char(BlinkComboKey) .. ")",F14) statusText.visible = false
