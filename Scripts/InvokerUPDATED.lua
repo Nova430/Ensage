@@ -227,18 +227,27 @@ end
 -- Tornado - EMP - Chaos Meteor - Deafening Blast
 function TornadoEMPMeteorBlastCombo( )
         if target then
+		        local me = entityList:GetMyHero()
+                local refresher = me:FindItem("item_refresher")
                 local blasttime = math.floor((GetDistance2D(me,target)-34)/tornspeed*1000)
                 local torntime = blasttime+torndur[me:GetAbility(1).level]
+				local distance = GetDistance2D(me,target)
                 if torntime > empdelay and torntime > meteordelay then
                         torntime = torntime-300
                         if torntime-empdelay < 0 then torntime = empdelay end
-                        queue = {qww,{"wait",torntime-empdelay},www,{"wait",empdelay-meteordelay-700},wee,{"wait",meteordelay-blasttime},qwe}
+                        queue = {qww,{"wait",torntime-empdelay},www,{"wait",empdelay-meteordelay-700},wee,{"wait",100},qwe}
+                        if refresher and refresher:CanBeCasted() then
+							queue = {qww,{"wait",torntime-empdelay},www,{"wait",empdelay-meteordelay-700},wee,{"item_notarget","item_refresher"},{"wait",300},www,{"wait",300},qwe,{"wait",100},wee}
+						end
                 elseif torntime > meteordelay then
                         torntime = torntime+300
                         if empdelay-torntime < 0 then torntime = empdelay end
                         meteordel = meteordelay+700
                         if torntime-meteordel < 0 then meteordel = torntime end
-                        queue = {www,{"wait",empdelay-torntime},qww,{"wait",torntime-meteordel},wee,{"wait",meteordel-blasttime},qwe}
+                        queue = {www,{"wait",empdelay-torntime},qww,{"wait",torntime-meteordel},wee,{"wait",100},qwe}
+						if refresher and refresher:CanBeCasted() then
+							queue = {qww,{"wait",empdelay-torntime},www,{"wait",torntime-meteordel},wee,{"item_notarget","item_refresher"},{"wait",300},www,{"wait",300},qwe,{"wait",100},wee}
+						end
                 else
                         torntime = torntime+300
                         queue = {www,wee,qww,{"wait",torntime-blasttime},qwe,qqq,qee,eee}
@@ -247,7 +256,7 @@ function TornadoEMPMeteorBlastCombo( )
                 queue = {qww,{"wait",torndur[me:GetAbility(1).level]-empdelay+250},www,{"wait",100},wee,{"wait",1300},qwe}
         end
 end
- 
+
 -- Tornado - Chaos Meteor - Deafening Blast
 function TornadoMeteorBlastCombo( )
         if target then
