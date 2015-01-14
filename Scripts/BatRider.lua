@@ -13,7 +13,7 @@
 --   ➦ AutoBlinkCombo will temporarily disable AutoNapalm until it finishes the combo
 --   ➦ Change Hotkeys in the script-config of Ensage
 --   
---   ➦ If you are here to change the text location ingame, just scroll down to line 47 and it will explain :)
+--   ➦ If you are here to change the text location ingame, just scroll down to line 48 and it will explain :)
 --
 --                                   And again, thanks for using my script!
 --
@@ -166,3 +166,11 @@ end
 --No idea, everyone else just had it (I'm kidding! (I'm really not))
 script:RegisterEvent(EVENT_CLOSE,onClose)
 script:RegisterEvent(EVENT_TICK,onLoad)
+
+--Considering you read all the comments up till here, you must be pretty bored, I'm usually bored too, so add me on Skype: blitzpkz     -  I must warn you though, I'm a tiny bit COMPLETELY INSANE.
+--Muhahahahhaha
+--MUAHAHAHAH
+--HAHAHHAHA
+--HA
+--Sec gonna pass out
+--PEACE 
