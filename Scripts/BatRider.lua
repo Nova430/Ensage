@@ -1,4 +1,4 @@
---<<Batrider AutoNapalm and Firefly ➪ Blink ➪ Napalm ➪ Lasso Combo>>
+--<<Batrider AutoNapalm and Blink ➪ Lasso ➪ Firefly Combo>>
 --
 --
 --
