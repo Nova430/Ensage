@@ -23,7 +23,7 @@
 --
 --
 --
---Libraries (Utils (Should be self explanatory), ScriptConfig for the.. well.. Script Config, and TargetFind so I can use the term "GetClosestToMouse")  
+--Libraries (Utils (Should be self explanatory), ScriptConfig for the.. well.. Script Config, and TargetFind so I can.. huh.. Find the right target..?)  
 require("libs.Utils")
 require("libs.ScriptConfig")
 require("libs.TargetFind")
@@ -163,6 +163,6 @@ function onClose()
 	end
 end
 
---No idea, everyone else just had it (I'm kidding, these just register the events as their names suggest)
+--No idea, everyone else just had it (I'm kidding! (I'm really not))
 script:RegisterEvent(EVENT_CLOSE,onClose)
 script:RegisterEvent(EVENT_TICK,onLoad)
