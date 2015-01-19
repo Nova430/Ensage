@@ -20,8 +20,8 @@
 require("libs.Utils")
 
 local registered	= false
-local range 		= 1000
-local target	    = nil
+local range 		= 1000 --The actual range of dust is 1050, 1000 allows you to hit targets moving out of range/delays
+local target	        = nil
 
 
 function onLoad()
