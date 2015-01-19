@@ -5,7 +5,7 @@
 --
 --                                             ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
 --
--- Welcome to one of my various (2) DOTO scripts, if you enjoy it please leave a thanks on my thread :) 
+-- Welcome to one of my various (3) DOTO scripts, if you enjoy it please leave a thanks on my thread :) 
 --    Automatically casts Dust of Appearence when an enemy is in range and fading to invisibility.
 --
 --                                   And again, thanks for using my script!
@@ -16,7 +16,7 @@
 --
 --
 --
---Libraries (Utils (Should be self explanatory), ScriptConfig for the.. well.. Script Config, and TargetFind so I can.. huh.. Find the right target..?)  
+--Libraries 
 require("libs.Utils")
 
 local registered	= false
