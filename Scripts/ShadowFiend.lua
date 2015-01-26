@@ -1,4 +1,4 @@
---<<ShadowFiend AutoRaze + Eul's ➪ Blink Combo>>
+--<<ShadowFiend Combo >>
 --
 --
 --
@@ -6,10 +6,9 @@
 --                                             ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
 --
 -- Welcome to one of my various (5) DOTO scripts, if you enjoy it please leave a thanks on my thread :) 
---                       -Perfectly timed ShadowFiend Combo, Eul's ➪ Blink ➪ Ult
---                                        -Auto Raze enemies [BETA]
+--                      Perfectly timed ShadowFiend Combo, Eul's ➪ Blink ➪ Ult
 --
---                                        Target = Closest to mouse
+--                                           Target = Closest to mouse
 --
 --                                   And again, thanks for using my script!
 --
@@ -37,9 +36,9 @@ local Hotkey     = config.Hotkey
 local RazeKey  = config.RazeKey
 local HideKey   = config.HideKey
 local registered	= false
-local target	    = nil
 local active	    = false
 local Ractive     = false
+local target       = nil
 
 --Text on your screen
 local x,y = config:GetParameter("TextPositionX"), config:GetParameter("TextPositionY")
@@ -96,36 +95,40 @@ function Main(tick)
 	local blink = me:FindItem("item_blink")
 	local phase = me:FindItem("item_phase_boots")
 	local ult = me:GetAbility(6)
-	local target = targetFind:GetClosestToMouse(100)
-	local distance = GetDistance2D(me,target)
-	local eulmodif = target:FindModifier("modifier_eul_cyclone")
 	
 	--Combo
-	if target and me.alive and active and not eulmodif then
-        if eul and eul:CanBeCasted() then	
-	        me:CastAbility(eul, target, true)
-			Sleep(600)
-			return
-        end	
-	end
+	if active then
+        if target == nil then	
+			GetTarget()
+		else
+		    if eul and eul:CanBeCasted() and not eulmodif then
+	            me:CastAbility(eul, target, true)
+		    	Sleep(600)
+			    return
+            end	
+	    	local eulmodif = target:FindModifier("modifier_eul_cyclone")
+            if target and eulmodif then
+ 		        if blink and blink:CanBeCasted() and (eulmodif.remainingTime < 1.80) then
+		            me:CastAbility(blink, target.position)
+			        Sleep(100)
+		    	    return
+		        end
 	
-	if target and eulmodif then
- 		if blink and blink:CanBeCasted() and (eulmodif.remainingTime < 1.80) then
-		    me:CastAbility(blink, target.position)
-			Sleep(100)
-			return
-		end
-	
-		if ult and ult:CanBeCasted() and (eulmodif.remainingTime < 1.67) then
-		    me:CastAbility(ult)
-			Sleep(2000)
-			return
-		end
+		        if ult and ult:CanBeCasted() and (eulmodif.remainingTime < 1.67) then
+		            me:CastAbility(ult)
+			        Sleep(2000)
+					target = nil
+		        	return
+		        end
+	        end
+	    end
 	end
 	
 -- AUTORAZE ST00F
 
-    if target and Ractive then
+    if Ractive then
+	    GetTarget()
+		local distance = GetDistance2D(me,target)
 	    if distance <= 400 and distance >= 0 then
 		    CastRaze1()
             Sleep(350)	
@@ -176,6 +179,10 @@ function CastRaze3()
 			me:Stop(true)
 			me:CastAbility(Raze3)
 		end
+end
+
+function GetTarget()
+    target = targetFind:GetClosestToMouse(100)
 end
 
 function onClose()
