@@ -88,7 +88,11 @@ function Main(tick)
 	if not SleepCheck() then return end
 
 	local me = entityList:GetMyHero()
-	if not (me and (active or Ractive)) then return end
+	if not (me and (active or Ractive)) then 
+	    target = nil 
+		return 
+	end
+	
 	
 	--Stuff we need for combo
 	local eul = me:FindItem("item_cyclone")
@@ -121,7 +125,7 @@ function Main(tick)
 		        	return
 		        end
 	        end
-	    end
+		end
 	end
 	
 -- AUTORAZE ST00F
