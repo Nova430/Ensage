@@ -48,7 +48,7 @@ local F15 = drawMgr:CreateFont("F14","Tahoma",15*monitor,550*monitor)
 local statusText = drawMgr:CreateText(x*monitor,y*monitor,0xC92828FF,"ShadowFiend Script",F14) statusText.visible = false
 local statusText2 = drawMgr:CreateText((x)*monitor,(y+17)*monitor,0xF5AE33FF,"HOLD: ''"..string.char(Hotkey).."'' for Ult Combo",F15) statusText2.visible = false
 local statusText3 = drawMgr:CreateText((x)*monitor,(y+32)*monitor,0xF5AE33FF,"HOLD: ''"..string.char(RazeKey).."'' for Auto Raze",F15) statusText3.visible = false
-local statusText4 = drawMgr:CreateText((x)*monitor,(y+47)*monitor,0xFFFFFFFFF,"Press:  ''"..string.char(HideKey).."'' to hide this message for the rest of game.",F15) statusText4.visible = false
+local statusText4 = drawMgr:CreateText((x)*monitor,(y+47)*monitor,0xFFFFFFFFF,"Press:  ''"..string.char(HideKey).."'' to hide this message for the rest of the game.",F15) statusText4.visible = false
 
 function onLoad()
 	if PlayingGame() then
