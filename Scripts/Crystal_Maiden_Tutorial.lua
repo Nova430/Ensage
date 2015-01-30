@@ -30,14 +30,14 @@ config:Load()
 
 --Some variables we gotta set (Well we don't have to, just makes our lives easier) 
 local ComboKey     = config.ComboKey   -- So when we refer to our key we can just say "ComboKey", rather than config.ComboKey everytime
-local StopKey        = config.StopKey        -- If we want to cancel the combo
-local active	         = false                --Initially the Combo will not be active until we press a hotkey
+local StopKey      = config.StopKey    -- If we want to cancel the combo
+local active	   = false             --Initially the Combo will not be active until we press a hotkey
 
-local registered	     = false  --Used when closing and opening the script 
+local registered   = false            --Used when closing and opening the script 
 
 --We don't really need these this time, but 90% of the time they are really useful :)
-local range 		= 1200                 --The range of our script, lets just make it the blink dagger range for this example
-local target	    = nil                    --Initially there should be no target unless we try to find one
+local range 	= 1200                 --The range of our script, lets just make it the blink dagger range for this example
+local target    = nil                  --Initially there should be no target unless we try to find one
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -92,17 +92,16 @@ end
 
 
 function Main(tick)  --The tick is a function that is run constantly
-	if not SleepCheck() then return end
+    if not SleepCheck() then return end
 
-	local me = entityList:GetMyHero()
-	if not me then return end  --If the player is not me, then the tick function would end here.
+    local me = entityList:GetMyHero() --Gets my hero, useful for getting a lot of information
+    if not me then return end  --If the player is not me, then the tick function would end here.
 	
---Now lets get what we need for the Combo
-    local SA = me:FindItem("item_shadow_amulet")
+--Now lets get what we need for the Combo (Note, all of these use "me")
+    local SA = me:FindItem("item_shadow_amulet") 
     local Blink = me:FindItem("item_blink")
     local Ult = me:GetAbility(4)
-	
-	local SAModif = me:FindModifier("modifier_item_shadow_amulet_fade") -- Modifier for Shadow Amulet, you see how I use it in a bit
+    local SAModif = me:FindModifier("modifier_item_shadow_amulet_fade") -- Modifier for Shadow Amulet, you see how I use it in a bit
 
 	
 --Now the actual Combo
@@ -119,9 +118,9 @@ function Main(tick)  --The tick is a function that is run constantly
 	    	me:SafeCastAbility(Ult,true) --True makes it only cast ult after it has blinked           --SafeCasting checks if it can be casted, if not then it skips it.
 			active = false -- It's important do to this, otherwise the script will still be active and keep doing the combo
 	    	return
-	    end   
+	end   
 		
-	end
+    end
 	
 end
 
@@ -137,10 +136,10 @@ end
 function onClose()
 	collectgarbage("collect")
 	if registered then
-	    statusText.visible = false
-		script:UnregisterEvent(Main)
-		script:UnregisterEvent(Key)
-		registered = false
+	    statusText.visible = false --Make sure to turn your status text off after script closes
+            script:UnregisterEvent(Main)
+    	    script:UnregisterEvent(Key)
+	    registered = false
 	end
 end
 
