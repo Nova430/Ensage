@@ -11,7 +11,6 @@ config:Load()
 
 local EscapeKey     = config.EscapeKey
 local registered	= false
-local range 		= 50000
 
 local target	    = nil
 local active	    = false
@@ -51,10 +50,11 @@ function Main(tick)
 	if not (me and active) then return end
 	local Charge = me:GetAbility(1)
 	
+	if active then
 	FindTarget()
-	
-	if target and me.alive then
-	    CastSpell(Charge,target)
+	    if target and me.alive then
+	        CastSpell(Charge,target)
+	    end
 	end
 end
 
@@ -70,7 +70,7 @@ function FindTarget()
 	local enemies = entityList:FindEntities({classId=CDOTA_BaseNPC_Creep_Lane,team = me:GetEnemyTeam(),alive=true,visible=true})
 	for i,v in ipairs(enemies) do
 		distance = GetDistance2D(v,me)
-		if distance <= range then 
+		if distance > 1500 then 
 			if FurthestCreep == nil then
 		        FurthestCreep = v
 			elseif distance > GetDistance2D(FurthestCreep,me) then
