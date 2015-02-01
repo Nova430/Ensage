@@ -1,21 +1,16 @@
 --<<AutoDust BETA>>
---
---
---
---
---                                             ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
---
--- Welcome to one of my various (3) DOTO scripts, if you enjoy it please leave a thanks on my thread :) 
---    Automatically casts Dust of Appearence when an enemy is in range and fading to invisibility.
---
---                                   And again, thanks for using my script!
---
---                                             ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬● 
---
---
---
---
---
+--[[
+
+                                             ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
+
+ Welcome to one of my various DOTO scripts, if you enjoy it please leave a thanks on my thread :) 
+   Automatically casts Dust of Appearence when an enemy is in range and fading to invisibility.
+
+                                   And again, thanks for using my script!
+
+                                             ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬● 
+
+]]--
 --Libraries 
 require("libs.Utils")
 
@@ -46,7 +41,20 @@ function Main(tick)
 	
         if dust and dust:CanBeCasted() then
         	FindTarget()
-    	        if target and (target:DoesHaveModifier("modifier_bounty_hunter_wind_walk") or target:DoesHaveModifier("modifier_riki_permanent_invisibility") or target:DoesHaveModifier("modifier_mirana_moonlight_shadow") or target:DoesHaveModifier("modifier_treant_natures_guise") or target:DoesHaveModifier("modifier_weaver_shukuchi") or target:DoesHaveModifier("modifier_broodmother_spin_web_invisible_applier") or target:DoesHaveModifier("modifier_item_invisibility_edge_windwalk") or target:DoesHaveModifier("modifier_rune_invis") or target:DoesHaveModifier("modifier_clinkz_wind_walk") or target:DoesHaveModifier("modifier_item_shadow_amulet_fade")) and not (target:DoesHaveModifier("modifier_bounty_hunter_track") or target:DoesHaveModifier("modifier_bloodseeker_thirst_vision") or target:DoesHaveModifier("modifier_slardar_amplify_damage") or target:DoesHaveModifier("modifier_item_dustofappearance")) then
+    	        if target and (target:DoesHaveModifier("modifier_bounty_hunter_wind_walk") 
+    	        	      or target:DoesHaveModifier("modifier_riki_permanent_invisibility") 
+    	        	      or target:DoesHaveModifier("modifier_mirana_moonlight_shadow") 
+    	        	      or target:DoesHaveModifier("modifier_treant_natures_guise") 
+    	        	      or target:DoesHaveModifier("modifier_weaver_shukuchi") 
+    	        	      or target:DoesHaveModifier("modifier_broodmother_spin_web_invisible_applier") 
+    	        	      or target:DoesHaveModifier("modifier_item_invisibility_edge_windwalk") 
+    	        	      or target:DoesHaveModifier("modifier_rune_invis") 
+    	        	      or target:DoesHaveModifier("modifier_clinkz_wind_walk") 
+    	        	      or target:DoesHaveModifier("modifier_item_shadow_amulet_fade")) 
+    	        	      and not (target:DoesHaveModifier("modifier_bounty_hunter_track") 
+    	        	        	or target:DoesHaveModifier("modifier_bloodseeker_thirst_vision") 
+    	        	        	or target:DoesHaveModifier("modifier_slardar_amplify_damage") 
+    	        	        	or target:DoesHaveModifier("modifier_item_dustofappearance")) then
 		        me:CastAbility(dust)
 		        Sleep(30000)
 			return
