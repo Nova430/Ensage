@@ -38,7 +38,6 @@ local HideKey   = config.HideKey
 local registered	= false
 local active	    = false
 local Ractive     = false
-local target       = nil
 
 --Text on your screen
 local x,y = config:GetParameter("TextPositionX"), config:GetParameter("TextPositionY")
@@ -88,40 +87,39 @@ function Main(tick)
 	if not SleepCheck() then return end
 
 	local me = entityList:GetMyHero()
-	if not (me and (active or Ractive)) then 
-	    target = nil 
-		return 
-	end
-	
 	
 	--Stuff we need for combo
 	local eul = me:FindItem("item_cyclone")
 	local blink = me:FindItem("item_blink")
 	local phase = me:FindItem("item_phase_boots")
 	local ult = me:GetAbility(6)
+
+	if not (active or Ractive) then
+	    target = nil
+	    return
+	end
 	
 	--Combo
 	if active then
         if target == nil then	
-			GetTarget()
+			target = targetFind:GetClosestToMouse(100)
 		else
 		    if eul and eul:CanBeCasted() and not eulmodif then
-	            me:CastAbility(eul, target, true)
+	            me:CastAbility(eul, target)
 		    	Sleep(600)
 			    return
             end	
-	    	local eulmodif = target:FindModifier("modifier_eul_cyclone")
-            if target and eulmodif then
+			
+			local eulmodif = target:FindModifier("modifier_eul_cyclone")
+            if eulmodif then
  		        if blink and blink:CanBeCasted() and (eulmodif.remainingTime < 1.80) then
 		            me:CastAbility(blink, target.position)
 			        Sleep(100)
 		    	    return
 		        end
-	
 		        if ult and ult:CanBeCasted() and (eulmodif.remainingTime < 1.67) then
 		            me:CastAbility(ult)
 			        Sleep(2000)
-					target = nil
 		        	return
 		        end
 	        end
@@ -131,7 +129,7 @@ function Main(tick)
 -- AUTORAZE ST00F
 
     if Ractive then
-	    GetTarget()
+	    target = targetFind:GetClosestToMouse(100)
 		local distance = GetDistance2D(me,target)
 	    if distance <= 400 and distance >= 0 then
 		    CastRaze1()
@@ -183,10 +181,6 @@ function CastRaze3()
 			me:Stop(true)
 			me:CastAbility(Raze3)
 		end
-end
-
-function GetTarget()
-    target = targetFind:GetClosestToMouse(100)
 end
 
 function onClose()
