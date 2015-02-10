@@ -1,5 +1,5 @@
 --<<Invoker helper. Combos and hotkeys for spells and orbs>>
--- Made by Sophylax for old version. Reworked by Staskkk for New version. Upgraded by Nova.
+-- Made by Sophylax for old version. Reworked by Staskkk for New version. Some various changes and improvements by Nova.
 
 require("libs.Utils")
 require("libs.ScriptConfig")
@@ -93,6 +93,7 @@ y = config.Ycord
 KeyForCastingOrbs = numpad(config.KeyForCastingOrbs)
 combokey = {numpad(config.combo1),numpad(config.combo2),numpad(config.combo3),numpad(config.combo4),numpad(config.combo5),numpad(config.combo6),
 numpad(config.combo7),numpad(config.combo8)}
+tabkeys = {(config.combo1),(config.combo2),(config.combo3),(config.combo4),(config.combo5),(config.combo6),(config.combo7),(config.combo8)}
 -- 1 - TotalCombo: Tornado - EMP - Chaos Meteor - Deafening Blast - Cold Snap - Forge Spirit - Sun Strike - Ice Wall
 -- 2 - TornadoEMPCombo: Tornado - EMP
 -- 3 - TornadoMeteorWallCombo: Tornado - Chaos Meteor - Ice Wall
@@ -128,7 +129,7 @@ torndur = {800,1100,1400,1700,2000,2300,2500}
 empdelay = 2900
 meteordelay = 1300
 tornspeed = 1000
---blastspeed = 1000
+blastspeed = 1100
 sundelay = 1700
 
 queue = {}
@@ -224,7 +225,7 @@ function EulSSMeteorBlast( )
         end		
 end
  
--- Tornado - EMP - Chaos Meteor - Deafening Blast
+-- Tornado - EMP - Chaos Meteor - Deafening Blast // Tornado - Meteor - EMP - Blast - REFRESH - Meteor - Blast
 function TornadoEMPMeteorBlastCombo( )
         if target then
 		        local me = entityList:GetMyHero()
@@ -232,12 +233,13 @@ function TornadoEMPMeteorBlastCombo( )
                 local blasttime = math.floor((GetDistance2D(me,target)-34)/tornspeed*1000)
                 local torntime = blasttime+torndur[me:GetAbility(1).level]
 				local distance = GetDistance2D(me,target)
+				local mdelay = ((distance-700)/me.movespeed)*1000
                 if torntime > empdelay and torntime > meteordelay then
                         torntime = torntime-300
                         if torntime-empdelay < 0 then torntime = empdelay end
                         queue = {qww,{"wait",torntime-empdelay},www,{"wait",empdelay-meteordelay-700},wee,{"wait",100},qwe}
                         if refresher and refresher:CanBeCasted() then
-							queue = {qww,{"wait",torntime-empdelay},www,{"wait",empdelay-meteordelay-700},wee,{"item_notarget","item_refresher"},{"wait",300},www,{"wait",300},qwe,{"wait",100},wee}
+							queue = {qww,{"wait",torntime-empdelay},{"wait",empdelay-meteordelay-700},wee,{"wait",mdelay},www,{"wait",300},qwe,{"item_notarget","item_refresher"},{"wait",100},wee,{"wait",800},qwe}
 						end
                 elseif torntime > meteordelay then
                         torntime = torntime+300
@@ -246,11 +248,8 @@ function TornadoEMPMeteorBlastCombo( )
                         if torntime-meteordel < 0 then meteordel = torntime end
                         queue = {www,{"wait",empdelay-torntime},qww,{"wait",torntime-meteordel},wee,{"wait",100},qwe}
 						if refresher and refresher:CanBeCasted() then
-							queue = {qww,{"wait",empdelay-torntime},www,{"wait",torntime-meteordel},wee,{"item_notarget","item_refresher"},{"wait",300},www,{"wait",300},qwe,{"wait",100},wee}
+							queue = {qww,{"wait",empdelay-torntime},{"wait",torntime-meteordel},wee,{"wait",mdelay},www,{"wait",300},qwe,{"item_notarget","item_refresher"},{"wait",100},wee,{"wait",800},qwe}
 						end
-                else
-                        torntime = torntime+300
-                        queue = {www,wee,qww,{"wait",torntime-blasttime},qwe,qqq,qee,eee}
                 end
         else
                 queue = {qww,{"wait",torndur[me:GetAbility(1).level]-empdelay+250},www,{"wait",100},wee,{"wait",1300},qwe}
@@ -321,7 +320,7 @@ function Tick( tick )
                 wallCast = false
         end
        
-        if forgeAttack and tick > forgeTick + 500 then
+        if forgeAttack and tick > forgeTick + 2500 then
                 ForgeAttack()
                 forgeAttack = false
         end
@@ -452,7 +451,7 @@ function Tick( tick )
         end
         if Keys[19] and me then
                 local hkey = ""
-                for i,v in ipairs(combokey) do
+                for i,v in ipairs(tabkeys) do
                         hkey = hkey..v..": "..combos[i].."; "
                 end
                         text.text = hkey
@@ -465,12 +464,12 @@ function Tick( tick )
 			    end
 		    end
 		    if cycloneModif then
-		        if cycloneModif.remainingTime < 1.3 then 
+		        if cycloneModif.remainingTime < 1.5 then 
                     queue = {wee} -- Why is it laid out like this you ask? Because it just works better like this
 			    end
 		    end
             if cycloneModif then
-		        if cycloneModif.remainingTime < 0.6 then 
+		        if cycloneModif.remainingTime < (GetDistance2D(me,target)/700) then 
                     queue = {qwe} -- Why is it laid out like this you ask? Because it just works better like this
 			    end
 		    end
@@ -718,14 +717,8 @@ end
  
 --Input detector
 function Key( msg, code )
-    if code == 13  then
-        if msg == KEY_UP and chatting[2] then
-            chatting[1] = (not chatting[1])
-        end
-        chatting[2] = (not chatting[2])
-        end
-        if chatting[1] then return end
-                if code == hotkey[1] then Keys[1] = (msg == KEY_DOWN)
+    if not client.chat then
+        if code == hotkey[1] then Keys[1] = (msg == KEY_DOWN)
         elseif code == hotkey[2] then Keys[2] = (msg == KEY_DOWN)
         elseif code == hotkey[3] then Keys[3] = (msg == KEY_DOWN)
         elseif code == hotkey[4] then Keys[4] = (msg == KEY_DOWN)
@@ -748,9 +741,10 @@ function Key( msg, code )
         elseif code == string.byte("W") then Keys[17] = (msg == KEY_DOWN)      
         elseif code == string.byte("E") then Keys[18] = (msg == KEY_DOWN)
         elseif code == 0x09 then Keys[19] = (msg == KEY_DOWN)   --Tab
-    elseif code == 219 then range = range - 10
-    elseif code == 221 then range = range + 10
+        elseif code == 219 then range = range - 10
+        elseif code == 221 then range = range + 10
         end
+	end
 end
  
 function GetDistance2D(a,b)
