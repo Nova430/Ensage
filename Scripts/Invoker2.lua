@@ -233,13 +233,13 @@ function TornadoEMPMeteorBlastCombo( )
                 local blasttime = math.floor((GetDistance2D(me,target)-34)/tornspeed*1000)
                 local torntime = blasttime+torndur[me:GetAbility(1).level]
 				local distance = GetDistance2D(me,target)
-				local mdelay = ((distance-700)/me.movespeed)*1000
+				local mdelay = ((distance-600)/me.movespeed)*1000
                 if torntime > empdelay and torntime > meteordelay then
                         torntime = torntime-300
                         if torntime-empdelay < 0 then torntime = empdelay end
                         queue = {qww,{"wait",torntime-empdelay},www,{"wait",empdelay-meteordelay-700},wee,{"wait",100},qwe}
                         if refresher and refresher:CanBeCasted() then
-							queue = {qww,{"wait",torntime-empdelay},{"wait",empdelay-meteordelay-700},wee,{"wait",mdelay},www,{"wait",300},qwe,{"item_notarget","item_refresher"},{"wait",100},wee,{"wait",800},qwe}
+							queue = {qww,{"wait",torntime-empdelay},{"wait",empdelay-meteordelay-700},wee,wee,{"wait",mdelay},www,{"wait",300},qwe,{"item_notarget","item_refresher"},{"wait",150},wee,wee,{"wait",900},qwe} --LOL wee, wee hahahah
 						end
                 elseif torntime > meteordelay then
                         torntime = torntime+300
@@ -248,7 +248,7 @@ function TornadoEMPMeteorBlastCombo( )
                         if torntime-meteordel < 0 then meteordel = torntime end
                         queue = {www,{"wait",empdelay-torntime},qww,{"wait",torntime-meteordel},wee,{"wait",100},qwe}
 						if refresher and refresher:CanBeCasted() then
-							queue = {qww,{"wait",empdelay-torntime},{"wait",torntime-meteordel},wee,{"wait",mdelay},www,{"wait",300},qwe,{"item_notarget","item_refresher"},{"wait",100},wee,{"wait",800},qwe}
+							queue = {qww,{"wait",empdelay-torntime},{"wait",torntime-meteordel},wee,wee,{"wait",mdelay},www,{"wait",300},qwe,{"item_notarget","item_refresher"},{"wait",150},wee,wee,{"wait",900},qwe}
 						end
                 end
         else
@@ -776,3 +776,4 @@ script:RegisterEvent(EVENT_CLOSE,Close)
 if client.connected and not client.loading and not registered then
         Load()
 end
+
