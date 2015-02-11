@@ -3,16 +3,16 @@
 --
 --
 --
---                                             ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
+--                                               ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
 --
 -- Welcome to one of my various (5) DOTO scripts, if you enjoy it please leave a thanks on my thread :) 
---                      Perfectly timed ShadowFiend Combo, Eul's ➪ Blink ➪ Ult
+--              Perfectly timed ShadowFiend Combo, Eul's ➪ Blink ➪ Ult || NOW WITH EBLADE :D
 --
 --                                           Target = Closest to mouse
 --
---                                   And again, thanks for using my script!
+--                                     And again, thanks for using my script!
 --
---                                             ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬● 
+--                                               ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬● 
 --
 --
 --
@@ -38,12 +38,13 @@ local HideKey   = config.HideKey
 local registered	= false
 local active	    = false
 local Ractive     = false
+local me = entityList:GetMyHero()
 
 --Text on your screen
 local x,y = config:GetParameter("TextPositionX"), config:GetParameter("TextPositionY")
 local monitor = client.screenSize.x/1600
 local F14 = drawMgr:CreateFont("F14","Tahoma",16*monitor,750*monitor) 
-local F15 = drawMgr:CreateFont("F15","Tahoma",15*monitor,550*monitor) 
+local F15 = drawMgr:CreateFont("F14","Tahoma",15*monitor,550*monitor) 
 local statusText = drawMgr:CreateText(x*monitor,y*monitor,0xC92828FF,"ShadowFiend Script",F14) statusText.visible = false
 local statusText2 = drawMgr:CreateText((x)*monitor,(y+17)*monitor,0xF5AE33FF,"HOLD: ''"..string.char(Hotkey).."'' for Ult Combo",F15) statusText2.visible = false
 local statusText3 = drawMgr:CreateText((x)*monitor,(y+32)*monitor,0xF5AE33FF,"HOLD: ''"..string.char(RazeKey).."'' for Auto Raze",F15) statusText3.visible = false
@@ -86,10 +87,9 @@ end
 function Main(tick)
 	if not SleepCheck() then return end
 
-	local me = entityList:GetMyHero()
-	
 	--Stuff we need for combo
 	local eul = me:FindItem("item_cyclone")
+	local eblade = me:FindItem("item_ethereal_blade")
 	local blink = me:FindItem("item_blink")
 	local phase = me:FindItem("item_phase_boots")
 	local ult = me:GetAbility(6)
@@ -104,7 +104,20 @@ function Main(tick)
         if target == nil then	
 			target = targetFind:GetClosestToMouse(100)
 		else
-		    if eul and eul:CanBeCasted() and not eulmodif then
+		local blademodif = target:FindModifier("modifier_item_ethereal_blade_slow")
+		    if eblade then
+			    if blademodif then
+				    if eul and eul:CanBeCasted() and blademodif and not eulmodif then
+	                    me:CastAbility(eul, target)
+		    	        Sleep(600)
+			            return
+                    end	
+				else
+			        me:SafeCastAbility(eblade,target)
+				    Sleep(100)
+				    return
+			    end
+			elseif eul and eul:CanBeCasted() and not eulmodif then
 	            me:CastAbility(eul, target)
 		    	Sleep(600)
 			    return
@@ -130,20 +143,23 @@ function Main(tick)
 
     if Ractive then
 	    target = targetFind:GetClosestToMouse(100)
+		local Raze1 = me:GetAbility(1)
+		local Raze2 = me:GetAbility(2)
+		local Raze3 = me:GetAbility(3)
 		local distance = GetDistance2D(me,target)
-	    if distance <= 400 and distance >= 0 then
+	    if distance <= 400 and distance >= 0 and Raze1 and Raze1:CanBeCasted() then
 		    CastRaze1()
-            Sleep(350)	
+            Sleep(500)	
 		end
 		
-	    if distance <= 650 and distance >= 250 then
+	    if distance <= 650 and distance >= 250 and Raze2 and Raze2:CanBeCasted() then
 		    CastRaze2()	
-            Sleep(350)				
+            Sleep(500)				
 		end
 		
-	    if distance <= 900 and distance >= 500 then
+	    if distance <= 900 and distance >= 500 and Raze3 and Raze3:CanBeCasted() then
 		    CastRaze3()	
-            Sleep(350)			
+            Sleep(500)			
 		end
     end
 	   
@@ -154,8 +170,8 @@ function CastRaze1()
 	local me = entityList:GetMyHero()
 	local target = targetFind:GetClosestToMouse(100)
 	local Raze1 = me:GetAbility(1)
-	    if target and Raze1 and Raze1:CanBeCasted() then
-		    me:Attack(target)
+	    if target then
+		    me:Attack(target,false)
 			me:Stop(true)
 			me:CastAbility(Raze1)
 		end
@@ -165,8 +181,8 @@ function CastRaze2()
 	local me = entityList:GetMyHero()
 	local target = targetFind:GetClosestToMouse(100)
 	local Raze2 = me:GetAbility(2)
-	    if target and Raze2 and Raze2:CanBeCasted() then
-		    me:Attack(target)
+	    if target then
+		    me:Attack(target,false)
 			me:Stop(true)
 			me:CastAbility(Raze2)
 		end
@@ -176,8 +192,8 @@ function CastRaze3()
 	local me = entityList:GetMyHero()
 	local target = targetFind:GetClosestToMouse(100)
 	local Raze3 = me:GetAbility(3)
-	    if target and Raze3 and Raze3:CanBeCasted() then
-		    me:Attack(target)
+	    if target then
+		    me:Attack(target,false)
 			me:Stop(true)
 			me:CastAbility(Raze3)
 		end
