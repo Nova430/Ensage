@@ -251,8 +251,10 @@ function TornadoEMPMeteorBlastCombo( )
 							queue = {qww,{"wait",empdelay-torntime},{"wait",torntime-meteordel},wee,wee,{"wait",mdelay},www,{"wait",300},qwe,{"item_notarget","item_refresher"},{"wait",150},wee,wee,{"wait",900},qwe}
 						end
                 end
-        else
+        elseif not target and not me:FindItem("item_refresher") then
                 queue = {qww,{"wait",torndur[me:GetAbility(1).level]-empdelay+250},www,{"wait",100},wee,{"wait",1300},qwe}
+		elseif not target and me:FindItem("item_refresher") then
+		        queue = {qww,{"wait",900},wee,wee,{"wait",((range-700)/me.movespeed)*1000},www,{"wait",300},qwe,{"item_notarget","item_refresher"},{"wait",150},wee,wee,{"wait",900},qwe}
         end
 end
 
@@ -776,4 +778,3 @@ script:RegisterEvent(EVENT_CLOSE,Close)
 if client.connected and not client.loading and not registered then
         Load()
 end
-
