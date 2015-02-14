@@ -1,6 +1,6 @@
 --<<ShadowFiend Combo >>
 --
---       THIS IS MY PRIVATE TESTING VERSION, I RECOMMEND USING THE ACTUAL PUBLISHED ONE AS THIS MAY HAVE BUGS.
+--    THIS IS MY PRIVATE TESTING VERSION, I RECOMMEND USING THE ACTUAL PUBLISHED ONE AS THIS MAY HAVE BUGS.
 --
 --
 --                                               ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
@@ -32,12 +32,13 @@ config:SetParameter("TextPositionX", 5)
 config:SetParameter("TextPositionY", 40)
 config:Load()
 
-local Hotkey     = config.Hotkey
-local RazeKey  = config.RazeKey
-local HideKey   = config.HideKey
-local registered	= false
+local Hotkey        = config.Hotkey
+local RazeKey       = config.RazeKey
+local HideKey       = config.HideKey
+local registered    = false
 local active	    = false
-local Ractive     = false
+local Ractive       = false
+
 local me = entityList:GetMyHero()
 
 --Text on your screen
@@ -94,48 +95,48 @@ function Main(tick)
 	local phase = me:FindItem("item_phase_boots")
 	local ult = me:GetAbility(6)
 
-	if not (active or Ractive) then
+	if target and not (active or Ractive) then
 	    target = nil
 	    return
 	end
 	
 	--Combo
 	if active then
-        if target == nil then	
+                if target == nil then	
 			target = targetFind:GetClosestToMouse(100)
 		else
-		local blademodif = target:FindModifier("modifier_item_ethereal_blade_slow")
+		    local blademodif = target:FindModifier("modifier_item_ethereal_blade_slow")
 		    if eblade then
-			    if blademodif then
-				    if eul and eul:CanBeCasted() and blademodif and not eulmodif then
-	                    me:CastAbility(eul, target)
+		        if blademodif then
+			    if eul and eul:CanBeCasted() and blademodif and not eulmodif then
+	                        me:CastAbility(eul, target)
 		    	        Sleep(600)
-			            return
-                    end	
-				else
-			        me:SafeCastAbility(eblade,target)
-				    Sleep(100)
-				    return
-			    end
-			elseif eul and eul:CanBeCasted() and not eulmodif then
-	            me:CastAbility(eul, target)
-		    	Sleep(600)
+			        return
+                            end	
+		        else
+			    me:SafeCastAbility(eblade,target)
+		            Sleep(100)
 			    return
-            end	
+			end
+		    elseif eul and eul:CanBeCasted() and not eulmodif then
+	                me:CastAbility(eul, target)
+		    	Sleep(600)
+			return
+                    end	
 			
-			local eulmodif = target:FindModifier("modifier_eul_cyclone")
-            if eulmodif then
+	            local eulmodif = target:FindModifier("modifier_eul_cyclone")
+                    if eulmodif then
  		        if blink and blink:CanBeCasted() and (eulmodif.remainingTime < 1.80) then
 		            me:CastAbility(blink, target.position)
-			        Sleep(100)
+			    Sleep(100)
 		    	    return
 		        end
 		        if ult and ult:CanBeCasted() and (eulmodif.remainingTime < 1.67) then
 		            me:CastAbility(ult)
-			        Sleep(2000)
-		        	return
+			    Sleep(2000)
+		            return
 		        end
-	        end
+	            end
 		end
 	end
 	
@@ -148,19 +149,19 @@ function Main(tick)
 		local Raze3 = me:GetAbility(3)
 		local distance = GetDistance2D(me,target)
 	    if distance <= 400 and distance >= 0 and Raze1 and Raze1:CanBeCasted() then
-		    CastRaze1()
-            Sleep(500)	
-		end
+		CastRaze1()
+                Sleep(500)	
+            end
 		
 	    if distance <= 650 and distance >= 250 and Raze2 and Raze2:CanBeCasted() then
-		    CastRaze2()	
-            Sleep(500)				
-		end
+		CastRaze2()	
+                Sleep(500)				
+	    end
 		
 	    if distance <= 900 and distance >= 500 and Raze3 and Raze3:CanBeCasted() then
-		    CastRaze3()	
-            Sleep(500)			
-		end
+	        CastRaze3()	
+                Sleep(500)			
+	    end
     end
 	   
 	--It's that simple ;)
