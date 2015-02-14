@@ -95,7 +95,7 @@ function Main(tick)
 	local phase = me:FindItem("item_phase_boots")
 	local ult = me:GetAbility(6)
 
-	if target and not (active or Ractive) then
+	if target ~= nil and not (active or Ractive) then
 	    target = nil
 	    return
 	end
