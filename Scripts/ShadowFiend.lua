@@ -1,11 +1,11 @@
 --<<ShadowFiend Combo >>
 --
---    THIS IS MY PRIVATE TESTING VERSION, I RECOMMEND USING THE ACTUAL PUBLISHED ONE AS THIS MAY HAVE BUGS.
+-- THIS IS MY PRIVATE TESTING VERSION, I RECOMMEND USING THE ACTUAL PUBLISHED ONE AS THIS MAY HAVE BUGS.
 --
 --
 --                                               ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
 --
--- Welcome to one of my various (5) DOTO scripts, if you enjoy it please leave a thanks on my thread :) 
+--  Welcome to one of my various (5) DOTO scripts, if you enjoy it please leave a thanks on my thread :) 
 --              Perfectly timed ShadowFiend Combo, Eul's ➪ Blink ➪ Ult || NOW WITH EBLADE :D
 --
 --                                           Target = Closest to mouse
