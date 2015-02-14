@@ -1,6 +1,6 @@
 --<<ShadowFiend Combo >>
 --
---
+--       THIS IS MY PRIVATE TESTING VERSION, I RECOMMEND USING THE ACTUAL PUBLISHED ONE AS THIS MAY HAVE BUGS.
 --
 --
 --                                               ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
