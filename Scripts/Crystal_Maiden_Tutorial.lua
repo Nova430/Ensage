@@ -129,6 +129,7 @@ function Main(tick)  --The tick is a function that is run constantly
 		me:SafeCastAbility(SB,true)	
 			active = false -- It's important do to this, otherwise the script will still be active and keep doing the combo
 	    	return	
+	end
     end
 	
 end
