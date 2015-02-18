@@ -8,6 +8,8 @@
 --                                      - Blink's to your mouse position
 --                                      - Press S to cancel
 --
+--                                      - Works with ShadowBlade 
+--
 --                           If you have a suggestion or need help, please PM me 
 --                          This script was made with full comments for learners :)
 --
@@ -98,7 +100,8 @@ function Main(tick)  --The tick is a function that is run constantly
     if not me then return end  --If the player is not me, then the tick function would end here.
 	
 --Now lets get what we need for the Combo (Note, all of these use "me")
-    local SA = me:FindItem("item_shadow_amulet") 
+    local SA = me:FindItem("item_shadow_amulet")
+    local SB = me:FindItem("item_invis_sword") --Shadow Blade
     local Blink = me:FindItem("item_blink")
     local Ult = me:GetAbility(4)
     local SAModif = me:FindModifier("modifier_item_shadow_amulet_fade") -- Modifier for Shadow Amulet, you see how I use it in a bit
@@ -118,8 +121,14 @@ function Main(tick)  --The tick is a function that is run constantly
 	    	me:SafeCastAbility(Ult,true) --True makes it only cast ult after it has blinked           --SafeCasting checks if it can be casted, if not then it skips it.
 			active = false -- It's important do to this, otherwise the script will still be active and keep doing the combo
 	    	return
-	end   
-		
+	end 
+	
+	if me.alive and SB then
+	        me:SafeCastAbility(Blink, client.mousePosition) --Blink to mouse position                 --SafeCasting checks if it can be casted, if not then it skips it.
+	    	me:SafeCastAbility(Ult,true) --True makes it only cast ult after it has blinked           --SafeCasting checks if it can be casted, if not then it skips it.
+		me:SafeCastAbility(SB,true)	
+			active = false -- It's important do to this, otherwise the script will still be active and keep doing the combo
+	    	return	
     end
 	
 end
