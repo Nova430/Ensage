@@ -45,10 +45,10 @@ local active	    = false
 local BlinkActive = false
 
 --Text ingame (If you wanna set the location of the text then change the numbers on the line under this one)
-local x,y = 1150, 50  -- x = x axis || y = y axis , this only took me 4 months to figure out.
+local x,y = 1200, 75  -- x = x axis || y = y axis , this only took me 4 months to figure out.
 local monitor = client.screenSize.x/1600
-local F14 = drawMgr:CreateFont("F14","Franklin Gothic Medium",17,800) 
-local statusText = drawMgr:CreateText(x*monitor,y*monitor,-1,"Batrider - AutoNapalm Disabled! - (" .. string.char(toggleKey) .. ")   AutoBlinkCombo - (" .. string.char(BlinkComboKey) .. ")",F14) statusText.visible = false
+local F14 = drawMgr:CreateFont("F14","Segoe UI",14,500) 
+local statusText = drawMgr:CreateText(x*monitor,y*monitor,0xDB2E25FF,"Batrider - AutoNapalm Disabled! - (" .. string.char(toggleKey) .. ")   AutoBlinkCombo - (" .. string.char(BlinkComboKey) .. ")",F14) statusText.visible = false
 
 --When you start the game
 function onLoad()
@@ -74,8 +74,10 @@ function Key(msg,code)
 		active = not active
 		if active then
 			statusText.text = "Batrider - AutoNapalm Activated! - (" .. string.char(toggleKey) .. ")   AutoBlinkCombo - (" .. string.char(BlinkComboKey) .. ") "
+			statusText.color = 0x55C912FF
 		else
 			statusText.text = "Batrider - AutoNapalm Disabled! - (" .. string.char(toggleKey) .. ")   AutoBlinkCombo - (" .. string.char(BlinkComboKey) .. ") "
+			statusText.color = 0xDB2E25FF
 		end
 	end	
 	
@@ -91,17 +93,19 @@ function Main(tick)
 
 	local me = entityList:GetMyHero()
 	if not me then return end
-	local Napalm = me:GetAbility(1)
 	
 --AutoNapalm (FindTarget is further down, this casts the spell once target is found)
-	FindTarget()
-    	if target and me.alive and active and not me:IsChanneling() and not BlinkActive then
+	local Napalm = me:GetAbility(1)
+	if active then
+	    FindTarget()
+    	    if target and me.alive and not me:IsChanneling() and not BlinkActive and not me:IsUnitState(LuaEntityNPC.STATE_INVISIBLE) then
 	        if Napalm and Napalm:CanBeCasted() then
-		        CastSpell(Napalm,target.position)
-		        Sleep(Napalm:FindCastPoint()*1000)
-				return
-		    end
-     	end
+		        me:CastAbility(Napalm,target.position,false)
+		        Sleep(Napalm:FindCastPoint()*1000 + 500)
+		        return
+		end
+     	    end
+	end
 
 --Gets the victim then initiates the Blink Combo
 	local victim = targetFind:GetClosestToMouse(100)
@@ -118,20 +122,14 @@ function Main(tick)
 		    BlinkActive = false
 		else
 		    BlinkActive = false
+			return
 		end
 		Sleep(200)
 	    return
 	else
-	    return
+	    BlinkActive = false
 	end
 	    
-end
-
---Some random function which I never actually needed to use
-function CastSpell(spell,victim)
-	if spell.state == LuaEntityAbility.STATE_READY then
-		entityList:GetMyPlayer():UseAbility(spell,victim)
-	end
 end
 
 --Find Targets for AutoNapalm 
@@ -166,11 +164,3 @@ end
 --No idea, everyone else just had it (I'm kidding! (I'm really not))
 script:RegisterEvent(EVENT_CLOSE,onClose)
 script:RegisterEvent(EVENT_TICK,onLoad)
-
---Considering you read all the comments up till here, you must be pretty bored, I'm usually bored too, so add me on Skype: blitzpkz     -  I must warn you though, I'm a tiny bit COMPLETELY INSANE.
---Muhahahahhaha
---MUAHAHAHAH
---HAHAHHAHA
---HA
---Sec gonna pass out
---PEACE 
