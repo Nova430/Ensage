@@ -172,7 +172,7 @@ function SmashNav()
 		local limit = mouseOver.classId == CDOTA_Unit_Earth_Spirit_Stone and 40 or 8 + 2*push.level
 		print("Got here")
 		for i=1,limit do
-			local xyz = (((client.mousePosition - me.position) / me:GetDistance2D(mouseOver) * 50 * i) + client.mousePosition)
+			local xyz = (((allRemnants[1].position - me.position) / me:GetDistance2D(mouseOver) * 50 * i) + allRemnants[1].position)
 			local vec = Vector((xyz.x),(xyz.y),(mouseOver.z))
             effs[i]:SetVector(0,vec)
 		end
