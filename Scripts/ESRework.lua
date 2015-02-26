@@ -26,6 +26,8 @@ require("libs.SkillShot")
 		Changelog:
 			v1.0:
 			 - Release
+		        v1.1:
+		         - Rework by Nova for learning purposes.
 ]]
 
 config = ScriptConfig.new()
@@ -33,9 +35,9 @@ config:SetParameter("PushKey", "Z", config.TYPE_HOTKEY)
 config:SetParameter("RollKey", "X", config.TYPE_HOTKEY)
 config:SetParameter("PullKey", "C", config.TYPE_HOTKEY)
 config:SetParameter("ComboKey",0x20, config.TYPE_HOTKEY)
-config:SetParameter("nav", true, config.TYPE_BOOL)
-config:SetParameter("ping", true, config.TYPE_BOOL)
-config:SetParameter("ult", true, config.TYPE_BOOL)
+config:SetParameter("SmashNavigator", true, config.TYPE_BOOL)
+config:SetParameter("PingCheck", true, config.TYPE_BOOL)
+config:SetParameter("AutoMagnetize", true, config.TYPE_BOOL)
 config:Load()
 
 remnants = {}
@@ -61,11 +63,13 @@ local pullactive = false
 local rollactive = false
 local comboactive = false
 
-local nav = config.nav
-local ping = config.ping
-local ult = config.ult
+local nav = config.SmashNavigator
+local ping = config.PingCheck
+local ult = config.AutoMagnetize
 
+local dirty = false
 local mouseOver = nil
+
 
 function Load()
 	if PlayingGame() then
@@ -158,30 +162,30 @@ end
 
 function SmashNav()
     local me = entityList:GetMyHero()
-	dirty = false
+	local latest = GetLatestRemnant()
 	
 	local allRemnants = entityList:FindEntities({classId = CDOTA_Unit_Earth_Spirit_Stone, team = me.team, distance = {me, 900}})
 	if #allRemnants > 0 then
 		table.sort(allRemnants, function(a,b) return GetDistance2D(a, client.mousePosition) < GetDistance2D(b, client.mousePosition) end)
-		if GetDistance2D(allRemnants[1],client.mousePosition) < 50 then
+		if GetDistance2D(allRemnants[1].position,client.mousePosition) < 50 then
 			mouseOver = allRemnants[1].position
 		end
 	end
 
 	if nav and me:CanCast() and push:CanBeCasted() and mouseOver then
 		local limit = mouseOver.classId == CDOTA_Unit_Earth_Spirit_Stone and 40 or 8 + 2*push.level
-		print("Got here")
 		for i=1,limit do
 			local xyz = (((mouseOver - me.position) / me:GetDistance2D(mouseOver) * 50 * i) + mouseOver)
 			local vec = Vector((xyz.x),(xyz.y),(mouseOver.z))
             effs[i]:SetVector(0,vec)
 		end
 		dirty = true
-	elseif dirty then
-		dirty = false
+	elseif push.cd > 0 and dirty then
 		for i=1,40 do
 			effs[i]:SetVector(0,Vector(0,0,-1250))
 		end
+		mouseOver = nil
+		dirty = false
 	end
 end
 
