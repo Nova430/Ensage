@@ -5,11 +5,11 @@ require("libs.SkillShot")
 
 --[[
  0 1 0 1 0 0 1 1    
- 0 1 1 0 1 1 1 1        ____          __        __         
- 0 1 1 1 0 0 0 0       / __/__  ___  / /  __ __/ /__ ___ __
- 0 1 1 0 1 0 0 0      _\ \/ _ \/ _ \/ _ \/ // / / _ `/\ \ /
- 0 1 1 1 1 0 0 1     /___/\___/ .__/_//_/\_, /_/\_,_//_\_\ 
- 0 1 1 0 1 1 0 0             /_/        /___/             
+ 0 1 1 0 1 1 1 1        ____          __        __           |     _  __             
+ 0 1 1 1 0 0 0 0       / __/__  ___  / /  __ __/ /__ ___ __  |    / |/ /__ _  _____ _  
+ 0 1 1 0 1 0 0 0      _\ \/ _ \/ _ \/ _ \/ // / / _ `/\ \ /  |   /    / _ \ |/ / _ `/
+ 0 1 1 1 1 0 0 1     /___/\___/ .__/_//_/\_, /_/\_,_//_\_\   |  /_/|_/\___/___/\_,_/ 
+ 0 1 1 0 1 1 0 0             /_/        /___/                |
  0 1 1 0 0 0 0 1    
  0 1 1 1 1 0 0 0 
 			Earth Spirit Tools  v1.0
@@ -26,18 +26,23 @@ require("libs.SkillShot")
 		Changelog:
 			v1.0:
 			 - Release
-		        v1.1:
-		         - Rework by Nova for learning purposes.
+			v1.1:
+			 - Rework by Nova
+			 - Slight changes to fix bugs
+			 - Smart Text GUI
 ]]
 
 config = ScriptConfig.new()
 config:SetParameter("PushKey", "Z", config.TYPE_HOTKEY)
 config:SetParameter("RollKey", "X", config.TYPE_HOTKEY)
 config:SetParameter("PullKey", "C", config.TYPE_HOTKEY)
-config:SetParameter("ComboKey",0x20, config.TYPE_HOTKEY)
+config:SetParameter("ComboKey","32", config.TYPE_HOTKEY)
+config:SetParameter("NavReset", "T", config.TYPE_HOTKEY)
 config:SetParameter("SmashNavigator", true, config.TYPE_BOOL)
 config:SetParameter("PingCheck", true, config.TYPE_BOOL)
 config:SetParameter("AutoMagnetize", true, config.TYPE_BOOL)
+config:SetParameter("Text X", 5)
+config:SetParameter("Text Y", 45)
 config:Load()
 
 remnants = {}
@@ -66,9 +71,29 @@ local comboactive = false
 local nav = config.SmashNavigator
 local ping = config.PingCheck
 local ult = config.AutoMagnetize
+local NavReset = config.NavReset
 
 local dirty = false
 local mouseOver = nil
+local ResetNav = false
+local timeremain = 1
+local cooldown = false
+local manatick = false
+
+--___/\___/ TEXT \___/\___--
+local x,y = config:GetParameter("Text X"), config:GetParameter("Text Y")
+local TitleFont = drawMgr:CreateFont("Title","Segoe UI",18,580) 
+local ControlFont = drawMgr:CreateFont("Title","Segoe UI",14,500)
+local text = drawMgr:CreateText(x,y,0x6CF58CFF,"Earth Spirit Tools v1.1",TitleFont) text.visible = false
+local controls0 = drawMgr:CreateText(x,y+16,0x6CF58CFF," >  " .. string.char(PushKey) .." is Smash to mouse position",ControlFont) controls0.visible = false
+local controls1 = drawMgr:CreateText(x,y+30,0x6CF58CFF," >  " .. string.char(RollKey) .." is Boulder to mouse position",ControlFont) controls1.visible = false
+local controls2 = drawMgr:CreateText(x,y+44,0x6CF58CFF," >  " .. string.char(PullKey) .." is Grip to mouse position",ControlFont) controls2.visible = false
+local controls3 = drawMgr:CreateText(x,y+58,0x6CF58CFF,"" .. string.char(ComboKey) .."is combo on target nearest to mouse",ControlFont) controls3.visible = false
+local message = drawMgr:CreateText(x,y+80,0xED5153FF,"These messages will disappear in seconds",ControlFont) message.visible = false
+local status = drawMgr:CreateText(x,y,0x2CFA02FF,"Script Status : Ready to rock!",ControlFont) status.visible = false
+local NavWarning = drawMgr:CreateText(x,y+14,0xED5153FF,"SmashNav is currently active, if it bugs just click T to reset :)",ControlFont) NavWarning.visible = false
+local manawarning = drawMgr:CreateText(x,y+14,0xED5153FF,"",ControlFont) manawarning.visible = false
+local partialwarning = drawMgr:CreateText(x,y+28,0x6CF58CFF,"             You have enough mana for a partial combo!",ControlFont) partialwarning.visible = false
 
 
 function Load()
@@ -77,10 +102,41 @@ function Load()
 		if not me or me.classId ~= CDOTA_Unit_Hero_EarthSpirit then 
 			script:Disable()
 		else
+		    print("\\__| Earth Spirit Tools v1.1 initiated! |__/")
+			if ComboKey == 32 then 
+			    controls3.text = "Space is combo on target nearest to mouse"
+			end
 			script:RegisterEvent(EVENT_TICK,Tick)
 			script:RegisterEvent(EVENT_KEY,Key)
 			script:UnregisterEvent(Load)
 		end
+	end
+end
+
+function Close()
+	collectgarbage("collect")
+	if init then
+		effs = {}
+		init = false
+		remnant = nil
+		push = nil
+		pull = nil
+		roll = nil
+		magnetize = nil
+	    mouseOver = nil
+		timeremain = nil
+		text.visible = false
+        controls0.visible = false
+		controls1.visible = false
+		controls2.visible = false
+		controls3.visible = false
+		message.visible = false
+		status.visible = false
+		manawarning.visible = false
+		partialwarning.visible = false
+		script:UnregisterEvent(Tick)
+		script:UnregisterEvent(Key)
+		script:RegisterEvent(EVENT_TICK,Load)
 	end
 end
 
@@ -89,18 +145,34 @@ function Key(msg,code)
 
 	if code == PushKey then
 		pushactive = (msg == KEY_DOWN)
+		status.text = "Script Status : Pushing!"
+		status.color = 0xED9A09FF
 	end
-	
-	if code == PullKey then
+    if code == PullKey then
 		pullactive = (msg == KEY_DOWN)
+		status.text = "Script Status : Pulling!"
+		status.color = 0xED9A09FF
 	end
 	
-	if code == RollKey then
+    if code == RollKey then
 		rollactive = (msg == KEY_DOWN)
+		status.text = "Script Status : Escaping!"
+		status.color = 0xED9A09FF
 	end
 	
-	if code == ComboKey then
+    if code == ComboKey then
 		comboactive = (msg == KEY_DOWN)
+		status.text = "Script Status : Combo-ing!"
+		status.color = 0xED9A09FF
+    end
+	
+	if code == NavReset then
+	    ResetNav = true
+    end
+	
+	if code == 2 and not (cooldown or manatick) and text.visible == false then
+        status.text = "Script Status : Ready to rock!"
+		status.color = 0x2CFA02FF
 	end
 	
 end
@@ -109,9 +181,9 @@ function Tick(tick)
 
     local me = entityList:GetMyHero()
 	if not me then return end
-	
-	Init()
 
+	Init()
+	
 	TrackRemnants()
 
 	SmashNav()
@@ -126,6 +198,64 @@ function Tick(tick)
 
 	ExtendMagnetize()
 	
+	
+	if client.gameTime < 30  and text.visible == false  then
+	    text.visible = true
+		controls0.visible = true
+		controls1.visible = true
+		controls2.visible = true
+		controls3.visible = true
+		message.visible = true
+	elseif client.gameTime > 30 then
+	    status.visible = true
+		text.visible = false
+        controls0.visible = false
+		controls1.visible = false
+		controls2.visible = false
+		controls3.visible = false
+		message.visible = false
+	end
+	
+	if client.gameTime < 30 then 
+		timeremain = math.ceil(30 - client.gameTime)
+	    message.text = "These messages will disappear in " .. (timeremain) .. " seconds"
+	end
+	
+	if roll.cd > 0 and (push.cd > 0 or pull.cd > 0) then
+	    status.text = "Script Status : Cooling Down!"
+		status.color = 0xED5153FF
+		cooldown = true
+	elseif roll.cd == 0 and (push.cd == 0 or pull.cd == 0) then
+	   cooldown = false
+	end
+		
+	if me.mana <  225 and not cooldown then 
+	    manareq = (225 - math.ceil(me.mana)) 
+	    manawarning.visible = true
+		manawarning.text = "WARNING: You don't have enough mana for a full combo, you need " .. (manareq) .. " more mana"
+	    status.text = "Script Status : Not enough mana!"
+		status.color = 0x5178EDFF
+		manatick = true
+	end
+	
+	if me.mana > 125 and manatick then
+	    partialwarning.visible = true
+	else 
+	    partialwarning.visible = false
+	end
+	
+	if me.mana > 225 and manatick then
+	    manawarning.visible = false
+		partialwarning.visible = false
+		manatick = false
+	end
+	
+	if NavWarning.visible == true and manatick then
+	    NavWarning.y = y+56
+	else 
+	    NavWarning.y = y+14
+	end
+	
 end
 
 function Init()
@@ -134,29 +264,14 @@ function Init()
         for i=1,40 do
 			effs[i] = Effect(Vector(0,0,-1250),"espirit_boouldersmash_groundsmoketrail")
 		end
-		init = true
-
+		
 		remnant = me:FindSpell("earth_spirit_stone_caller")
-		push = me:FindSpell("earth_spirit_boulder_smash")
-		pull = me:FindSpell("earth_spirit_geomagnetic_grip")
-		roll = me:FindSpell("earth_spirit_rolling_boulder")
-		magnetize = me:FindSpell("earth_spirit_magnetize")
-
-	end
-end
-
-function Close()
-	collectgarbage("collect")
-	if init then
-		effs = {}
-		init = false
-		remnant = nil
-		push = nil
-		pull = nil
-		roll = nil
-		magnetize = nil
-		script:UnregisterEvent(Main)
-		script:UnregisterEvent(Key)
+	    push = me:FindSpell("earth_spirit_boulder_smash")
+	    pull = me:FindSpell("earth_spirit_geomagnetic_grip")
+	    roll = me:FindSpell("earth_spirit_rolling_boulder")
+	    magnetize = me:FindSpell("earth_spirit_magnetize")
+		
+		init = true
 	end
 end
 
@@ -167,25 +282,37 @@ function SmashNav()
 	local allRemnants = entityList:FindEntities({classId = CDOTA_Unit_Earth_Spirit_Stone, team = me.team, distance = {me, 900}})
 	if #allRemnants > 0 then
 		table.sort(allRemnants, function(a,b) return GetDistance2D(a, client.mousePosition) < GetDistance2D(b, client.mousePosition) end)
-		if GetDistance2D(allRemnants[1].position,client.mousePosition) < 50 then
+		if GetDistance2D(allRemnants[1].position,client.mousePosition) < 100 then
 			mouseOver = allRemnants[1].position
 		end
 	end
 
 	if nav and me:CanCast() and push:CanBeCasted() and mouseOver then
-		local limit = mouseOver.classId == CDOTA_Unit_Earth_Spirit_Stone and 40 or 8 + 2*push.level
-		for i=1,limit do
-			local xyz = (((mouseOver - me.position) / me:GetDistance2D(mouseOver) * 50 * i) + mouseOver)
-			local vec = Vector((xyz.x),(xyz.y),(mouseOver.z))
+	    local limit = mouseOver.classId == CDOTA_Unit_Earth_Spirit_Stone and 40 or 8 + 2*push.level
+	   	for i=1,limit do
+	    	local xyz = (((mouseOver - me.position) / me:GetDistance2D(mouseOver) * 50 * i) + mouseOver)
+		   	local vec = Vector((xyz.x),(xyz.y),(mouseOver.z))
             effs[i]:SetVector(0,vec)
-		end
+	    end
+		NavWarning.visible = true
 		dirty = true
-	elseif push.cd > 0 and dirty then
+	elseif (push.cd > 0 or dirty) then
 		for i=1,40 do
 			effs[i]:SetVector(0,Vector(0,0,-1250))
 		end
 		mouseOver = nil
 		dirty = false
+		NavWarning.visible = false
+	end
+	
+	if ResetNav and dirty then
+		for i=1,40 do
+			effs[i]:SetVector(0,Vector(0,0,-1250))
+		end
+		mouseOver = nil
+		dirty = false
+		ResetNav = false
+		NavWarning.visible = false
 	end
 end
 
@@ -202,7 +329,7 @@ function Combo()
 					Sleep(client.latency + 25,"c")
 				end
 			elseif stage.combo == 1 and remnant:CanBeCasted() then
-				if push:CanBeCasted() and pull:CanBeCasted() and me:CanCast() then
+				if push:CanBeCasted() and me:CanCast() then
 					local xyz = SkillShot.SkillShotXYZ(me,target,375,1200)
 					if xyz then
 						me:SafeCastAbility(remnant,(xyz - me.position) * 150 / GetDistance2D(xyz,me) + me.position)
@@ -219,7 +346,7 @@ function Combo()
 				end
 			elseif stage.combo == 2 then
 				if latest and target:IsStunned() then
-					me:CastAbility(pull,(((latest.position - me.position) * (client.latency) / GetDistance2D(latest,me)) + latest.position))
+					me:CastAbility(pull,(((latest.position - me.position) * 100 / GetDistance2D(latest,me)) + latest.position))
 						if roll:CanBeCasted() then
 							me:SafeCastAbility(roll,target.position)
 						end
@@ -227,7 +354,7 @@ function Combo()
 						Sleep(castSleep*3 + 250,"c")
 				end
 			elseif stage.combo == 3 then
-				me:Attack(target)
+				me:Attack(target,true)
 				stage.combo = 4
 				Sleep(castSleep + 158,"c")
 			end
@@ -305,7 +432,7 @@ function ExtendMagnetize()
 	if ult and SleepCheck("ult") and me:CanCast() and remnant:CanBeCasted() then
         local enemies = entityList:FindEntities({type=LuaEntity.TYPE_HERO,team = me:GetEnemyTeam()})
 		for i,v in ipairs(enemies) do
-			if v.visible and v.alive and not v.illusion and v:GetDistance2D(me) < remnant.castRange - 150 then
+			if v.visible and v.alive and not v.illusion and v:GetDistance2D(me) < remnant.castRange - 50 then
 				local mod = v:FindModifier("modifier_earth_spirit_magnetize")
 				if mod and mod.remainingTime < 0.4 then
 					me:SafeCastAbility(remnant,v.position)
@@ -337,4 +464,3 @@ end
 
 script:RegisterEvent(EVENT_TICK,Load)
 script:RegisterEvent(EVENT_CLOSE,Close)
-script:RegisterEvent(EVENT_KEY,Key)
