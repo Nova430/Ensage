@@ -1,4 +1,4 @@
---<<        Earth Spirit Tools v1.1 ¬ Rework By Nova >> 
+--<<                  Earth Spirit Tools v1.1 ¬ Rework By Nova >> 
 
 require("libs.Utils")
 require("libs.TargetFind")
