@@ -1,3 +1,5 @@
+--<< Earth Spirit Tools v1.1 ¬ Rework By Nova >> 
+
 require("libs.Utils")
 require("libs.TargetFind")
 require("libs.ScriptConfig")
@@ -12,7 +14,7 @@ require("libs.SkillShot")
  0 1 1 0 1 1 0 0             /_/        /___/                |
  0 1 1 0 0 0 0 1    
  0 1 1 1 1 0 0 0 
-			Earth Spirit Tools  v1.0
+			Earth Spirit Tools  v1.1
 		3 Combos in one key, skipping to other combo if spells for one isn't ready:
 			Remnant - Boulder Smash - Geomagnetic Grip - Rolling Boulder
 			Remnant - Geomagnetic Grip - Rolling Boulder
