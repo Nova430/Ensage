@@ -74,7 +74,6 @@ local ult = config.AutoMagnetize
 local NavReset = config.NavReset
 
 local dirty = false
-local mouseOver = nil
 local ResetNav = false
 local timeremain = 1
 local cooldown = false
@@ -279,35 +278,36 @@ end
 function SmashNav()
     local me = entityList:GetMyHero()
 	local latest = GetLatestRemnant()
+	local mouseOver = nil
 	
-	local allRemnants = entityList:FindEntities({classId = CDOTA_Unit_Earth_Spirit_Stone, team = me.team, distance = {me, 900}})
-	if #allRemnants > 0 then
+	local allRemnants = entityList:FindEntities({classId = CDOTA_Unit_Earth_Spirit_Stone, team = me.team})
+	if #allRemnants > 0 and mouseOver == nil then
 		table.sort(allRemnants, function(a,b) return GetDistance2D(a, client.mousePosition) < GetDistance2D(b, client.mousePosition) end)
 		if GetDistance2D(allRemnants[1].position,client.mousePosition) < 100 then
 			mouseOver = allRemnants[1].position
 		end
 	end
-
+	
 	if nav and me:CanCast() and push:CanBeCasted() and mouseOver then
-	    local limit = mouseOver.classId == CDOTA_Unit_Earth_Spirit_Stone and 40 or 8 + 2*push.level
+	    local limit = 20
 	   	for i=1,limit do
-	    	local xyz = (((mouseOver - me.position) / me:GetDistance2D(mouseOver) * 50 * i) + mouseOver)
-		   	local vec = Vector((xyz.x),(xyz.y),(mouseOver.z))
+	    	local xyz = (((mouseOver - me.position) / me:GetDistance2D(mouseOver) * 70 * i) + mouseOver)
+		   	local vec = Vector((xyz.x),(xyz.y),(me.position.z))
             effs[i]:SetVector(0,vec)
 	    end
-	    NavWarning.visible = true
-	    dirty = true
+		NavWarning.visible = true
+		dirty = true
 	elseif (push.cd > 0 or dirty) then
-		for i=1,40 do
+		for i=1,20 do
 			effs[i]:SetVector(0,Vector(0,0,-1250))
 		end
-		mouseOver = nil
 		dirty = false
+		mouseOver = nil
 		NavWarning.visible = false
 	end
 	
 	if ResetNav and dirty then
-		for i=1,40 do
+		for i=1,20 do
 			effs[i]:SetVector(0,Vector(0,0,-1250))
 		end
 		mouseOver = nil
