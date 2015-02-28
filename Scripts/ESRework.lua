@@ -123,10 +123,10 @@ function Close()
 		pull = nil
 		roll = nil
 		magnetize = nil
-	    mouseOver = nil
+	        mouseOver = nil
 		timeremain = nil
 		text.visible = false
-        controls0.visible = false
+                controls0.visible = false
 		controls1.visible = false
 		controls2.visible = false
 		controls3.visible = false
@@ -148,30 +148,31 @@ function Key(msg,code)
 		status.text = "Script Status : Pushing!"
 		status.color = 0xED9A09FF
 	end
-    if code == PullKey then
+	
+        if code == PullKey then
 		pullactive = (msg == KEY_DOWN)
 		status.text = "Script Status : Pulling!"
 		status.color = 0xED9A09FF
 	end
 	
-    if code == RollKey then
+        if code == RollKey then
 		rollactive = (msg == KEY_DOWN)
 		status.text = "Script Status : Escaping!"
 		status.color = 0xED9A09FF
 	end
 	
-    if code == ComboKey then
+        if code == ComboKey then
 		comboactive = (msg == KEY_DOWN)
 		status.text = "Script Status : Combo-ing!"
 		status.color = 0xED9A09FF
-    end
+        end
 	
 	if code == NavReset then
 	    ResetNav = true
-    end
+        end
 	
 	if code == 2 and not (cooldown or manatick) and text.visible == false then
-        status.text = "Script Status : Ready to rock!"
+                status.text = "Script Status : Ready to rock!"
 		status.color = 0x2CFA02FF
 	end
 	
@@ -207,9 +208,9 @@ function Tick(tick)
 		controls3.visible = true
 		message.visible = true
 	elseif client.gameTime > 30 then
-	    status.visible = true
+	        status.visible = true
 		text.visible = false
-        controls0.visible = false
+                controls0.visible = false
 		controls1.visible = false
 		controls2.visible = false
 		controls3.visible = false
@@ -218,22 +219,22 @@ function Tick(tick)
 	
 	if client.gameTime < 30 then 
 		timeremain = math.ceil(30 - client.gameTime)
-	    message.text = "These messages will disappear in " .. (timeremain) .. " seconds"
+	        message.text = "These messages will disappear in " .. (timeremain) .. " seconds"
 	end
 	
 	if roll.cd > 0 and (push.cd > 0 or pull.cd > 0) then
-	    status.text = "Script Status : Cooling Down!"
+	        status.text = "Script Status : Cooling Down!"
 		status.color = 0xED5153FF
 		cooldown = true
 	elseif roll.cd == 0 and (push.cd == 0 or pull.cd == 0) then
-	   cooldown = false
+	        cooldown = false
 	end
 		
 	if me.mana <  225 and not cooldown then 
-	    manareq = (225 - math.ceil(me.mana)) 
-	    manawarning.visible = true
+	        manareq = (225 - math.ceil(me.mana)) 
+	        manawarning.visible = true
 		manawarning.text = "WARNING: You don't have enough mana for a full combo, you need " .. (manareq) .. " more mana"
-	    status.text = "Script Status : Not enough mana!"
+	        status.text = "Script Status : Not enough mana!"
 		status.color = 0x5178EDFF
 		manatick = true
 	end
@@ -261,15 +262,15 @@ end
 function Init()
     local me = entityList:GetMyHero()
 	if not init then
-        for i=1,40 do
+                for i=1,40 do
 			effs[i] = Effect(Vector(0,0,-1250),"espirit_boouldersmash_groundsmoketrail")
 		end
 		
 		remnant = me:FindSpell("earth_spirit_stone_caller")
-	    push = me:FindSpell("earth_spirit_boulder_smash")
-	    pull = me:FindSpell("earth_spirit_geomagnetic_grip")
-	    roll = me:FindSpell("earth_spirit_rolling_boulder")
-	    magnetize = me:FindSpell("earth_spirit_magnetize")
+	        push = me:FindSpell("earth_spirit_boulder_smash")
+	        pull = me:FindSpell("earth_spirit_geomagnetic_grip")
+	        roll = me:FindSpell("earth_spirit_rolling_boulder")
+	        magnetize = me:FindSpell("earth_spirit_magnetize")
 		
 		init = true
 	end
@@ -294,8 +295,8 @@ function SmashNav()
 		   	local vec = Vector((xyz.x),(xyz.y),(mouseOver.z))
             effs[i]:SetVector(0,vec)
 	    end
-		NavWarning.visible = true
-		dirty = true
+	    NavWarning.visible = true
+	    dirty = true
 	elseif (push.cd > 0 or dirty) then
 		for i=1,40 do
 			effs[i]:SetVector(0,Vector(0,0,-1250))
@@ -329,7 +330,7 @@ function Combo()
 					Sleep(client.latency + 25,"c")
 				end
 			elseif stage.combo == 1 and remnant:CanBeCasted() then
-				if push:CanBeCasted() and me:CanCast() then
+				if push:CanBeCasted() and pull:CanBeCasted() and me:CanCast() then
 					local xyz = SkillShot.SkillShotXYZ(me,target,375,1200)
 					if xyz then
 						me:SafeCastAbility(remnant,(xyz - me.position) * 150 / GetDistance2D(xyz,me) + me.position)
@@ -432,7 +433,7 @@ function ExtendMagnetize()
 	if ult and SleepCheck("ult") and me:CanCast() and remnant:CanBeCasted() then
         local enemies = entityList:FindEntities({type=LuaEntity.TYPE_HERO,team = me:GetEnemyTeam()})
 		for i,v in ipairs(enemies) do
-			if v.visible and v.alive and not v.illusion and v:GetDistance2D(me) < remnant.castRange - 50 then
+			if v.visible and v.alive and not v.illusion and v:GetDistance2D(me) < (remnant.castRange - 50) then
 				local mod = v:FindModifier("modifier_earth_spirit_magnetize")
 				if mod and mod.remainingTime < 0.4 then
 					me:SafeCastAbility(remnant,v.position)
