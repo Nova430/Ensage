@@ -265,8 +265,8 @@ end
 function Init()
     local me = entityList:GetMyHero()
 	if not init then
-                for i=1,40 do
-			effs[i] = Effect(Vector(0,0,-1250),"espirit_boouldersmash_groundsmoketrail")
+                for i=1,20 do
+			effs[i] = Effect(Vector(0,0,-1250),"blueTorch_flame")
 		end
 		
 		remnant = me:FindSpell("earth_spirit_stone_caller")
