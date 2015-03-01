@@ -1,4 +1,4 @@
---<<                  Earth Spirit Tools v1.2b ¬ Rework By Nova >> 
+--<<                  Earth Spirit Tools v1.2c ¬ Rework By Nova >> 
 
 require("libs.Utils")
 require("libs.TargetFind")
@@ -14,7 +14,7 @@ require("libs.SkillShot")
  0 1 1 0 1 1 0 0             /_/        /___/                |
  0 1 1 0 0 0 0 1    
  0 1 1 1 1 0 0 0 
-			Earth Spirit Tools  v1.2b
+			Earth Spirit Tools  v1.2c
 		3 Combos in one key, skipping to other combo if spells for one isn't ready:
 			Remnant - Boulder Smash - Geomagnetic Grip - Rolling Boulder
 			Remnant - Geomagnetic Grip - Rolling Boulder
@@ -34,7 +34,7 @@ require("libs.SkillShot")
 			v1.2
 			 - Smart Text GUI
 			 - Updated and Improved SmashNav (Fixed main displaying bug, changed display effect, update to accuracy)
-			v1.2b
+			v1.2a/b/c
 			 - Fix to timings and now disables Auto Attacking after spell (toggle option to reenable after combo at beginning of game)
 ]]
 
@@ -81,7 +81,7 @@ local NavReset = config.NavReset
 
 local dirty = false
 local ResetNav = false
-local timeremain = 1
+local timeremain = nil
 local cooldown = false
 local manatick = false
 local reenable = false
@@ -90,14 +90,14 @@ local reenable = false
 local x,y = config:GetParameter("Text X"), config:GetParameter("Text Y")
 local TitleFont = drawMgr:CreateFont("Title","Segoe UI",18,580) 
 local ControlFont = drawMgr:CreateFont("Title","Segoe UI",14,500)
-local text = drawMgr:CreateText(x,y,0x6CF58CFF,"Earth Spirit Tools v1.2b",TitleFont) text.visible = false
+local text = drawMgr:CreateText(x,y,0x6CF58CFF,"Earth Spirit Tools v1.2c",TitleFont) text.visible = false
 local controls0 = drawMgr:CreateText(x,y+16,0x6CF58CFF," >  " .. string.char(PushKey) .." is Smash to mouse position",ControlFont) controls0.visible = false
 local controls1 = drawMgr:CreateText(x,y+30,0x6CF58CFF," >  " .. string.char(RollKey) .." is Boulder to mouse position",ControlFont) controls1.visible = false
 local controls2 = drawMgr:CreateText(x,y+44,0x6CF58CFF," >  " .. string.char(PullKey) .." is Grip to mouse position",ControlFont) controls2.visible = false
 local controls3 = drawMgr:CreateText(x,y+58,0x6CF58CFF,"" .. string.char(ComboKey) .."is combo on target nearest to mouse",ControlFont) controls3.visible = false
 local message = drawMgr:CreateText(x,y+80,0xED5153FF,"These messages will disappear in seconds",ControlFont) message.visible = false
 local status = drawMgr:CreateText(x,y,0x2CFA02FF,"Script Status : Ready to rock!",ControlFont) status.visible = false
-local warning = drawMgr:CreateText(x,y+95,0xED5153FF,"IF YOU NORMALLY USE AUTO ATTACK AFTER SPELL, PLEASE PRESS G",ControlFont) warning.visible = false
+local warning = drawMgr:CreateText(x,y+95,0xF7CE36FF,"IF YOU NORMALLY USE AUTO ATTACK AFTER SPELL, PLEASE PRESS G",ControlFont) warning.visible = false
 local NavWarning = drawMgr:CreateText(x,y+14,0xED5153FF,"SmashNav is currently active, if it bugs just click T to reset :)",ControlFont) NavWarning.visible = false
 local manawarning = drawMgr:CreateText(x,y+14,0xED5153FF,"",ControlFont) manawarning.visible = false
 local partialwarning = drawMgr:CreateText(x,y+28,0x6CF58CFF,"             You have enough mana for a partial combo!",ControlFont) partialwarning.visible = false
@@ -109,7 +109,7 @@ function Load()
 		if not me or me.classId ~= CDOTA_Unit_Hero_EarthSpirit then 
 			script:Disable()
 		else
-		    print("\\__| Earth Spirit Tools v1.2b initiated! |__/")
+		    print("\\__| Earth Spirit Tools v1.2c initiated! |__/")
 			if ComboKey == 32 then 
 			    controls3.text = "Space is combo on target nearest to mouse"
 			end
@@ -130,10 +130,16 @@ function Close()
 		pull = nil
 		roll = nil
 		magnetize = nil
-	        mouseOver = nil
+	    mouseOver = nil
 		timeremain = nil
+        dirty = false
+        ResetNav = false
+        timeremain = 1
+        cooldown = false
+        manatick = false
+        reenable = false
 		text.visible = false
-                controls0.visible = false
+        controls0.visible = false
 		controls1.visible = false
 		controls2.visible = false
 		controls3.visible = false
@@ -169,17 +175,19 @@ function Key(msg,code)
 		status.color = 0xED9A09FF
 	end
 	
-        if code == ComboKey then
+    if code == ComboKey then
 		comboactive = (msg == KEY_DOWN)
-		status.text = "Script Status : Combo-ing!"
-		status.color = 0xED9A09FF
-        end
+		if not (cooldown or manatick or norem) then
+		    status.text = "Script Status : Combo-ing!"
+		    status.color = 0xED9A09FF
+		end
+    end
 	
 	if code == NavReset then
 	    ResetNav = true
         end
 	
-	if code == 2 and not (cooldown or manatick) and text.visible == false then
+	if code == 2 and not (cooldown or manatick or norem) then
                 status.text = "Script Status : Ready to rock!"
 		status.color = 0x2CFA02FF
 	end
@@ -222,10 +230,11 @@ function Tick(tick)
 		controls3.visible = true
 		message.visible = true
 		warning.visible = true
+		status.visible = false
 	elseif client.gameTime > 30 then
-	        status.visible = true
+	    status.visible = true
 		text.visible = false
-                controls0.visible = false
+        controls0.visible = false
 		controls1.visible = false
 		controls2.visible = false
 		controls3.visible = false
@@ -238,14 +247,22 @@ function Tick(tick)
 	        message.text = "These messages will disappear in " .. (timeremain) .. " seconds"
 	end
 	
-	if roll.cd > 0 and (push.cd > 0 or pull.cd > 0) then
+	if pull.cd > 0 and (push.cd > 0 or roll.cd > 0) then
 	        status.text = "Script Status : Cooling Down!"
 		status.color = 0xED5153FF
 		cooldown = true
-	elseif roll.cd == 0 and (push.cd == 0 or pull.cd == 0) then
+	elseif pull.cd == 0 and (push.cd == 0 or roll.cd == 0) then
 	        cooldown = false
 	end
-		
+	
+	if remnant.cd > 0 then
+        status.text = "Script Status : No Remnants!"
+        status.color = 0x00E3FCFF	
+		norem = true
+	else
+	    norem = false
+    end	
+	
 	if me.mana <  225 and not cooldown then 
 	        manareq = (225 - math.ceil(me.mana)) 
 	        manawarning.visible = true
@@ -321,6 +338,7 @@ function SmashNav()
 		dirty = false
 		mouseOver = nil
 		NavWarning.visible = false
+		collectgarbage("collect")
 	end
 	
 	if ResetNav and dirty then
@@ -331,6 +349,7 @@ function SmashNav()
 		dirty = false
 		ResetNav = false
 		NavWarning.visible = false
+		collectgarbage("collect")
 	end
 end
 
@@ -339,7 +358,7 @@ function Combo()
 	if comboactive and SleepCheck("c") then
 		local target = targetFind:GetClosestToMouse(100)
 		local latest = GetLatestRemnant()
-		if target then
+		if target and me:GetDistance2D(target) < (pull.castRange - 20) then
 			if stage.combo == 0 then
 				stage.combo = 1
 				client:ExecuteCmd("dota_player_units_auto_attack_after_spell 0")
@@ -361,16 +380,16 @@ function Combo()
 					me:SafeCastAbility(pull,target.position, true)
 					me:SafeCastAbility(roll,target.position, true)
 					stage.combo = 3
-					Sleep(castSleep*3 + 250,"c")
+					Sleep(castSleep*3 + 750,"c")
 				end
 			elseif stage.combo == 2 then
-				if latest and target:GetDistance2D(latest.position) < 300 then
-					me:SafeCastAbility(pull,(((latest.position - me.position) * 50 / GetDistance2D(latest,me)) + latest.position))
-						if roll:CanBeCasted() then
-							me:SafeCastAbility(roll,target.position)
-						end
-						stage.combo = 3
-						Sleep(castSleep*3 + 250,"c")
+				if latest and target:GetDistance2D(latest) < 400 then
+					me:SafeCastAbility(pull,(((latest.position - me.position) * 180 / (GetDistance2D(latest,me))) + latest.position))
+					if roll:CanBeCasted() then
+						me:SafeCastAbility(roll,target.position, true)
+					end
+				    stage.combo = 3
+					Sleep(castSleep*3 + 250,"c")
 				end
 			elseif stage.combo == 3 then
 				me:Attack(target,true)
@@ -380,6 +399,9 @@ function Combo()
 				stage.combo = 4
 				Sleep(castSleep + 158,"c")
 			end
+		elseif me:GetDistance2D(target) > (pull.castRange - 20) then
+		    status.text = "Script Status : Out of range for combo"
+			status.color = 0xF7CE36FF
 		end
 	elseif SleepCheck("c") then
 		stage.combo = 0
@@ -486,4 +508,3 @@ end
 
 script:RegisterEvent(EVENT_TICK,Load)
 script:RegisterEvent(EVENT_CLOSE,Close)
-
