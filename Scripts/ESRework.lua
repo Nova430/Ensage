@@ -1,4 +1,4 @@
---<<                  Earth Spirit Tools v1.2 ¬ Rework By Nova >> 
+--<<                  Earth Spirit Tools v1.2b ¬ Rework By Nova >> 
 
 require("libs.Utils")
 require("libs.TargetFind")
@@ -14,7 +14,7 @@ require("libs.SkillShot")
  0 1 1 0 1 1 0 0             /_/        /___/                |
  0 1 1 0 0 0 0 1    
  0 1 1 1 1 0 0 0 
-			Earth Spirit Tools  v1.2
+			Earth Spirit Tools  v1.2b
 		3 Combos in one key, skipping to other combo if spells for one isn't ready:
 			Remnant - Boulder Smash - Geomagnetic Grip - Rolling Boulder
 			Remnant - Geomagnetic Grip - Rolling Boulder
@@ -34,6 +34,8 @@ require("libs.SkillShot")
 			v1.2
 			 - Smart Text GUI
 			 - Updated and Improved SmashNav (Fixed main displaying bug, changed display effect, update to accuracy)
+			v1.2b
+			 - Fix to timings and now disables Auto Attacking after spell (toggle option to reenable after combo at beginning of game)
 ]]
 
 config = ScriptConfig.new()
@@ -88,7 +90,7 @@ local reenable = false
 local x,y = config:GetParameter("Text X"), config:GetParameter("Text Y")
 local TitleFont = drawMgr:CreateFont("Title","Segoe UI",18,580) 
 local ControlFont = drawMgr:CreateFont("Title","Segoe UI",14,500)
-local text = drawMgr:CreateText(x,y,0x6CF58CFF,"Earth Spirit Tools v1.2",TitleFont) text.visible = false
+local text = drawMgr:CreateText(x,y,0x6CF58CFF,"Earth Spirit Tools v1.2b",TitleFont) text.visible = false
 local controls0 = drawMgr:CreateText(x,y+16,0x6CF58CFF," >  " .. string.char(PushKey) .." is Smash to mouse position",ControlFont) controls0.visible = false
 local controls1 = drawMgr:CreateText(x,y+30,0x6CF58CFF," >  " .. string.char(RollKey) .." is Boulder to mouse position",ControlFont) controls1.visible = false
 local controls2 = drawMgr:CreateText(x,y+44,0x6CF58CFF," >  " .. string.char(PullKey) .." is Grip to mouse position",ControlFont) controls2.visible = false
