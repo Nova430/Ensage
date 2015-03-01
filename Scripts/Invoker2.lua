@@ -772,7 +772,7 @@ function Close()
 	registered = false
 end
  
-script:RegisterEvent(EVENT_LOAD,Load)
+script:RegisterEvent(EVENT_TICK,Load)
 script:RegisterEvent(EVENT_CLOSE,Close)
  
 if client.connected and not client.loading and not registered then
