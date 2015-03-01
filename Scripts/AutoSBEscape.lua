@@ -87,6 +87,7 @@ function onClose()
 	    statusText.visible = false
 		script:UnregisterEvent(Main)
 		script:UnregisterEvent(Key)
+		script:RegisterEvent(EVENT_TICK,onLoad)
 		registered = false
 	end
 end
