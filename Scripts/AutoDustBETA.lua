@@ -109,6 +109,7 @@ function onClose()
 	collectgarbage("collect")
 	if registered then
 		script:UnregisterEvent(Main)
+		script:RegisterEvent(EVENT_TICK,onLoad)
 		registered = false
 	end
 end
