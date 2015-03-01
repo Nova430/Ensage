@@ -109,7 +109,7 @@ function Load()
 		if not me or me.classId ~= CDOTA_Unit_Hero_EarthSpirit then 
 			script:Disable()
 		else
-		    print("\\__| Earth Spirit Tools v1.2 initiated! |__/")
+		    print("\\__| Earth Spirit Tools v1.2b initiated! |__/")
 			if ComboKey == 32 then 
 			    controls3.text = "Space is combo on target nearest to mouse"
 			end
