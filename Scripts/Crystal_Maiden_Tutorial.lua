@@ -149,6 +149,7 @@ function onClose()
 	    statusText.visible = false --Make sure to turn your status text off after script closes
             script:UnregisterEvent(Main)
     	    script:UnregisterEvent(Key)
+    	    script:RegisterEvent(EVENT_TICK,onLoad) --Reregistering tick back to onLoad for next game.
 	    registered = false
 	end
 end
