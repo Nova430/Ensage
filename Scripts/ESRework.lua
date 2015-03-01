@@ -361,12 +361,14 @@ function Combo()
 		if target and me:GetDistance2D(target) < (pull.castRange - 20) then
 			if stage.combo == 0 then
 				stage.combo = 1
-				client:ExecuteCmd("dota_player_units_auto_attack_after_spell 0")
 				if me.activity == 422 and ping then
 					me:Stop()
 					Sleep(client.latency + 25,"c")
 				end
-			elseif stage.combo == 1 and remnant:CanBeCasted() then
+		elseif stage.combo == 1 and remnant:CanBeCasted() then
+			        if reenable then
+			            client:ExecuteCmd("dota_player_units_auto_attack_after_spell 0")
+			        end
 				if push:CanBeCasted() and pull:CanBeCasted() and me:CanCast() and me.mana > 225 then
 					local xyz = SkillShot.SkillShotXYZ(me,target,375,1200)
 					if xyz then
