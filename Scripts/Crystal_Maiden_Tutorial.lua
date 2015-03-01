@@ -134,6 +134,14 @@ function Main(tick)  --The tick is a function that is run constantly
 	
 end
 
+--       Information
+--[[ 
+
+  The reason why true only makes one cast after another is because it SHIFT queues the actions,
+  if I were to use false then it would do the opposite and act immediately even if the player is,
+  holding shift. It deletes the current queue and just acts.
+  
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --Here you would normally put functions which you can use otherwise, like say a "function FindTarget()" then put it under "if active" in the main tick.
