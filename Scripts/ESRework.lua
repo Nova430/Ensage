@@ -82,6 +82,7 @@ local ResetNav = false
 local timeremain = 1
 local cooldown = false
 local manatick = false
+local reenable = false
 
 --___/\___/ TEXT \___/\___--
 local x,y = config:GetParameter("Text X"), config:GetParameter("Text Y")
@@ -94,6 +95,7 @@ local controls2 = drawMgr:CreateText(x,y+44,0x6CF58CFF," >  " .. string.char(Pul
 local controls3 = drawMgr:CreateText(x,y+58,0x6CF58CFF,"" .. string.char(ComboKey) .."is combo on target nearest to mouse",ControlFont) controls3.visible = false
 local message = drawMgr:CreateText(x,y+80,0xED5153FF,"These messages will disappear in seconds",ControlFont) message.visible = false
 local status = drawMgr:CreateText(x,y,0x2CFA02FF,"Script Status : Ready to rock!",ControlFont) status.visible = false
+local warning = drawMgr:CreateText(x,y+95,0xED5153FF,"IF YOU NORMALLY USE AUTO ATTACK AFTER SPELL, PLEASE PRESS G",ControlFont) warning.visible = false
 local NavWarning = drawMgr:CreateText(x,y+14,0xED5153FF,"SmashNav is currently active, if it bugs just click T to reset :)",ControlFont) NavWarning.visible = false
 local manawarning = drawMgr:CreateText(x,y+14,0xED5153FF,"",ControlFont) manawarning.visible = false
 local partialwarning = drawMgr:CreateText(x,y+28,0x6CF58CFF,"             You have enough mana for a partial combo!",ControlFont) partialwarning.visible = false
@@ -135,6 +137,7 @@ function Close()
 		controls3.visible = false
 		message.visible = false
 		status.visible = false
+		warning.visible = false
 		manawarning.visible = false
 		partialwarning.visible = false
 		script:UnregisterEvent(Tick)
@@ -179,6 +182,12 @@ function Key(msg,code)
 		status.color = 0x2CFA02FF
 	end
 	
+	if code == string.byte("G") and warning.visible then
+	    warning.text = "Fixes Made!"
+		warning.color = 0x6CF58CFF
+		reenable = true
+	end
+	
 end
 
 function Tick(tick)
@@ -210,6 +219,7 @@ function Tick(tick)
 		controls2.visible = true
 		controls3.visible = true
 		message.visible = true
+		warning.visible = true
 	elseif client.gameTime > 30 then
 	        status.visible = true
 		text.visible = false
@@ -218,6 +228,7 @@ function Tick(tick)
 		controls2.visible = false
 		controls3.visible = false
 		message.visible = false
+		warning.visible = false
 	end
 	
 	if client.gameTime < 30 then 
@@ -329,12 +340,13 @@ function Combo()
 		if target then
 			if stage.combo == 0 then
 				stage.combo = 1
+				client:ExecuteCmd("dota_player_units_auto_attack_after_spell 0")
 				if me.activity == 422 and ping then
 					me:Stop()
 					Sleep(client.latency + 25,"c")
 				end
 			elseif stage.combo == 1 and remnant:CanBeCasted() then
-				if push:CanBeCasted() and pull:CanBeCasted() and me:CanCast() then
+				if push:CanBeCasted() and pull:CanBeCasted() and me:CanCast() and me.mana > 225 then
 					local xyz = SkillShot.SkillShotXYZ(me,target,375,1200)
 					if xyz then
 						me:SafeCastAbility(remnant,(xyz - me.position) * 150 / GetDistance2D(xyz,me) + me.position)
@@ -342,7 +354,7 @@ function Combo()
 						stage.combo = 2
 						Sleep(castSleep*2 + 250,"c")
 					end
-				elseif pull:CanBeCasted() and me:CanCast() and roll:CanBeCasted() then
+				elseif pull:CanBeCasted() and me:CanCast() and roll:CanBeCasted() and me.mana > 125 then
 					me:SafeCastAbility(remnant,target.position)
 					me:SafeCastAbility(pull,target.position, true)
 					me:SafeCastAbility(roll,target.position, true)
@@ -350,8 +362,8 @@ function Combo()
 					Sleep(castSleep*3 + 250,"c")
 				end
 			elseif stage.combo == 2 then
-				if latest and target:IsStunned() then
-					me:CastAbility(pull,(((latest.position - me.position) * 100 / GetDistance2D(latest,me)) + latest.position))
+				if latest and target:GetDistance2D(latest.position) < 300 then
+					me:SafeCastAbility(pull,(((latest.position - me.position) * 50 / GetDistance2D(latest,me)) + latest.position))
 						if roll:CanBeCasted() then
 							me:SafeCastAbility(roll,target.position)
 						end
@@ -360,6 +372,9 @@ function Combo()
 				end
 			elseif stage.combo == 3 then
 				me:Attack(target,true)
+				if reenable then 
+				    client:ExecuteCmd("dota_player_units_auto_attack_after_spell 1")
+				end
 				stage.combo = 4
 				Sleep(castSleep + 158,"c")
 			end
@@ -469,3 +484,4 @@ end
 
 script:RegisterEvent(EVENT_TICK,Load)
 script:RegisterEvent(EVENT_CLOSE,Close)
+
