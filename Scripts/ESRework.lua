@@ -264,7 +264,7 @@ function Tick(tick)
 	end
 	
 	if remnant.cd > 0 then
-        status.text = "Script Status : No Remnants!"
+        status.text = "Script Status : No Remnants!! PANIC!"
         status.color = 0x00E3FCFF	
 		norem = true
 	else
