@@ -405,6 +405,9 @@ function Combo()
 				stage.combo = 4
 				Sleep(castSleep + 158,"c")
 			end
+		else
+		    status.text = "Script Status : Out of range for combo"
+		    status.color = 0xF7CE36FF
 		end
 	elseif SleepCheck("c") then
 		stage.combo = 0
