@@ -1,4 +1,4 @@
---<<                  Earth Spirit Tools v1.3 ¬ Rework By Nova >> 
+--<<                  Earth Spirit Tools v1.3a ¬ Rework By Nova >> 
 
 require("libs.Utils")
 require("libs.TargetFind")
@@ -14,7 +14,7 @@ require("libs.SkillShot")
  0 1 1 0 1 1 0 0             /_/        /___/                |
  0 1 1 0 0 0 0 1    
  0 1 1 1 1 0 0 0 
-			Earth Spirit Tools  v1.3
+			Earth Spirit Tools  v1.3a
 		3 Combos in one key, skipping to other combo if spells for one isn't ready:
 			Remnant - Boulder Smash - Geomagnetic Grip - Rolling Boulder
 			Remnant - Geomagnetic Grip - Rolling Boulder
@@ -38,6 +38,8 @@ require("libs.SkillShot")
 			 - Fix to timings and now disables Auto Attacking after spell (toggle option to reenable after combo at beginning of game)
 			v1.3 
 			 - AutoUrn lowest HP magnetized units, and AutoUrn on units under 150 health
+			v1.3a
+			 - AutoUrn Fix, Combo Improvement (moves to target), Fixed an error regarding Combo.
 ]]
 
 config = ScriptConfig.new()
@@ -94,7 +96,7 @@ local reenable = false
 local x,y = config:GetParameter("Text X"), config:GetParameter("Text Y")
 local TitleFont = drawMgr:CreateFont("Title","Segoe UI",18,580) 
 local ControlFont = drawMgr:CreateFont("Title","Segoe UI",14,500)
-local text = drawMgr:CreateText(x,y,0x6CF58CFF,"Earth Spirit Tools v1.3",TitleFont) text.visible = false
+local text = drawMgr:CreateText(x,y,0x6CF58CFF,"Earth Spirit Tools v1.3a",TitleFont) text.visible = false
 local controls0 = drawMgr:CreateText(x,y+16,0x6CF58CFF," >  " .. string.char(PushKey) .." is Smash to mouse position",ControlFont) controls0.visible = false
 local controls1 = drawMgr:CreateText(x,y+30,0x6CF58CFF," >  " .. string.char(RollKey) .." is Boulder to mouse position",ControlFont) controls1.visible = false
 local controls2 = drawMgr:CreateText(x,y+44,0x6CF58CFF," >  " .. string.char(PullKey) .." is Grip to mouse position",ControlFont) controls2.visible = false
@@ -113,7 +115,7 @@ function Load()
 		if not me or me.classId ~= CDOTA_Unit_Hero_EarthSpirit then 
 			script:Disable()
 		else
-		    print("\\__| Earth Spirit Tools v1.3 initiated! |__/")
+		    print("\\__| Earth Spirit Tools v1.3a initiated! |__/")
 			if ComboKey == 32 then 
 			    controls3.text = "Space is combo on target nearest to mouse"
 			end
@@ -224,6 +226,8 @@ function Tick(tick)
 	RemnantGrip()
 
 	ExtendMagnetize()
+	
+	AutoUrn()
 	
 	
 	if client.gameTime < 30  and text.visible == false  then
@@ -378,6 +382,7 @@ function Combo()
 					if xyz then
 						me:SafeCastAbility(remnant,(xyz - me.position) * 150 / GetDistance2D(xyz,me) + me.position)
 						me:SafeCastAbility(push,((xyz - me.position) * 150 / GetDistance2D(xyz,me) + me.position), true)
+						me:Move(target.position, true)
 						stage.combo = 2
 						Sleep(castSleep*2 + 250,"c")
 					end
@@ -407,7 +412,7 @@ function Combo()
 			end
 		else
 		    status.text = "Script Status : Out of range for combo"
-		    status.color = 0xF7CE36FF
+			status.color = 0xF7CE36FF
 		end
 	elseif SleepCheck("c") then
 		stage.combo = 0
@@ -496,20 +501,30 @@ end
 function AutoUrn()
     local me = entityList:GetMyHero()
     local urn = me:FindItem("item_urn_of_shadows")
+	local UrnTarget = UrnTarget()
 	if urn and autourn and SleepCheck("urn") and me:CanCast() then
-        local enemies = entityList:FindEntities(function(v) return v.type == LuaEntity.TYPE_HERO and v.team == me:GetEnemyTeam() and v.visible and not v.illusion and v.alive and v:GetDistance2D(me) < 950 end)		table.sort(enemies, function(a,b) return a.health < b.health end)
-			local mod = enemies[1]:FindModifier("modifier_earth_spirit_magnetize")
-			if mod then
-				me:SafeCastItem("item_urn_of_shadows",enemies[1])
+        if UrnTarget then
+			if UrnTarget:DoesHaveModifier("modifier_earth_spirit_magnetize") then
+				me:SafeCastItem("item_urn_of_shadows",UrnTarget)
+				Sleep(450, "urn")
+            elseif UrnTarget.health < 150 then
+			    me:SafeCastItem("item_urn_of_shadows",UrnTarget)
 				Sleep(450, "urn")
 			end
-			if not mod and enemies[1].health < 150 then
-			    me:SafeCastItem("item_urn_of_shadows",enemies[1])
-				Sleep(450, "urn")
-			end
+		end
 	end
 end
 
+function UrnTarget()
+    local me = entityList:GetMyHero()
+	local enemies = entityList:FindEntities(function(v) return v.type == LuaEntity.TYPE_HERO and v.team == me:GetEnemyTeam() and v.visible and not v.illusion and v.alive and v:GetDistance2D(me) < 950  end)
+    if #enemies > 0 then
+	    table.sort(enemies, function(a,b) return a.health < b.health end)
+		return enemies[1]
+	end
+end
+	
+	
 function GetLatestRemnant()
     local me = entityList:GetMyHero()
 	local allRemnants = entityList:FindEntities({classId = CDOTA_Unit_Earth_Spirit_Stone, team = me.team})
