@@ -271,7 +271,7 @@ function Tick(tick)
 	    norem = false
     end	
 	
-	if me.mana <  225 and not cooldown then 
+	if me.mana <  225 and not (cooldown or norem) then 
 	        manareq = (225 - math.ceil(me.mana)) 
 	        manawarning.visible = true
 		manawarning.text = "WARNING: You don't have enough mana for a full combo, you need " .. (manareq) .. " more mana"
