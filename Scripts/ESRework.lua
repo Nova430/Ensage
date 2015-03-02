@@ -1,4 +1,4 @@
---<<                  Earth Spirit Tools v1.2c ¬ Rework By Nova >> 
+--<<                  Earth Spirit Tools v1.3 ¬ Rework By Nova >> 
 
 require("libs.Utils")
 require("libs.TargetFind")
@@ -14,7 +14,7 @@ require("libs.SkillShot")
  0 1 1 0 1 1 0 0             /_/        /___/                |
  0 1 1 0 0 0 0 1    
  0 1 1 1 1 0 0 0 
-			Earth Spirit Tools  v1.2c
+			Earth Spirit Tools  v1.3
 		3 Combos in one key, skipping to other combo if spells for one isn't ready:
 			Remnant - Boulder Smash - Geomagnetic Grip - Rolling Boulder
 			Remnant - Geomagnetic Grip - Rolling Boulder
@@ -36,6 +36,8 @@ require("libs.SkillShot")
 			 - Updated and Improved SmashNav (Fixed main displaying bug, changed display effect, update to accuracy)
 			v1.2a/b/c
 			 - Fix to timings and now disables Auto Attacking after spell (toggle option to reenable after combo at beginning of game)
+			v1.3 
+			 - AutoUrn lowest HP magnetized units, and AutoUrn on units under 150 health
 ]]
 
 config = ScriptConfig.new()
@@ -47,6 +49,7 @@ config:SetParameter("NavReset", "T", config.TYPE_HOTKEY)
 config:SetParameter("SmashNavigator", true, config.TYPE_BOOL)
 config:SetParameter("PingCheck", true, config.TYPE_BOOL)
 config:SetParameter("AutoMagnetize", true, config.TYPE_BOOL)
+config:SetParameter("AutoUrn", true, config.TYPE_BOOL)
 config:SetParameter("Text X", 5)
 config:SetParameter("Text Y", 45)
 config:Load()
@@ -77,6 +80,7 @@ local comboactive = false
 local nav = config.SmashNavigator
 local ping = config.PingCheck
 local ult = config.AutoMagnetize
+local autourn = config.AutoUrn
 local NavReset = config.NavReset
 
 local dirty = false
@@ -90,7 +94,7 @@ local reenable = false
 local x,y = config:GetParameter("Text X"), config:GetParameter("Text Y")
 local TitleFont = drawMgr:CreateFont("Title","Segoe UI",18,580) 
 local ControlFont = drawMgr:CreateFont("Title","Segoe UI",14,500)
-local text = drawMgr:CreateText(x,y,0x6CF58CFF,"Earth Spirit Tools v1.2c",TitleFont) text.visible = false
+local text = drawMgr:CreateText(x,y,0x6CF58CFF,"Earth Spirit Tools v1.3",TitleFont) text.visible = false
 local controls0 = drawMgr:CreateText(x,y+16,0x6CF58CFF," >  " .. string.char(PushKey) .." is Smash to mouse position",ControlFont) controls0.visible = false
 local controls1 = drawMgr:CreateText(x,y+30,0x6CF58CFF," >  " .. string.char(RollKey) .." is Boulder to mouse position",ControlFont) controls1.visible = false
 local controls2 = drawMgr:CreateText(x,y+44,0x6CF58CFF," >  " .. string.char(PullKey) .." is Grip to mouse position",ControlFont) controls2.visible = false
@@ -109,7 +113,7 @@ function Load()
 		if not me or me.classId ~= CDOTA_Unit_Hero_EarthSpirit then 
 			script:Disable()
 		else
-		    print("\\__| Earth Spirit Tools v1.2c initiated! |__/")
+		    print("\\__| Earth Spirit Tools v1.3 initiated! |__/")
 			if ComboKey == 32 then 
 			    controls3.text = "Space is combo on target nearest to mouse"
 			end
@@ -486,6 +490,23 @@ function ExtendMagnetize()
 				end
 			end
 		end
+	end
+end
+
+function AutoUrn()
+    local me = entityList:GetMyHero()
+    local urn = me:FindItem("item_urn_of_shadows")
+	if urn and autourn and SleepCheck("urn") and me:CanCast() then
+        local enemies = entityList:FindEntities(function(v) return v.type == LuaEntity.TYPE_HERO and v.team == me:GetEnemyTeam() and v.visible and not v.illusion and v.alive and v:GetDistance2D(me) < 950 end)		table.sort(enemies, function(a,b) return a.health < b.health end)
+			local mod = enemies[1]:FindModifier("modifier_earth_spirit_magnetize")
+			if mod then
+				me:SafeCastItem("item_urn_of_shadows",enemies[1])
+				Sleep(450, "urn")
+			end
+			if not mod and enemies[1].health < 150 then
+			    me:SafeCastItem("item_urn_of_shadows",enemies[1])
+				Sleep(450, "urn")
+			end
 	end
 end
 
