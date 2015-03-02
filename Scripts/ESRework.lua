@@ -405,7 +405,7 @@ function Combo()
 				stage.combo = 4
 				Sleep(castSleep + 158,"c")
 			end
-		elseif me:GetDistance2D(target) > (pull.castRange - 20) then
+		elseif target and me:GetDistance2D(target) >= (pull.castRange - 20) then
 		    status.text = "Script Status : Out of range for combo"
 			status.color = 0xF7CE36FF
 		end
