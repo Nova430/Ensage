@@ -100,7 +100,7 @@ local text = drawMgr:CreateText(x,y,0x6CF58CFF,"Earth Spirit Tools v1.3a",TitleF
 local controls0 = drawMgr:CreateText(x,y+16,0x6CF58CFF," >  " .. string.char(PushKey) .." is Smash to mouse position",ControlFont) controls0.visible = false
 local controls1 = drawMgr:CreateText(x,y+30,0x6CF58CFF," >  " .. string.char(RollKey) .." is Boulder to mouse position",ControlFont) controls1.visible = false
 local controls2 = drawMgr:CreateText(x,y+44,0x6CF58CFF," >  " .. string.char(PullKey) .." is Grip to mouse position",ControlFont) controls2.visible = false
-local controls3 = drawMgr:CreateText(x,y+58,0x6CF58CFF,"" .. string.char(ComboKey) .."is combo on target nearest to mouse",ControlFont) controls3.visible = false
+local controls3 = drawMgr:CreateText(x,y+58,0x6CF58CFF,"HOLD " .. string.char(ComboKey) .." to combo on target nearest to mouse",ControlFont) controls3.visible = false
 local message = drawMgr:CreateText(x,y+80,0xED5153FF,"These messages will disappear in seconds",ControlFont) message.visible = false
 local status = drawMgr:CreateText(x,y,0x2CFA02FF,"Script Status : Ready to rock!",ControlFont) status.visible = false
 local warning = drawMgr:CreateText(x,y+95,0xF7CE36FF,"IF YOU NORMALLY USE AUTO ATTACK AFTER SPELL, PLEASE PRESS G",ControlFont) warning.visible = false
@@ -117,7 +117,7 @@ function Load()
 		else
 		    print("\\__| Earth Spirit Tools v1.3a initiated! |__/")
 			if ComboKey == 32 then 
-			    controls3.text = "Space is combo on target nearest to mouse"
+			    controls3.text = "HOLD Space to combo on target nearest to mouse"
 			end
 			script:RegisterEvent(EVENT_TICK,Tick)
 			script:RegisterEvent(EVENT_KEY,Key)
