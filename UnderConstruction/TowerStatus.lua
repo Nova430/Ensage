@@ -1,4 +1,4 @@
---<<Tower Health Display>>
+--<<Tower Health Display - DON'T USE UNLESS GIVEN PERMISSION>>
 --[[
 
                                              ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
