@@ -1,7 +1,7 @@
 --<<Tower Health Display - DON'T USE UNLESS GIVEN PERMISSION>>
 --[[
                                              ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
-			  	          THIS IS AN EARLY BETA, THERE WILL MOST LIKELY BE BUGS
+			   THIS IS AN EARLY BETA, THERE WILL MOST LIKELY BE BUGS
 											 
                                              ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬● 
 ]]--
