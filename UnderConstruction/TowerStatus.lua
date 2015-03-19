@@ -1,12 +1,9 @@
 --<<Tower Health Display - DON'T USE UNLESS GIVEN PERMISSION>>
 --[[
-
                                              ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
-
 			  	          THIS IS AN EARLY BETA, THERE WILL MOST LIKELY BE BUGS
 											 
                                              ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬● 
-
 ]]--
 --Libraries 
 require("libs.Utils")
@@ -19,7 +16,7 @@ config:Load()
 
 local registered	= false
 
--- Initial Config of 40 billion variables --
+-- Initial Config of only 40 billion variables --
 toptower = nil
 midtower = nil
 bottower = nil
@@ -42,7 +39,7 @@ initnewbot = false
 
 -- Icon Stuff --
 local x,y = config:GetParameter("Text X"), config:GetParameter("Text Y")
-local Font = drawMgr:CreateFont("Cow are awesome","Segue UI",12,500)
+local Font = drawMgr:CreateFont("Trees are awesome","Segue UI",12,500)
 
 local topbg = drawMgr:CreateRect(x-5, y-5, 256, 34, 0x454545FF) topbg.visible = false
 local topblk2 = drawMgr:CreateRect(x+44, y+17, 201, 4, 0x000000FF) topblk2.visible = false
@@ -116,7 +113,7 @@ end
 
 function FindTowers()
     local me = entityList:GetMyHero()
-    local towers = entityList:FindEntities({type=2,team = me.team, alive=true})
+    local towers = entityList:FindEntities({type = 2,classId = 323,team = me.team, alive=true})
 	
 	for i,v in ipairs(towers) do
 	    if not v:DoesHaveModifier("modifier_invulnerable") then
