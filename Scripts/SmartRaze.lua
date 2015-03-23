@@ -1,7 +1,4 @@
---<<ShadowFiend Combo >>
---
--- THIS IS MY PRIVATE TESTING VERSION, I RECOMMEND USING THE ACTUAL PUBLISHED ONE AS THIS MAY HAVE BUGS.
---
+--<<ShadowFiend SmartRaze, by Nova>>
 --[[
                                                 ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
              ShadowFiend Smart Raze, HOLD the hotkey to automatically raze the enemy closes to your mouse.
