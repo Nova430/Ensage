@@ -5,6 +5,11 @@
                              Additional Features - Amazingly awesome range display :D
              
              CAUTION- This may have bugs, if you try this script please PM me, and tell me what you think
+             
+                                                     CREDITS
+                                         - Moones (Various libraries)
+                                         - Me (He's awesome and wrote this)
+                                         - Coffee (Coffee)
                                                 ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬● 
 
 
