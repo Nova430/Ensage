@@ -139,7 +139,7 @@ end
 
   The reason why true only makes one cast after another is because it SHIFT queues the actions,
   if I were to use false then it would do the opposite and act immediately even if the player is,
-  holding shift. It deletes the current queue and just acts.
+  holding shift. It deletes the current queue and just acts.]]
   
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
