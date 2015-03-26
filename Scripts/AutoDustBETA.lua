@@ -21,14 +21,9 @@ local target	        = nil
 
 function onLoad()
 	if PlayingGame() then
-		local me = entityList:GetMyHero()
-		if not me then 
-			script:Disable()
-		else
-			registered = true
-			script:RegisterEvent(EVENT_TICK,Main)
-			script:UnregisterEvent(onLoad)
-		end
+		registered = true
+		script:RegisterEvent(EVENT_TICK,Main)
+		script:UnregisterEvent(onLoad)
 	end
 end
 
