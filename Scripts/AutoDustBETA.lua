@@ -35,9 +35,9 @@ function Main(tick)
 	local dust = me:FindItem("item_dust")
 
     if dust and dust:CanBeCasted() then
-	    local enemies = entityList:GetEntities(function(v) return v.type == LuaEntity.TYPE_HERO and v.team == me:GetEnemyTeam() and v.visible and not v.illusion and v.alive and v:GetDistance2D(me) <= range end)
-		for i,target in ipairs(enemies) do
-    	    if target and (target:DoesHaveModifier("modifier_bounty_hunter_wind_walk") 
+	local enemies = entityList:GetEntities(function(v) return v.type == LuaEntity.TYPE_HERO and v.team == me:GetEnemyTeam() and v.visible and not v.illusion and v.alive and v:GetDistance2D(me) <= range end)
+	for i,target in ipairs(enemies) do
+    	        if target and (target:DoesHaveModifier("modifier_bounty_hunter_wind_walk") 
     	    	      or target:DoesHaveModifier("modifier_riki_permanent_invisibility") 
     	       	      or target:DoesHaveModifier("modifier_mirana_moonlight_shadow") 
     	       	      or target:DoesHaveModifier("modifier_treant_natures_guise") 
@@ -68,7 +68,7 @@ function Main(tick)
 			    return
 		    end
 		
-	    	if target and target.name == ("npc_dota_hero_sand_king") and (target.health/target.maxHealth < 0.3) then
+	    	    if target and target.name == ("npc_dota_hero_sand_king") and (target.health/target.maxHealth < 0.3) then
 		            me:CastAbility(dust)
 		            Sleep(30000)
 		    	return
