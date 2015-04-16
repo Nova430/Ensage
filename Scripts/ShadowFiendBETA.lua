@@ -267,7 +267,7 @@ function Main(frame)
 		
 	    if command == 0 then
 	        xyz1 = SkillShot.PredictedXYZ(target,(670 + client.latency +(me:GetTurnTime(target)*1000)))
-			xyz = (xyz1 - me.position) * 100 / GetDistance2D(xyz1,me) + me.position
+			xyz = (xyz1 - me.position) * 120 / GetDistance2D(xyz1,me) + me.position
 			eff = Effect(xyz1,"aura_endurance")
 	        eff:SetVector(0,xyz1)
 			effect = true
@@ -276,7 +276,7 @@ function Main(frame)
 
 		local distance = GetDistance2D(me,xyz1)
 	    if distance <= 400 and distance >= 0 and Raze1 and Raze1:CanBeCasted() and SleepCheck("CastDelay") and SleepCheck("raze1cd") then
-	        if Animations.getDuration(Raze1) > 0 and (me:FindRelativeAngle(xyz1) > 0.2 or me:FindRelativeAngle(xyz1) < -0.2) then  
+	        if Animations.getDuration(Raze1) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then  
                 me:Stop()	
 			    command = 0
 			elseif command == 1 then  
@@ -299,7 +299,7 @@ function Main(frame)
 				command = 0
 			end
 		elseif distance <= 650 and distance >= 250 and Raze2 and Raze2:CanBeCasted() and SleepCheck("raze2cd") and SleepCheck("CastDelay") then
-	        if Animations.getDuration(Raze2) > 0 and (me:FindRelativeAngle(xyz1) > 0.2 or me:FindRelativeAngle(xyz1) < -0.2) then 
+	        if Animations.getDuration(Raze2) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then 
                 me:Stop()				
 			    command = 0
 			elseif command == 1 then
@@ -322,7 +322,7 @@ function Main(frame)
 				command = 0
 			end
 		elseif distance <= 900 and distance >= 500 and Raze3 and Raze3:CanBeCasted() and SleepCheck("raze3cd") and SleepCheck("CastDelay") then
-	        if Animations.getDuration(Raze3) > 0 and (me:FindRelativeAngle(xyz1) > 0.2 or me:FindRelativeAngle(xyz1) < -0.2) then 
+	        if Animations.getDuration(Raze3) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then 
                 me:Stop()			
 			    command = 0
 			elseif command == 1 then  
