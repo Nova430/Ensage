@@ -194,7 +194,9 @@ function Main(frame)
 					if etherealmodif and shotgunned then
 						me:CastAbility(eul,target)
 						shotgunned = false
-					elseif not shotgunned then
+					elseif not shotgunned and not blink and GetDistance2D(me,target) < me.movespeed*0.8 then
+						me:CastAbility(eul,target)
+					elseif not shotgunned and blink then
 						me:CastAbility(eul,target)
 					end
 				end
