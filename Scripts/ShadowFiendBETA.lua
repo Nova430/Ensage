@@ -1,6 +1,6 @@
 --<<ShadowFiend FINAL>>
 --[[
-                                                â—�â–¬â–¬â–¬â–¬à®œÛ©ÛžÛ©à®œâ–¬â–¬â–¬â–¬â—�
+                                                ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
          ShadowFiend Final BETA, HOLD the hotkey's to automatically raze/combo the enemy closest to your mouse.
                              Additional Features - Amazingly awesome range display :D
                              Additional Features - Combo from public version
@@ -19,7 +19,7 @@
                                  - Blaxpirit (Combo Modification + Initial AutoRaze)
                                  - Moones (Various libraries)
                                  - Coffee (Coffee)
-                                                â—�â–¬â–¬â–¬â–¬à®œÛ©ÛžÛ©à®œâ–¬â–¬â–¬â–¬â—� 
+                                                ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
 
 
 ]]
