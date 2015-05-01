@@ -1,5 +1,4 @@
 --<<                  Earth Spirit Tools v1.3a ¬ Rework By Nova >> 
-
 require("libs.Utils")
 require("libs.TargetFind")
 require("libs.ScriptConfig")
@@ -330,7 +329,7 @@ function SmashNav()
 		end
 	end
 	
-	if nav and me:CanCast() and push:CanBeCasted() and mouseOver then
+	if nav and me:CanCast() and push:CanBeCast() and mouseOver then
 	    local limit = 20
 	   	for i=1,limit do
 	    	local xyz = (((mouseOver - me.position) / me:GetDistance2D(mouseOver) * 70 * i) + mouseOver)
@@ -362,7 +361,7 @@ function SmashNav()
 end
 
 function Combo()
-    local me = entityList:GetMyHero()
+  local me = entityList:GetMyHero()
 	if comboactive and SleepCheck("c") then
 		local target = targetFind:GetClosestToMouse(100)
 		local latest = GetLatestRemnant()
@@ -373,31 +372,31 @@ function Combo()
 					me:Stop()
 					Sleep(client.latency + 25,"c")
 				end
-		elseif stage.combo == 1 and remnant:CanBeCasted() then
+      elseif stage.combo == 1 and remnant:CanBeCast() then
 			        if reenable then
 			            client:ExecuteCmd("dota_player_units_auto_attack_after_spell 0")
 			        end
-				if push:CanBeCasted() and pull:CanBeCasted() and me:CanCast() and me.mana > 225 then
+				if push:CanBeCast() and pull:CanBeCast() and me:CanCast() and me.mana > 225 then
 					local xyz = SkillShot.SkillShotXYZ(me,target,375,1200)
 					if xyz then
-						me:SafeCastAbility(remnant,(xyz - me.position) * 150 / GetDistance2D(xyz,me) + me.position)
-						me:SafeCastAbility(push,((xyz - me.position) * 150 / GetDistance2D(xyz,me) + me.position), true)
+						me:CastAbility(remnant,(xyz - me.position) * 150 / GetDistance2D(xyz,me) + me.position)
+						me:CastAbility(push,((xyz - me.position) * 150 / GetDistance2D(xyz,me) + me.position), true)
 						me:Move(target.position, true)
 						stage.combo = 2
 						Sleep(castSleep*2 + 250,"c")
 					end
-				elseif pull:CanBeCasted() and me:CanCast() and roll:CanBeCasted() and me.mana > 125 then
-					me:SafeCastAbility(remnant,target.position)
-					me:SafeCastAbility(pull,target.position, true)
-					me:SafeCastAbility(roll,target.position, true)
+				elseif pull:CanBeCast() and me:CanCast() and roll:CanBeCast() and me.mana > 125 then
+					me:CastAbility(remnant,target.position)
+					me:CastAbility(pull,target.position, true)
+					me:CastAbility(roll,target.position, true)
 					stage.combo = 3
 					Sleep(castSleep*3 + 750,"c")
 				end
 			elseif stage.combo == 2 then
-				if latest and target:GetDistance2D(latest) < 400 then
-					me:SafeCastAbility(pull,(((latest.position - me.position) * 180 / (GetDistance2D(latest,me))) + latest.position))
-					if roll:CanBeCasted() then
-						me:SafeCastAbility(roll,target.position, true)
+				if latest and target:GetDistance2D(latest) < 395 then
+					me:CastAbility(pull,(((latest.position - me.position) * 180 / (GetDistance2D(latest,me))) + latest.position))
+					if roll:CanBeCast() then
+						me:CastAbility(roll,target.position, true)
 					end
 				    stage.combo = 3
 					Sleep(castSleep*3 + 250,"c")
@@ -424,7 +423,7 @@ function RemnantSmash( ... )
 	if (pushactive or (stage.push > 0 and stage.push < 2)) and SleepCheck("push") then
 		local target = client.mousePosition
 		if me:GetDistance2D(target) < 2000 and GetDistance2D(target,Vector(0,0,0)) > 1 then
-			if remnant:CanBeCasted() and push:CanBeCasted() and me:CanCast() then
+			if remnant:CanBeCast() and push:CanBeCast() and me:CanCast() then
 				if stage.push == 0 then
 					stage.push = 1
 					if me.activity == 422 and  ping then
@@ -432,8 +431,8 @@ function RemnantSmash( ... )
 						Sleep(client.latency + 25,"push")
 					end
 				elseif stage.push == 1 then
-					me:SafeCastAbility(remnant,(target - me.position) * 150 / GetDistance2D(target,me) + me.position)
-					me:SafeCastAbility(push,(target - me.position) * 150 / GetDistance2D(target,me) + me.position, true)
+					me:CastAbility(remnant,(target - me.position) * 150 / GetDistance2D(target,me) + me.position)
+					me:CastAbility(push,(target - me.position) * 150 / GetDistance2D(target,me) + me.position, true)
 					stage.push = 2
 					Sleep(1000,"push")
 				end
@@ -449,10 +448,10 @@ function RollingRemnant( ... )
 	if (rollactive or (stage.roll > 0 and stage.roll < 1)) and SleepCheck("roll") then
 		local target = client.mousePosition
 		if me:GetDistance2D(target) < 3000 and GetDistance2D(target,Vector(0,0,0)) > 1 then
-			if remnant:CanBeCasted() and roll:CanBeCasted() and me:CanCast() then
+			if remnant:CanBeCast() and roll:CanBeCast() and me:CanCast() then
 				if stage.roll == 0 then
-					me:SafeCastAbility(remnant,(target - me.position) * 150 / GetDistance2D(target,me) + me.position)
-					me:SafeCastAbility(roll,target, true)
+					me:CastAbility(remnant,(target - me.position) * 150 / GetDistance2D(target,me) + me.position)
+					me:CastAbility(roll,target, true)
 					stage.roll = 1
 					Sleep(1000,"roll")
 				end
@@ -468,10 +467,10 @@ function RemnantGrip()
 	if (pullactive or (stage.pull > 0 and stage.pull < 1)) and SleepCheck("pull") then
 		local target = client.mousePosition
 		if me:GetDistance2D(target) < 1100 and GetDistance2D(target,Vector(0,0,0)) > 1 then
-			if remnant:CanBeCasted() and pull:CanBeCasted() and me:CanCast() then
+			if remnant:CanBeCast() and pull:CanBeCast() and me:CanCast() then
 				if stage.pull == 0 then
-					me:SafeCastAbility(remnant,target)
-					me:SafeCastAbility(pull,target, true)
+					me:CastAbility(remnant,target)
+					me:CastAbility(pull,target, true)
 					stage.pull = 1
 					Sleep(1000,"pull")
 				end
@@ -483,15 +482,19 @@ function RemnantGrip()
 end
 
 function ExtendMagnetize()
-    local me = entityList:GetMyHero()
-	if ult and SleepCheck("ult") and me:CanCast() and remnant:CanBeCasted() then
-        local enemies = entityList:FindEntities({type=LuaEntity.TYPE_HERO,team = me:GetEnemyTeam()})
+  local me = entityList:GetMyHero()
+	if ult and SleepCheck("ult") and me:CanCast() and remnant:CanBeCast() then
+    local enemies = entityList:FindEntities({type=LuaEntity.TYPE_HERO,team = me:GetEnemyTeam()})
 		for i,v in ipairs(enemies) do
 			if v.visible and v.alive and not v.illusion and v:GetDistance2D(me) < (remnant.castRange - 50) then
 				local mod = v:FindModifier("modifier_earth_spirit_magnetize")
-				if mod and mod.remainingTime < 0.4 then
-					me:SafeCastAbility(remnant,v.position)
-					Sleep(450, "ult")
+		    if mod and mod.remainingTime > 0 and SleepCheck("Time") then
+            TimeRemaining = 5000+GetTick()
+            Sleep(5000,"Time")
+        end
+				if mod and ((TimeRemaining - GetTick())/1000) < 0.5 then
+					me:CastAbility(remnant,v.position)
+					Sleep(1000, "ult")
 				end
 			end
 		end
@@ -499,16 +502,16 @@ function ExtendMagnetize()
 end
 
 function AutoUrn()
-    local me = entityList:GetMyHero()
-    local urn = me:FindItem("item_urn_of_shadows")
+  local me = entityList:GetMyHero()
+  local urn = me:FindItem("item_urn_of_shadows")
 	local UrnTarget = UrnTarget()
-	if urn and autourn and SleepCheck("urn") and me:CanCast() then
-        if UrnTarget then
+	if urn and autourn and urn.cd == 0 and SleepCheck("urn") and me:CanCast() then
+    if UrnTarget then
 			if UrnTarget:DoesHaveModifier("modifier_earth_spirit_magnetize") then
-				me:SafeCastItem("item_urn_of_shadows",UrnTarget)
+				me:CastItem("item_urn_of_shadows",UrnTarget)
 				Sleep(450, "urn")
-            elseif UrnTarget.health < 150 then
-			    me:SafeCastItem("item_urn_of_shadows",UrnTarget)
+      elseif UrnTarget.health < 150 then
+		    me:CastItem("item_urn_of_shadows",UrnTarget)
 				Sleep(450, "urn")
 			end
 		end
@@ -516,17 +519,20 @@ function AutoUrn()
 end
 
 function UrnTarget()
-    local me = entityList:GetMyHero()
+  local me = entityList:GetMyHero()
 	local enemies = entityList:FindEntities(function(v) return v.type == LuaEntity.TYPE_HERO and v.team == me:GetEnemyTeam() and v.visible and not v.illusion and v.alive and v:GetDistance2D(me) < 950  end)
     if #enemies > 0 then
 	    table.sort(enemies, function(a,b) return a.health < b.health end)
 		return enemies[1]
 	end
 end
-	
+
+function LuaEntityAbility:CanBeCast()
+  return self.cd == 0 and entityList:GetMyHero().mana >= self.manacost and self.level > 0
+end
 	
 function GetLatestRemnant()
-    local me = entityList:GetMyHero()
+  local me = entityList:GetMyHero()
 	local allRemnants = entityList:FindEntities({classId = CDOTA_Unit_Earth_Spirit_Stone, team = me.team})
 	if #allRemnants > 0 then
 		table.sort(allRemnants, function(a,b) return remnants[a.handle]>remnants[b.handle] end)
