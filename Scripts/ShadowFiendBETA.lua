@@ -183,7 +183,7 @@ function Main(frame)
 	if active then
 		if target then
 			local eulmodif = target:FindModifier("modifier_eul_cyclone")
-			if eul.cd > 0 and SleepCheck("Time") then
+			if eul and eul.cd > 0 and SleepCheck("Time") then
 			    TimeRemaining = 2500+GetTick()
 			    Sleep(2500,"Time")
 			end
