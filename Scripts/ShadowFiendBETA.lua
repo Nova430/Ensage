@@ -1,6 +1,6 @@
 --<<ShadowFiend FINAL>>
 --[[
-                                                ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬●
+                                                â—�â–¬â–¬â–¬â–¬à®œÛ©ÛžÛ©à®œâ–¬â–¬â–¬â–¬â—�
          ShadowFiend Final BETA, HOLD the hotkey's to automatically raze/combo the enemy closest to your mouse.
                              Additional Features - Amazingly awesome range display :D
                              Additional Features - Combo from public version
@@ -19,7 +19,7 @@
                                  - Blaxpirit (Combo Modification + Initial AutoRaze)
                                  - Moones (Various libraries)
                                  - Coffee (Coffee)
-                                                ●▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬● 
+                                                â—�â–¬â–¬â–¬â–¬à®œÛ©ÛžÛ©à®œâ–¬â–¬â–¬â–¬â—� 
 
 
 ]]
@@ -183,9 +183,14 @@ function Main(frame)
 	if active then
 		if target then
 			local eulmodif = target:FindModifier("modifier_eul_cyclone")
+			if eul.cd > 0 and SleepCheck("Time") then
+			    TimeRemaining = 2500+GetTick()
+			    Sleep(2500,"Time")
+			end
+			    
 			local etherealmodif = target:FindModifier("modifier_item_ethereal_blade_slow")
-			if eul and eul:CanBeCasted() and not eulmodif then
-				if etherealactive and ethereal and ethereal:CanBeCasted() then
+			if eul and eul.cd == 0 and not eulmodif then
+				if etherealactive and ethereal and ethereal:CanBeCast() then
 					me:CastAbility(ethereal,target)
 					shotgunned = true
 					Sleep(10,"ethereal")
@@ -209,13 +214,13 @@ function Main(frame)
 					me:SafeCastItem("item_phase_boots")
 					mp:Move(target.position)
 					Sleep(2000,"move")
-				elseif blink and blink:CanBeCasted() and (eulmodif.remainingTime < 1.8) and SleepCheck("move") then
+				elseif blink and blink.cd == 0 and (((TimeRemaining - GetTick())/1000) < 1.8) and SleepCheck("move") then
 					me:CastAbility(blink, target.position)
 					Sleep(2000,"blink")
 					Sleep(50)
 					return
 				end
-				if ult and ult:CanBeCasted() and (eulmodif.remainingTime < 1.67) and GetDistance2D(me,target) <= 150 then
+				if ult and ult:CanBeCast() and (((TimeRemaining - GetTick())/1000) < 1.67) and GetDistance2D(me,target) <= 150 then
 					me:CastAbility(ult)
 					Sleep(100)
 					return
@@ -226,23 +231,23 @@ function Main(frame)
 	
 	if not Ractive then
 	    target = nil
-		command = 0
+		  command = 0
 	    for i=1,3 do	
 	    	local p = Vector(me.position.x + R[i] * math.cos(me.rotR), me.position.y + R[i] * math.sin(me.rotR), me.position.z)
 				
 	    	if not razes[i] then					
-	    		if Abilities[i] and Abilities[i].state == -1 then
+	    		if Abilities[i] and Abilities[i]:CanBeCast() then
 				    if Awesome then
 	    			    razes[i] = Effect(p,  "aura_vlads")
 	    			    razes[i]:SetVector(0, p )		
-                    elseif Default then
+            elseif Default then
 	    			    razes[i] = Effect(p,  "range_display")
-						razes[i]:SetVector(1,Vector(250,0,0) )
+						    razes[i]:SetVector(1,Vector(250,0,0) )
 	    			    razes[i]:SetVector(0, p )	
-                    end			
+            end			
 		    	end
 	    	elseif not Off then
-	         	if Abilities[i] and Abilities[i].state == -1 then
+	         	if Abilities[i] and Abilities[i]:CanBeCast() then
 		    		razes[i]:SetVector(0, p )	
 	    		else
 		    		razes[i] = nil
@@ -266,18 +271,19 @@ function Main(frame)
 		local Raze1 = me:GetAbility(1)
 		local Raze2 = me:GetAbility(2)
 		local Raze3 = me:GetAbility(3)
+		local TurnTime = (math.max(math.abs(FindAngleR(me) - math.rad(FindAngleBetween(me, target))) - 0.69, 0)/(1.0*(1/0.03)))
 		
 	    if command == 0 then
-	        xyz1 = SkillShot.PredictedXYZ(target,(670 + client.latency +(me:GetTurnTime(target)*1000)))
-			xyz = (xyz1 - me.position) * 120 / GetDistance2D(xyz1,me) + me.position
-			eff = Effect(xyz1,"aura_endurance")
-	        eff:SetVector(0,xyz1)
-			effect = true
-			command = 1
+          xyz1 = SkillShot.PredictedXYZ(target,(670 + client.latency +(TurnTime*1000)))
+          xyz = (xyz1 - me.position) * 120 / GetDistance2D(xyz1,me) + me.position
+          eff = Effect(xyz1,"aura_endurance")
+          eff:SetVector(0,xyz1)
+          effect = true
+          command = 1
 	    end
 
 		local distance = GetDistance2D(me,xyz1)
-	    if distance <= 400 and distance >= 0 and Raze1 and Raze1:CanBeCasted() and SleepCheck("CastDelay") and SleepCheck("raze1cd") then
+	    if distance <= 400 and distance >= 0 and Raze1 and Raze1:CanBeCast() and SleepCheck("CastDelay") and SleepCheck("raze1cd") then
 	        if Animations.getDuration(Raze1) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then  
                 me:Stop()	
 			    command = 0
@@ -300,7 +306,7 @@ function Main(frame)
 			elseif command == 3 and Raze1.cd >= 0 and SleepCheck("CastCheck") then
 				command = 0
 			end
-		elseif distance <= 650 and distance >= 250 and Raze2 and Raze2:CanBeCasted() and SleepCheck("raze2cd") and SleepCheck("CastDelay") then
+		elseif distance <= 650 and distance >= 250 and Raze2 and Raze2:CanBeCast() and SleepCheck("raze2cd") and SleepCheck("CastDelay") then
 	        if Animations.getDuration(Raze2) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then 
                 me:Stop()				
 			    command = 0
@@ -323,7 +329,7 @@ function Main(frame)
 			elseif command == 3 and Raze2.cd >= 0 and SleepCheck("CastCheck") then
 				command = 0
 			end
-		elseif distance <= 900 and distance >= 500 and Raze3 and Raze3:CanBeCasted() and SleepCheck("raze3cd") and SleepCheck("CastDelay") then
+		elseif distance <= 900 and distance >= 500 and Raze3 and Raze3:CanBeCast() and SleepCheck("raze3cd") and SleepCheck("CastDelay") then
 	        if Animations.getDuration(Raze3) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then 
                 me:Stop()			
 			    command = 0
@@ -372,7 +378,8 @@ function Main(frame)
 							hero[hand].entityPosition = Vector(0,0,v.healthbarOffset)
 						end
 						if v.alive and v.visible  then
-							local totaldamage = wavedamage[ult.level]*numberofstacks/2 + 50
+							local totaldamage = wavedamage[ult.level]*36/2 + 50
+
 							local magicdmgreduction = (1 - v.magicDmgResist)
 							if ethereal and not v:DoesHaveModifier("modifier_item_ethereal_blade_slow") then
 								totaldamage = totaldamage + 2*me.agilityTotal + 75
@@ -381,7 +388,7 @@ function Main(frame)
 							local damage = totaldamage*magicdmgreduction
 							hero[hand].visible = true
 							if v.health - damage < 0 then
-								hero[hand].text = "Killable"
+								hero[hand].text = "Killable, assuming max stacks"
 							else
 								hero[hand].text = "HP left: "..math.ceil(v.health - damage)
 							end
@@ -428,6 +435,33 @@ function IsTurning()
 	else
 	    return false
 	end
+end
+
+function FindAngleBetween(first, second)
+  if not first.x then first = first.position end if not second.x then second = second.position end
+  xAngle = math.deg(math.atan(math.abs(second.x - first.x)/math.abs(second.y - first.y)))
+  if first.x <= second.x and first.y >= second.y then
+    return 90 - xAngle
+  elseif first.x >= second.x and first.y >= second.y then
+    return xAngle + 90
+  elseif first.x >= second.x and first.y <= second.y then
+    return 270 - xAngle
+  elseif first.x <= second.x and first.y <= second.y then
+    return xAngle + 270
+  end
+  return nil
+end
+
+function FindAngleR(entity)
+  if entity.rotR < 0 then
+    return math.abs(entity.rotR)
+  else
+    return 2 * math.pi - entity.rotR
+  end
+end
+
+function LuaEntityAbility:CanBeCast()
+  return self.cd == 0 and entityList:GetMyHero().mana >= self.manacost and self.level > 0
 end
 	
 function CastRaze(number)
