@@ -59,6 +59,7 @@ local etherealactive = true
 local hero = {}
 local disableAutoAttack = false
 local TimeRemaining = 0
+local Souls = 0
 
 local wavedamage = {80,120,160}
 
@@ -386,7 +387,7 @@ function Main(frame)
             end
             if v.alive and v.visible  then
               local totaldamage = wavedamage[ult.level]*36/2 + 50
-
+              Souls = SoulEstimation(v.health, wavedamage[ult.level], v.magicDmgResist)
               local magicdmgreduction = (1 - v.magicDmgResist)
               if ethereal and not v:DoesHaveModifier("modifier_item_ethereal_blade_slow") then
                 totaldamage = totaldamage + 2*me.agilityTotal + 75
@@ -395,7 +396,7 @@ function Main(frame)
               local damage = totaldamage*magicdmgreduction
               hero[hand].visible = true
               if v.health - damage < 0 then
-                hero[hand].text = "Killable, assuming max stacks"
+                hero[hand].text = "Killable, if atleast "..Souls.." souls"
               else
                 hero[hand].text = "HP left: "..math.ceil(v.health - damage)
               end
@@ -478,6 +479,17 @@ function CastRaze(number)
   if target then
       me:CastAbility(Raze)
   end
+end
+
+function SoulEstimation(health,wdmg,magicresist)
+    for i=1,36 do 
+        local totaldamage = wdmg*i/2 + 50
+        local magicdmgreduction = (1 - magicresist)
+        local damage = totaldamage*magicdmgreduction
+        if damage >= health then
+            return i
+        end
+    end
 end
 
 function onClose()
