@@ -82,56 +82,65 @@ local statusText6 = drawMgr:CreateText((x)*monitor,(y+77)*monitor,0xFFFFFFFFF,"I
 local statusText7 = drawMgr:CreateText((x)*monitor,(y+92)*monitor,0xC73C3CFF,"",F15) statusText7.visible = false
 
 function onLoad()
-	if PlayingGame() then
-		local me = entityList:GetMyHero()
-		if me.classId ~= CDOTA_Unit_Hero_Nevermore then
-			script:Disable()
-		else
-			registered = true
-			script:RegisterEvent(EVENT_FRAME,Main)
-			script:RegisterEvent(EVENT_KEY,Key)
-			script:UnregisterEvent(onLoad)
-		end
-	end
+  	if PlayingGame() then
+    		local me = entityList:GetMyHero()
+    		if me.classId ~= CDOTA_Unit_Hero_Nevermore then
+    			 script:Disable()
+    		else
+      			registered = true
+      			script:RegisterEvent(EVENT_FRAME,Main)
+      			script:RegisterEvent(EVENT_KEY,Key)
+      			script:UnregisterEvent(onLoad)
+    		end
+  	end
 end
 
 function Key(msg,code)
+
 	if client.chat or client.console or client.loading then return end
+	
 	if code == Hotkey then
-		active = (msg == KEY_DOWN)
+  		active = (msg == KEY_DOWN)
 	end
+	
 	if code == RazeKey then
-		Ractive = (msg == KEY_DOWN)
+  		Ractive = (msg == KEY_DOWN)
 	end
+	
 	if IsKeyDown(ToggleRange) then
+	
 	    if Awesome == true then 
-		    Awesome = false
-			Default = true
-			for i=1,3 do
+		      Awesome = false
+			    Default = true
+    			for i=1,3 do
+								razes[i] = nil
+    		        collectgarbage("collect")
+    	    end
+    			return
+	    end
+	    
+      if Default == true then 
+          Default = false
+		      Off = true
+		      for i=1,3 do
 	            razes[i] = nil
-		        collectgarbage("collect")
-		    end
-			return
-		end
-        if Default == true then 
-		    Default = false
-			Off = true
-			for i=1,3 do
+		          collectgarbage("collect")
+		      end
+			    return
+		  end
+		  
+      if Off == true then 
+		      Off = false
+			    Awesome = true
+			    for i=1,3 do
 	            razes[i] = nil
-		        collectgarbage("collect")
-		    end
-			return
-		end
-        if Off == true then 
-		    Off = false
-			Awesome = true
-			for i=1,3 do
-	            razes[i] = nil
-		        collectgarbage("collect")
-		    end
-			return
-		end
-	end
+		          collectgarbage("collect")
+		      end
+			    return
+		  end
+		  
+	 end
+	 
 end
 
 function Main(frame)
@@ -214,15 +223,15 @@ function Main(frame)
 					me:SafeCastItem("item_phase_boots")
 					mp:Move(target.position)
 					Sleep(2000,"move")
-				elseif blink and blink.cd == 0 and (((TimeRemaining - GetTick())/1000) < 1.8) and SleepCheck("move") then
+				elseif blink and blink.cd == 0 and (((TimeRemaining - GetTick())/1000) < 2.5) and SleepCheck("move") then
 					me:CastAbility(blink, target.position)
 					Sleep(2000,"blink")
 					Sleep(50)
 					return
 				end
-				if ult and ult:CanBeCast() and (((TimeRemaining - GetTick())/1000) < 1.67) and GetDistance2D(me,target) <= 150 then
+				if ult and ult:CanBeCast() and (((TimeRemaining - GetTick())/1000) < 1.75) and GetDistance2D(me,target) <= 150 then
 					me:CastAbility(ult)
-					Sleep(100)
+					Sleep(2500)
 					return
 				end
 			end
@@ -247,7 +256,7 @@ function Main(frame)
             end			
 		    	end
 	    	elseif not Off then
-	         	if Abilities[i] and Abilities[i]:CanBeCast() then
+         	if Abilities[i] and Abilities[i]:CanBeCast() then
 		    		razes[i]:SetVector(0, p )	
 	    		else
 		    		razes[i] = nil
@@ -256,18 +265,18 @@ function Main(frame)
 		    end
 	    end	
 		if eff ~= nil then
-			eff = nil
-		    collectgarbage("collect")
+			 eff = nil
+		   collectgarbage("collect")
 		end
 	else
 	    for i=1,3 do
-	        razes[i] = nil
+        razes[i] = nil
 		    collectgarbage("collect")
-		end
+		  end
 	end
 	
 -- AUTORAZE ST00F
-    if Ractive and target then
+  if Ractive and target then
 		local Raze1 = me:GetAbility(1)
 		local Raze2 = me:GetAbility(2)
 		local Raze3 = me:GetAbility(3)
@@ -283,79 +292,79 @@ function Main(frame)
 	    end
 
 		local distance = GetDistance2D(me,xyz1)
-	    if distance <= 400 and distance >= 0 and Raze1 and Raze1:CanBeCast() and SleepCheck("CastDelay") and SleepCheck("raze1cd") then
-	        if Animations.getDuration(Raze1) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then  
-                me:Stop()	
+    if distance <= 400 and distance >= 0 and Raze1 and Raze1:CanBeCast() and SleepCheck("CastDelay") and SleepCheck("raze1cd") then
+      if Animations.getDuration(Raze1) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then  
+          me:Stop()	
 			    command = 0
 			elseif command == 1 then  
 			    me:Stop()
-				mypos = nil
-				me:Move(xyz)
-				command = 2
+				  mypos = nil
+				  me:Move(xyz)
+				  command = 2
 			elseif command == 2 and IsTurning() == false then
 			    CastRaze(1)
-				Sleep(1000,"CastCheck")
-				command = 3
+				  Sleep(1000,"CastCheck")
+				  command = 3
 			elseif command == 3 and Animations.getDuration(Raze1) > 520 and SkillShot.PredictedXYZ(target,150):GetDistance2D(xyz1) > 250 then
 			    me:Stop()
-				command = 0
+				  command = 0
 			elseif command == 3 and Animations.getDuration(Raze1) > 520 and SkillShot.PredictedXYZ(target,150):GetDistance2D(xyz1) <= 250 then
 			    command = 0
-				Sleep(9000,"raze1cd")
-				Sleep(170,"CastDelay")
+				  Sleep(9000,"raze1cd")
+				  Sleep(170,"CastDelay")
 			elseif command == 3 and Raze1.cd >= 0 and SleepCheck("CastCheck") then
-				command = 0
+				  command = 0
 			end
 		elseif distance <= 650 and distance >= 250 and Raze2 and Raze2:CanBeCast() and SleepCheck("raze2cd") and SleepCheck("CastDelay") then
-	        if Animations.getDuration(Raze2) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then 
-                me:Stop()				
+      if Animations.getDuration(Raze2) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then 
+          me:Stop()				
 			    command = 0
 			elseif command == 1 then
 			    me:Stop()	
-                mypos = nil			
-				me:Move(xyz)
-				command = 2
+          mypos = nil			
+				  me:Move(xyz)
+				  command = 2
 			elseif command == 2 and IsTurning() == false then
 			    CastRaze(2)
-				Sleep(1000,"CastCheck")
-				command = 3
+				  Sleep(1000,"CastCheck")
+				  command = 3
 			elseif command == 3 and Animations.getDuration(Raze2) > 520 and SkillShot.PredictedXYZ(target,150):GetDistance2D(xyz1) > 250 then
 			    me:Stop()
-				command = 0
+				  command = 0
 			elseif command == 3 and Animations.getDuration(Raze2) > 520 and SkillShot.PredictedXYZ(target,150):GetDistance2D(xyz1) <= 250 then
 			    command = 0
-				Sleep(9000,"raze2cd")
-				Sleep(170,"CastDelay")
+				  Sleep(9000,"raze2cd")
+				  Sleep(170,"CastDelay")
 			elseif command == 3 and Raze2.cd >= 0 and SleepCheck("CastCheck") then
-				command = 0
+				  command = 0
 			end
 		elseif distance <= 900 and distance >= 500 and Raze3 and Raze3:CanBeCast() and SleepCheck("raze3cd") and SleepCheck("CastDelay") then
-	        if Animations.getDuration(Raze3) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then 
-                me:Stop()			
+      if Animations.getDuration(Raze3) > 0 and (me:FindRelativeAngle(xyz1) > 1 or me:FindRelativeAngle(xyz1) < -1) then 
+          me:Stop()			
 			    command = 0
 			elseif command == 1 then  
 			    me:Stop()
-				mypos = nil
-				me:Move(xyz)
-				command = 2
+				  mypos = nil
+				  me:Move(xyz)
+				  command = 2
 			elseif command == 2 and IsTurning() == false then
 			    CastRaze(3)
-				Sleep(1000,"CastCheck")
-				command = 3
+				  Sleep(1000,"CastCheck")
+				  command = 3
 			elseif command == 3 and Animations.getDuration(Raze3) > 520 and SkillShot.PredictedXYZ(target,150):GetDistance2D(xyz1) > 250 then
 			    me:Stop()
-				command = 0
+				  command = 0
 			elseif command == 3 and Animations.getDuration(Raze3) > 520 and SkillShot.PredictedXYZ(target,150):GetDistance2D(xyz1) <= 250 then
 			    command = 0
-				Sleep(9000,"raze3cd")
-				Sleep(170,"CastDelay")
+				  Sleep(9000,"raze3cd")
+				  Sleep(170,"CastDelay")
 			elseif command == 3 and Raze3.cd >= 0 and SleepCheck("CastCheck") then
-				command = 0
+				  command = 0
 			end
 		elseif command == 1 then
 		    command = 0
 		end
-    end
+  end
 	
 	--Damage calculator
 	if ult.level > 0 then
@@ -412,7 +421,7 @@ function Main(frame)
 			statusText6.visible = true
 			statusText7.visible = true
 			timeremain = math.ceil(30 - client.gameTime)
-		    statusText7.text = "These messages will disappear in " .. (timeremain) .. " seconds"
+		  statusText7.text = "These messages will disappear in " .. (timeremain) .. " seconds"
 			if timeremain < 1 then
 				expired = true
 			end
@@ -430,11 +439,11 @@ function IsTurning()
     local me = entityList:GetMyHero()
     if mypos == nil then
         mypos = me.position
-	elseif me.position == mypos then
-	    return true
-	else
+    elseif me.position == mypos then
+	     return true
+    else
 	    return false
-	end
+	  end
 end
 
 function FindAngleBetween(first, second)
@@ -468,9 +477,9 @@ function CastRaze(number)
 	local me = entityList:GetMyHero()
 	local target = targetFind:GetClosestToMouse(100)
 	local Raze = me:GetAbility((number))
-	    if target then
+  if target then
 			me:CastAbility(Raze)
-		end
+	end
 end
 
 function onClose()
@@ -488,18 +497,18 @@ function onClose()
 		command = 0
 		mypos = nil
 		init = false
-	        Awesome = true
-	        Default = false
-	        Off = false
+    Awesome = true
+    Default = false
+    Off = false
 		for i=1,3 do
-	        razes[i] = nil
+       razes[i] = nil
 		end
 		if eff ~= nil then
-			eff = nil
+			 eff = nil
 		end
 		script:UnregisterEvent(Main)
 		script:UnregisterEvent(Key)
-	    script:RegisterEvent(EVENT_TICK,onLoad)
+    script:RegisterEvent(EVENT_TICK,onLoad)
 		registered = false
 	end
 end
