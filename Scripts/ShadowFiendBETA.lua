@@ -10,7 +10,6 @@
                                Most Recent Changes -
                                            - Added features from public version
                                            - Improved AutoRaze to work over cliffs
-                                           - Changed to EVENT_FRAME
                                            - Updated combo a little to avoid failure
              
                                                      CREDITS
