@@ -1,4 +1,4 @@
---<<                  Earth Spirit Tools v1.3a ¬ Rework By Nova >> 
+--<<                  Earth Spirit Tools v1.3a Â¬ Rework By Nova >> 
 
 require("libs.Utils")
 require("libs.TargetFind")
@@ -394,7 +394,7 @@ function Combo()
 					Sleep(castSleep*3 + 750,"c")
 				end
 			elseif stage.combo == 2 then
-				if latest and target:GetDistance2D(latest) < 400 then
+				if latest and target:GetDistance2D(latest) < 200 then
 					me:SafeCastAbility(pull,(((latest.position - me.position) * 180 / (GetDistance2D(latest,me))) + latest.position))
 					if roll:CanBeCasted() then
 						me:SafeCastAbility(roll,target.position, true)
