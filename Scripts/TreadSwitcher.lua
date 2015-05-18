@@ -244,7 +244,7 @@ function Main(tick)
       current = 0
       active = false
       rightclick = false
-    elseif current == 1 and Spell.cd > 0 then
+    elseif current == 1 and Spell.cd > 0 and not me:IsChanneling() then
       me:SetPowerTreadsState(0)
       current = 0
       active = false
