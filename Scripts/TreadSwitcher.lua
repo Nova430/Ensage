@@ -7,7 +7,7 @@
 
                       This will -
                         - Change to INT before casting
-                        - Change to STR on movement (If already)
+                        - Change to STR on movement (If not already)
                         - Change to AGI when being healed/regenerating
                         - Change to AGI on attack (Optional, Toggle in Script-Config)
                         - Will work for all heroes
