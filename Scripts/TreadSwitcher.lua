@@ -64,17 +64,23 @@ function Key(msg, code)
   if client.chat or client.console or client.loading then return end
 
   local me = entityList:GetMyHero()
+  local mp = entityList:GetMyPlayer()
   if not me then return end
 
   local pt = me:FindItem("item_power_treads")
   if not pt then return end
-
-  if msg == KEY_DOWN and code == (17 or 18) then return end
-
+  
+  if mp.selection[1].name ~= me.name then return end
+  
+  if me:IsInvisible() then return end
+  
+  if IsKeyDown(17) or code == 18 then return end
+  
   if not quickcasting and pt then
     if code == AbilityKey1 then
       Spell = me:GetAbility(1)
       active = true
+      current = 0
       if Spell and Spell:IsBehaviourType(LuaEntityAbility.BEHAVIOR_NO_TARGET) then
         return true
       end
@@ -83,6 +89,7 @@ function Key(msg, code)
     if code == AbilityKey2 then
       Spell = me:GetAbility(2)
       active = true
+      current = 0
       if Spell and Spell:IsBehaviourType(LuaEntityAbility.BEHAVIOR_NO_TARGET) then
         return true
       end
@@ -91,6 +98,7 @@ function Key(msg, code)
     if code == AbilityKey3 then
       Spell = me:GetAbility(3)
       active = true
+      current = 0
       if Spell and Spell:IsBehaviourType(LuaEntityAbility.BEHAVIOR_NO_TARGET) then
         return true
       end
@@ -99,6 +107,7 @@ function Key(msg, code)
     if code == AbilityKey4 then
       Spell = me:GetAbility(4)
       active = true
+      current = 0
       if Spell and Spell:IsBehaviourType(LuaEntityAbility.BEHAVIOR_NO_TARGET) then
         return true
       end
@@ -107,6 +116,7 @@ function Key(msg, code)
     if code == AbilityKey5 then
       Spell = me:GetAbility(5)
       active = true
+      current = 0
       if Spell and Spell:IsBehaviourType(LuaEntityAbility.BEHAVIOR_NO_TARGET) then
         return true
       end
@@ -115,6 +125,7 @@ function Key(msg, code)
     if code == AbilityUltimate then
       Spell = me:GetAbility(GetUltimate())
       active = true
+      current = 0
       if Spell and Spell:IsBehaviourType(LuaEntityAbility.BEHAVIOR_NO_TARGET) then
         return true
       end
@@ -186,8 +197,10 @@ function Main(tick)
   if not pt then return end
 
   local mOver = entityList:GetMouseover()
-
-  if me:IsInvisible() or (Spell and Spell.manacost == 0) then NormalCast() return end
+  
+  if me:IsInvisible() then return end
+  
+  if active and current == 0 and (Spell and (Spell.manacost == 0 or Spell.cd > 0)) then NormalCast() return end
 
   if (me:DoesHaveModifier("modifier_bottle_regeneration")
     or me:DoesHaveModifier("modifier_flask_healing")
@@ -224,7 +237,7 @@ function Main(tick)
         me:CastAbility(Spell)
         current = 1
       end
-      ShiftCheck = Spell
+      Sleep(Spell:FindCastPoint()*1000 + 800,"Reset")
     elseif current == 0 and not Spell:IsBehaviourType(LuaEntityAbility.BEHAVIOR_NO_TARGET) then
       if pt.bootsState == 2 then
         me:CastAbility(pt)
@@ -236,15 +249,13 @@ function Main(tick)
       elseif pt.bootsState == 1 then
         current = 1
       end
-      ShiftCheck = Spell
-    elseif current == 1 and ShiftCheck ~= Spell then
-      current = 0
+      Sleep(Spell:FindCastPoint()*1000 + 800,"Reset")
     elseif current == 1 and rightclick then
       me:SetPowerTreadsState(0)
       current = 0
       active = false
       rightclick = false
-    elseif current == 1 and Spell.cd > 0 and not me:IsChanneling() then
+    elseif SleepCheck("Reset") and current == 1 and Spell.cd > 0 and not me:IsChanneling() then
       me:SetPowerTreadsState(0)
       current = 0
       active = false
