@@ -53,14 +53,8 @@ function Main(tick)
 	if active then
 	FindTarget()
 	    if target and me.alive then
-	        CastSpell(Charge,target)
+	        me:CastAbility(Charge,target)
 	    end
-	end
-end
-
-function CastSpell(spell,victim)
-	if spell.state == LuaEntityAbility.STATE_READY then
-		entityList:GetMyPlayer():UseAbility(spell,victim)
 	end
 end
 
