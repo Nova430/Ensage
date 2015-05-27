@@ -215,7 +215,7 @@ function SmartCast.CastAOE(Minimum, SpellRange, CastRange, Blink)
       AllValuesOf(SmartCast.Center[2])
       AllValuesOf(SmartCast.Center[1])
     elseif #enemies == 5 then
-      AllValuesOf(SmartCast.Center[10])
+      table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
       AllValuesOf(SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[7])
@@ -235,7 +235,7 @@ function SmartCast.CastAOE(Minimum, SpellRange, CastRange, Blink)
       AllValuesOf(SmartCast.Center[6])
       AllValuesOf(SmartCast.Center[5])
     elseif #enemies == 5 then
-      AllValuesOf(SmartCast.Center[10])
+      table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
       AllValuesOf(SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[7])
@@ -246,12 +246,12 @@ function SmartCast.CastAOE(Minimum, SpellRange, CastRange, Blink)
     if #enemies == 4 then
       AllValuesOf(SmartCast.Center[8])
     elseif #enemies == 5 then
-      AllValuesOf(SmartCast.Center[10])
+      table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
       AllValuesOf(SmartCast.Center[8])
     end
   elseif Minimum == 5 then
-    AllValuesOf(SmartCast.Center[10])
+    table.insert(SmartCast.Location, SmartCast.Center[10])
   end
   
   for k=1, #SmartCast.Location do
@@ -380,7 +380,7 @@ function SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)
       AllValuesOf(SmartCast.Center[2])
       AllValuesOf(SmartCast.Center[1])
     elseif #enemies == 5 then
-      AllValuesOf(SmartCast.Center[10])
+      table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
       AllValuesOf(SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[7])
@@ -400,7 +400,7 @@ function SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)
       AllValuesOf(SmartCast.Center[6])
       AllValuesOf(SmartCast.Center[5])
     elseif #enemies == 5 then
-      AllValuesOf(SmartCast.Center[10])
+      table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
       AllValuesOf(SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[7])
@@ -411,12 +411,12 @@ function SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)
     if #enemies == 4 then
       AllValuesOf(SmartCast.Center[8])
     elseif #enemies == 5 then
-      AllValuesOf(SmartCast.Center[10])
+      table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
       AllValuesOf(SmartCast.Center[8])
     end
   elseif Minimum == 5 then
-    AllValuesOf(SmartCast.Center[10])
+    table.insert(SmartCast.Location, SmartCast.Center[10])
   end
   
   for k=1, #SmartCast.Location do
