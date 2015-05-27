@@ -4,71 +4,71 @@
                                              
                                 \\ PLEASE AVOID USING THIS FOR ANYTHING BUT TESTING.
 
-______________________¶¶¶¶
-_______________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
-___________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶_¶¶¶
-_________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
-_______¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
-______¶¶¶¶¶¶¶¶_______¶¶¶¶¶¶¶¶¶___¶¶¶¶       ------------------------------------\\\\\\\\
-_____¶¶¶¶¶¶¶______________________¶¶        |   _____                      __    \\\\\\\\\
-_____¶¶¶¶¶¶___¶¶¶¶¶________________¶        |  / ___/____ ___  ____ ______/ /_    \\\\\\\\\\
-____¶¶¶¶¶¶___¶¶¶1¶¶¶                        |  \__ \/ __ `__ \/ __ `/ ___/ __/     \\\\\\\\\\\
-____¶¶¶¶¶¶___¶¶111¶¶                        | ___/ / / / / / / /_/ / /  / /_    \\\\\\\\\\\\\
-____¶¶¶¶¶¶___¶¶¶1¶¶¶                        |/____/_/ /_/ /_/\__,_/_/   \\_/  \\\\\\\\\\\\\\
-____¶¶¶¶¶¶____¶¶1¶¶                         |          _________ ______/ /_  \\\\\\\\\\\\\
-_____¶¶¶¶¶¶___¶¶1¶¶                         |         / ___/ __ `/ ___/ __/ \\\\\\\\\\\
-_____¶¶¶¶¶¶¶¶_¶¶¶¶¶                         |        / /__/ /_/ (__  ) /_  \\\\\\\\\\\\\\\
-______¶¶¶¶¶¶¶¶¶¶¶¶¶                         |        \___/\__,_/____/\__/   \\\\\\\\\\\\\\\\\\
-_______¶¶¶¶¶¶¶¶¶¶¶¶¶                        |   ////////////////////////////////////////////////////
-_________¶¶¶¶¶¶¶¶¶¶¶¶                       |                       __             _   __  /////////////////////
-______¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶                |                      / /_  __  __   / | / /___ _   ______ _ ///////////
-__¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶            |                     / __ \/ / / /  /  |/ / __ \ | / / __ `/ ////////////
-____¶¶¶¶11111111111111111¶¶¶¶¶              |                    / /_/ / /_/ /  / /|  / /_/ / |/ / /_/ /  /////////////
-_______¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶                 |                   /_.___/\__, /  /_/ |_/\____/|___/\__,_/   ////////////////
-______________¶¶_1_¶¶¶¶¶¶¶¶¶                |                         /____/                              /////////
-______________¶¶_1_¶¶¶¶¶¶¶¶¶¶               -----------------------------------------------------------------------------------
-______________¶¶_1_¶¶__¶¶¶¶¶¶
-______________¶¶_1_¶¶___¶¶¶¶¶¶
-______________¶¶_1_¶¶___¶¶¶¶¶¶
-______________¶¶_1_¶¶___¶¶¶¶¶¶
-______________¶¶_1_¶¶___¶¶¶¶¶
-______________¶¶_1_¶¶__¶¶¶¶¶¶
-______________¶¶_1_¶¶¶¶¶¶¶¶¶
-______________¶¶¶¶¶¶¶¶¶¶¶¶¶
-______________¶¶¶¶¶¶¶¶¶¶¶
-_____________¶¶¶¶¶¶¶¶¶¶
-____________¶¶¶¶¶¶¶¶¶
-___________¶¶¶¶¶¶¶_¶¶
-__________¶¶¶¶¶¶_1_¶¶
-__________¶¶¶¶¶¶_1_¶¶
-__________¶¶¶¶¶¶_1_¶¶
-__________¶¶¶¶¶¶_1_¶¶
-__________¶¶¶¶¶¶_1_¶¶
-___________¶¶¶¶¶_1_¶¶
-____________¶¶¶¶_1_¶¶
-______________¶¶_1_¶¶¶¶¶¶
-______________¶¶_1_¶¶¶¶¶¶¶¶
-______________¶¶_1_¶¶¶¶¶¶¶¶¶
-______________¶¶_1_¶¶¶_¶¶¶¶¶
-______________¶¶_1_¶¶__¶¶¶¶¶
-______________¶¶___¶¶¶¶¶¶¶¶¶
-______________¶¶___¶¶¶¶¶¶¶¶
-______________¶¶¶¶¶¶¶¶¶¶¶
-______________¶¶¶¶¶¶¶¶¶
-_____________¶¶¶¶¶¶¶¶¶
-____________¶¶¶¶¶¶¶¶¶
-___________¶¶¶¶¶___¶¶
-___________¶¶¶¶¶___¶¶
-___________¶¶¶¶¶___¶¶
-____________¶¶¶¶___¶¶
-____________¶¶¶¶___¶¶
-______________¶¶___¶¶¶¶¶¶
-______________¶¶___¶¶¶¶¶¶¶
-______________¶¶___¶¶_¶¶¶¶¶
-______________¶¶___¶¶___¶¶¶¶
-_______________¶¶_¶¶_____¶¶¶
-________________¶¶¶______¶¶¶
-_________________¶_______¶¶
+______________________Â¶Â¶Â¶Â¶
+_______________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+___________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶_Â¶Â¶Â¶
+_________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+_______Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+______Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶_______Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶___Â¶Â¶Â¶Â¶       ------------------------------------\\\\\\\\
+_____Â¶Â¶Â¶Â¶Â¶Â¶Â¶______________________Â¶Â¶        |   _____                      __    \\\\\\\\\
+_____Â¶Â¶Â¶Â¶Â¶Â¶___Â¶Â¶Â¶Â¶Â¶________________Â¶        |  / ___/____ ___  ____ ______/ /_    \\\\\\\\\\
+____Â¶Â¶Â¶Â¶Â¶Â¶___Â¶Â¶Â¶1Â¶Â¶Â¶                        |  \__ \/ __ `__ \/ __ `/ ___/ __/     \\\\\\\\\\\
+____Â¶Â¶Â¶Â¶Â¶Â¶___Â¶Â¶111Â¶Â¶                        | ___/ / / / / / / /_/ / /  / /_    \\\\\\\\\\\\\
+____Â¶Â¶Â¶Â¶Â¶Â¶___Â¶Â¶Â¶1Â¶Â¶Â¶                        |/____/_/ /_/ /_/\__,_/_/   \\_/  \\\\\\\\\\\\\\
+____Â¶Â¶Â¶Â¶Â¶Â¶____Â¶Â¶1Â¶Â¶                         |          _________ ______/ /_  \\\\\\\\\\\\\
+_____Â¶Â¶Â¶Â¶Â¶Â¶___Â¶Â¶1Â¶Â¶                         |         / ___/ __ `/ ___/ __/ \\\\\\\\\\\
+_____Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶_Â¶Â¶Â¶Â¶Â¶                         |        / /__/ /_/ (__  ) /_  \\\\\\\\\\\\\\\
+______Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶                         |        \___/\__,_/____/\__/   \\\\\\\\\\\\\\\\\\
+_______Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶                        |   ////////////////////////////////////////////////////
+_________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶                       |                       __             _   __  /////////////////////
+______Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶                |                      / /_  __  __   / | / /___ _   ______ _ ///////////
+__Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶            |                     / __ \/ / / /  /  |/ / __ \ | / / __ `/ ////////////
+____Â¶Â¶Â¶Â¶11111111111111111Â¶Â¶Â¶Â¶Â¶              |                    / /_/ / /_/ /  / /|  / /_/ / |/ / /_/ /  /////////////
+_______Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶                 |                   /_.___/\__, /  /_/ |_/\____/|___/\__,_/   ////////////////
+______________Â¶Â¶_1_Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶                |                         /____/                              /////////
+______________Â¶Â¶_1_Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶               -----------------------------------------------------------------------------------
+______________Â¶Â¶_1_Â¶Â¶__Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶_1_Â¶Â¶___Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶_1_Â¶Â¶___Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶_1_Â¶Â¶___Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶_1_Â¶Â¶___Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶_1_Â¶Â¶__Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶_1_Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+_____________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+____________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+___________Â¶Â¶Â¶Â¶Â¶Â¶Â¶_Â¶Â¶
+__________Â¶Â¶Â¶Â¶Â¶Â¶_1_Â¶Â¶
+__________Â¶Â¶Â¶Â¶Â¶Â¶_1_Â¶Â¶
+__________Â¶Â¶Â¶Â¶Â¶Â¶_1_Â¶Â¶
+__________Â¶Â¶Â¶Â¶Â¶Â¶_1_Â¶Â¶
+__________Â¶Â¶Â¶Â¶Â¶Â¶_1_Â¶Â¶
+___________Â¶Â¶Â¶Â¶Â¶_1_Â¶Â¶
+____________Â¶Â¶Â¶Â¶_1_Â¶Â¶
+______________Â¶Â¶_1_Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶_1_Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶_1_Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶_1_Â¶Â¶Â¶_Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶_1_Â¶Â¶__Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶___Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶___Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+_____________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+____________Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+___________Â¶Â¶Â¶Â¶Â¶___Â¶Â¶
+___________Â¶Â¶Â¶Â¶Â¶___Â¶Â¶
+___________Â¶Â¶Â¶Â¶Â¶___Â¶Â¶
+____________Â¶Â¶Â¶Â¶___Â¶Â¶
+____________Â¶Â¶Â¶Â¶___Â¶Â¶
+______________Â¶Â¶___Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶___Â¶Â¶Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶___Â¶Â¶_Â¶Â¶Â¶Â¶Â¶
+______________Â¶Â¶___Â¶Â¶___Â¶Â¶Â¶Â¶
+_______________Â¶Â¶_Â¶Â¶_____Â¶Â¶Â¶
+________________Â¶Â¶Â¶______Â¶Â¶Â¶
+_________________Â¶_______Â¶Â¶
 
 I PUT A PICTURE HERE BECAUSE I CAN, THAT'S WHY
 
@@ -128,15 +128,17 @@ SmartCast.Center = {1,1,1,1,1,1,1,1,1,1}
 
 function AllValuesOf(...)
   for i = 1, select('#',...) do
-    for k = 1, #select(i,...) do
-      table.insert(SmartCast.Location, select(i,...)[k])
+    if type(select(i,...)) == "table" then
+      for k = 1, #select(i,...) do
+        table.insert(SmartCast.Location, select(i,...)[k])
+      end
     end
   end
 end
 
 function SmartCast.CastAOE(Minimum, SpellRange, CastRange, Blink)
   local me = entityList:GetMyHero()
-  
+
   local Dagger = me:FindItem("item_blink")
 
   if Blink == true then
@@ -148,7 +150,7 @@ function SmartCast.CastAOE(Minimum, SpellRange, CastRange, Blink)
   if #enemies == 0 then return end
 
   if #enemies >= 2 then
-    table.insert(SmartCast.Center, 1, {(enemies[1].position + enemies[2].position) / 2})
+    table.insert(SmartCast.Center, 1, (enemies[1].position + enemies[2].position) / 2)
   end
 
   if #enemies >= 3 then
@@ -156,7 +158,7 @@ function SmartCast.CastAOE(Minimum, SpellRange, CastRange, Blink)
     table.insert(SmartCast.Center, 2, {(enemies[1].position + enemies[3].position) / 2,
       (enemies[2].position + enemies[3].position) / 2})
     -- Just 3
-    table.insert(SmartCast.Center, 5, {(enemies[1].position + enemies[2].position + enemies[3].position) / 3})
+    table.insert(SmartCast.Center, 5, (enemies[1].position + enemies[2].position + enemies[3].position) / 3)
   end
 
   if #enemies >= 4 then
@@ -169,7 +171,7 @@ function SmartCast.CastAOE(Minimum, SpellRange, CastRange, Blink)
       (enemies[1].position + enemies[3].position + enemies[4].position) / 3,
       (enemies[2].position + enemies[3].position + enemies[4].position) / 3})
     -- Just 4
-    table.insert(SmartCast.Center, 8, {(enemies[1].position + enemies[2].position + enemies[3].position + enemies[4].position) / 4})
+    table.insert(SmartCast.Center, 8, (enemies[1].position + enemies[2].position + enemies[3].position + enemies[4].position) / 4)
   end
   if #enemies == 5 then
     -- 5 but looking for 2
@@ -190,75 +192,70 @@ function SmartCast.CastAOE(Minimum, SpellRange, CastRange, Blink)
       (enemies[1].position + enemies[3].position + enemies[4].position + enemies[5].position) / 4,
       (enemies[2].position + enemies[3].position + enemies[4].position + enemies[5].position) / 4})
     -- Just 5
-    table.insert(SmartCast.Center, 10, {(enemies[1].position + enemies[2].position + enemies[3].position + enemies[4].position + enemies[5].position) / 5})
+    table.insert(SmartCast.Center, 10, (enemies[1].position + enemies[2].position + enemies[3].position + enemies[4].position + enemies[5].position) / 5)
   end
-
 
   if Minimum == 1 then
     table.insert(SmartCast.Location, enemies[1].position)
   elseif Minimum == 2 then
     if #enemies == 2 then
-      AllValuesOf(SmartCast.Center[1])
+      table.insert(SmartCast.Location, SmartCast.Center[1])
     elseif #enemies == 3 then
-      AllValuesOf(SmartCast.Center[5])
-      AllValuesOf(SmartCast.Center[4])
-      AllValuesOf(SmartCast.Center[3])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
       AllValuesOf(SmartCast.Center[2])
-      AllValuesOf(SmartCast.Center[1])
+      table.insert(SmartCast.Location, SmartCast.Center[1])
     elseif #enemies == 4 then
-      AllValuesOf(SmartCast.Center[8])
-      AllValuesOf(SmartCast.Center[7])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[6])
-      AllValuesOf(SmartCast.Center[5])
-      AllValuesOf(SmartCast.Center[4])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
       AllValuesOf(SmartCast.Center[3])
       AllValuesOf(SmartCast.Center[2])
-      AllValuesOf(SmartCast.Center[1])
+      table.insert(SmartCast.Location, SmartCast.Center[1])
     elseif #enemies == 5 then
       table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
-      AllValuesOf(SmartCast.Center[8])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[7])
       AllValuesOf(SmartCast.Center[6])
-      AllValuesOf(SmartCast.Center[5])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
       AllValuesOf(SmartCast.Center[4])
       AllValuesOf(SmartCast.Center[3])
       AllValuesOf(SmartCast.Center[2])
-      AllValuesOf(SmartCast.Center[1])
+      table.insert(SmartCast.Location, SmartCast.Center[1])
     end
   elseif Minimum == 3 then
     if #enemies == 3 then
-      AllValuesOf(SmartCast.Center[5])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
     elseif #enemies == 4 then
-      AllValuesOf(SmartCast.Center[8])
-      AllValuesOf(SmartCast.Center[7])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[6])
-      AllValuesOf(SmartCast.Center[5])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
     elseif #enemies == 5 then
       table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
-      AllValuesOf(SmartCast.Center[8])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[7])
       AllValuesOf(SmartCast.Center[6])
-      AllValuesOf(SmartCast.Center[5])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
     end
   elseif Minimum == 4 then
     if #enemies == 4 then
-      AllValuesOf(SmartCast.Center[8])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
     elseif #enemies == 5 then
       table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
-      AllValuesOf(SmartCast.Center[8])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
     end
   elseif Minimum == 5 then
     table.insert(SmartCast.Location, SmartCast.Center[10])
   end
-  
+
   for k=1, #SmartCast.Location do
     if SmartCast.Location[k] == nil then
       break
     end
     for i=1, #enemies do
+      print(SmarCast.Location[k].x)
       SmartCast.Distance[i] = math.sqrt(math.pow(SmartCast.Location[k].x-enemies[i].position.x,2)+math.pow(SmartCast.Location[k].y-enemies[i].position.y,2))
     end
     table.sort(SmartCast.Distance)
@@ -299,11 +296,11 @@ function SmartCast.CastAOE(Minimum, SpellRange, CastRange, Blink)
 end
 
 function SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)
-  local Position = nil 
+  local Position = nil
   local me = entityList:GetMyHero()
-  
+
   local Dagger = me:FindItem("item_blink")
-  
+
   if Blink == true then
     enemies = entityList:GetEntities(function(v) return v.type == LuaEntity.TYPE_HERO and v.team == me:GetEnemyTeam() and v.visible and not v.illusion and v.alive and v:GetDistance2D(me) < (CastRange + SpellRange + 1200)  end)
   else
@@ -313,7 +310,7 @@ function SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)
   if #enemies == 0 then return end
 
   if #enemies >= 2 then
-    table.insert(SmartCast.Center, 1, {(enemies[1].position + enemies[2].position) / 2})
+    table.insert(SmartCast.Center, 1, (enemies[1].position + enemies[2].position) / 2)
   end
 
   if #enemies >= 3 then
@@ -321,7 +318,7 @@ function SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)
     table.insert(SmartCast.Center, 2, {(enemies[1].position + enemies[3].position) / 2,
       (enemies[2].position + enemies[3].position) / 2})
     -- Just 3
-    table.insert(SmartCast.Center, 5, {(enemies[1].position + enemies[2].position + enemies[3].position) / 3})
+    table.insert(SmartCast.Center, 5, (enemies[1].position + enemies[2].position + enemies[3].position) / 3)
   end
 
   if #enemies >= 4 then
@@ -334,7 +331,7 @@ function SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)
       (enemies[1].position + enemies[3].position + enemies[4].position) / 3,
       (enemies[2].position + enemies[3].position + enemies[4].position) / 3})
     -- Just 4
-    table.insert(SmartCast.Center, 8, {(enemies[1].position + enemies[2].position + enemies[3].position + enemies[4].position) / 4})
+    table.insert(SmartCast.Center, 8, (enemies[1].position + enemies[2].position + enemies[3].position + enemies[4].position) / 4)
   end
   if #enemies == 5 then
     -- 5 but looking for 2
@@ -355,7 +352,7 @@ function SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)
       (enemies[1].position + enemies[3].position + enemies[4].position + enemies[5].position) / 4,
       (enemies[2].position + enemies[3].position + enemies[4].position + enemies[5].position) / 4})
     -- Just 5
-    table.insert(SmartCast.Center, 10, {(enemies[1].position + enemies[2].position + enemies[3].position + enemies[4].position + enemies[5].position) / 5})
+    table.insert(SmartCast.Center, 10, (enemies[1].position + enemies[2].position + enemies[3].position + enemies[4].position + enemies[5].position) / 5)
   end
 
 
@@ -363,62 +360,57 @@ function SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)
     table.insert(SmartCast.Location, enemies[1].position)
   elseif Minimum == 2 then
     if #enemies == 2 then
-      AllValuesOf(SmartCast.Center[1])
+      table.insert(SmartCast.Location, SmartCast.Center[1])
     elseif #enemies == 3 then
-      AllValuesOf(SmartCast.Center[5])
-      AllValuesOf(SmartCast.Center[4])
-      AllValuesOf(SmartCast.Center[3])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
       AllValuesOf(SmartCast.Center[2])
-      AllValuesOf(SmartCast.Center[1])
+      table.insert(SmartCast.Location, SmartCast.Center[1])
     elseif #enemies == 4 then
-      AllValuesOf(SmartCast.Center[8])
-      AllValuesOf(SmartCast.Center[7])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[6])
-      AllValuesOf(SmartCast.Center[5])
-      AllValuesOf(SmartCast.Center[4])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
       AllValuesOf(SmartCast.Center[3])
       AllValuesOf(SmartCast.Center[2])
-      AllValuesOf(SmartCast.Center[1])
+      table.insert(SmartCast.Location, SmartCast.Center[1])
     elseif #enemies == 5 then
       table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
-      AllValuesOf(SmartCast.Center[8])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[7])
       AllValuesOf(SmartCast.Center[6])
-      AllValuesOf(SmartCast.Center[5])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
       AllValuesOf(SmartCast.Center[4])
       AllValuesOf(SmartCast.Center[3])
       AllValuesOf(SmartCast.Center[2])
-      AllValuesOf(SmartCast.Center[1])
+      table.insert(SmartCast.Location, SmartCast.Center[1])
     end
   elseif Minimum == 3 then
     if #enemies == 3 then
-      AllValuesOf(SmartCast.Center[5])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
     elseif #enemies == 4 then
-      AllValuesOf(SmartCast.Center[8])
-      AllValuesOf(SmartCast.Center[7])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[6])
-      AllValuesOf(SmartCast.Center[5])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
     elseif #enemies == 5 then
       table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
-      AllValuesOf(SmartCast.Center[8])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
       AllValuesOf(SmartCast.Center[7])
       AllValuesOf(SmartCast.Center[6])
-      AllValuesOf(SmartCast.Center[5])
+      table.insert(SmartCast.Location, SmartCast.Center[5])
     end
   elseif Minimum == 4 then
     if #enemies == 4 then
-      AllValuesOf(SmartCast.Center[8])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
     elseif #enemies == 5 then
       table.insert(SmartCast.Location, SmartCast.Center[10])
       AllValuesOf(SmartCast.Center[9])
-      AllValuesOf(SmartCast.Center[8])
+      table.insert(SmartCast.Location, SmartCast.Center[8])
     end
   elseif Minimum == 5 then
     table.insert(SmartCast.Location, SmartCast.Center[10])
   end
-  
+
   for k=1, #SmartCast.Location do
     if SmartCast.Location[k] == nil then
       break
