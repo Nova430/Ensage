@@ -46,11 +46,14 @@ function Main(tick)
     	       	      or target:DoesHaveModifier("modifier_item_invisibility_edge_windwalk") 
     	       	      or target:DoesHaveModifier("modifier_rune_invis") 
     	       	      or target:DoesHaveModifier("modifier_clinkz_wind_walk") 
-    	       	      or target:DoesHaveModifier("modifier_item_shadow_amulet_fade")) 
+    	       	      or target:DoesHaveModifier("modifier_item_shadow_amulet_fade") 
+    	       	      or target:DoesHaveModifier("modifier_item_glimmer_cape_fade")
+    	       	      or target:DoesHaveModifier("modifier_item_silver_edge_windwalk")) 
     	       	      and not (target:DoesHaveModifier("modifier_bounty_hunter_track") 
     	      	        	or target:DoesHaveModifier("modifier_bloodseeker_thirst_vision") 
     	       	        	or target:DoesHaveModifier("modifier_slardar_amplify_damage") 
-    	       	        	or target:DoesHaveModifier("modifier_item_dustofappearance")) then
+    	       	        	or target:DoesHaveModifier("modifier_item_dustofappearance")
+    	       	        	or target:DoesHaveModifier("modifier_truesight")) then
 		        me:CastAbility(dust)
 		        Sleep(30000)
 		    return
