@@ -322,7 +322,7 @@ function Tick( tick )
                 wallCast = false
         end
        
-        if forgeAttack and tick > forgeTick + 2500 then
+        if forgeAttack and tick > forgeTick + 500 then
                 ForgeAttack()
                 forgeAttack = false
         end
@@ -647,11 +647,9 @@ function Combo()
 end
  
 function ForgeAttack()
-        local forge = entityList:FindEntities({team=me.team,alive=true,visible=true})
+        local forge = entityList:FindEntities({classId=CDOTA_BaseNPC_Invoker_Forged_Spirit,team=me.team,alive=true,visible=true})
         for i,v in ipairs(forge) do
-                if (string.find(v.name,"Invoker Forged Spirit")) ~= nil then
-                        mp:SelectAdd(v)
-                end
+              mp:SelectAdd(v)
         end
         mp:Unselect(me)
         mp:Attack(target)
@@ -767,7 +765,7 @@ function Close()
         script:UnregisterEvent(Tick)
 	end
 	if text then text.visible = false end
-    init = false
+    	init = false
 	collectgarbage("collect")
 	registered = false
 end
