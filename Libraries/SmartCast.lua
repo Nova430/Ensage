@@ -136,7 +136,7 @@ function AllValuesOf(...)
   end
 end
 
-function SmartCast.CastAOE(Minimum, SpellRange, CastRange, Blink)
+function SmartCast.CastAOE(Ability, Minimum, SpellRange, CastRange, Blink)
   local me = entityList:GetMyHero()
 
   local Dagger = me:FindItem("item_blink")
@@ -295,7 +295,7 @@ function SmartCast.CastAOE(Minimum, SpellRange, CastRange, Blink)
   end
 end
 
-function SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)
+function SmartCast.FindAOE(Minimum, SpellRange, CastRange, Blink)
   local Position = nil
   local me = entityList:GetMyHero()
 
