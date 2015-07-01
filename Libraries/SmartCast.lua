@@ -255,7 +255,6 @@ function SmartCast.CastAOE(Ability, Minimum, SpellRange, CastRange, Blink)
       break
     end
     for i=1, #enemies do
-      print(SmarCast.Location[k].x)
       SmartCast.Distance[i] = math.sqrt(math.pow(SmartCast.Location[k].x-enemies[i].position.x,2)+math.pow(SmartCast.Location[k].y-enemies[i].position.y,2))
     end
     table.sort(SmartCast.Distance)
@@ -295,7 +294,7 @@ function SmartCast.CastAOE(Ability, Minimum, SpellRange, CastRange, Blink)
   end
 end
 
-function SmartCast.FindAOE(Minimum, SpellRange, CastRange, Blink)
+function SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)
   local Position = nil
   local me = entityList:GetMyHero()
 
