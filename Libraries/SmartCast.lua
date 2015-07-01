@@ -88,7 +88,7 @@ Reason?
         |         - CastRange is how far you can cast the spell from your hero (Put 0 if there it's a no target ability)|
         |         - Blink (true/false) - Includes Blink Dagger the Cast.                                                |
         -----------------------------------------------------------------------------------------------------------------      
-        | SmartCast.FindAOE(Minimum, SpellRange, CastRange, Blink)                                                      |
+        | SmartCast.FindAOE(Ability, Minimum, SpellRange, CastRange, Blink)                                                      |
         |      Description: Returns the central position between entities if they're within range, else nil.            |
         |         - Minimum is the minimum number of enemies you would like to hit                                      |
         |         - SpellRange is the range of your spell                                                               |
