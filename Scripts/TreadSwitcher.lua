@@ -72,6 +72,7 @@ function Key(msg, code)
   
   if mp.selection[1].name ~= me.name then return end
   
+  if not me.alive then return end
   if me:IsInvisible() then return end
   
   if IsKeyDown(17) or code == 18 then return end
@@ -198,6 +199,7 @@ function Main(tick)
 
   local mOver = entityList:GetMouseover()
   
+  if not me.alive then return end
   if me:IsInvisible() then return end
   
   if active and current == 0 and (Spell and (Spell.manacost == 0 or Spell.cd > 0)) then NormalCast() return end
